@@ -10,7 +10,6 @@ public class Controller_Controll : UdonSharpBehaviour
     private Quaternion firstRot = Quaternion.identity;
     private Vector3 maxAngles = new Vector3(90, 180, 180);
     public Animator ControllerAnimator;
-
     public Text Controll_Yaw;
     public Text Controll_Pit;
     public Text Controll_Rol;

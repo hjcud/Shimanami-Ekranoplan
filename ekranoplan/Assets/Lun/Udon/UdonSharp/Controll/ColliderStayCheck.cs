@@ -6,11 +6,11 @@ using VRC.Udon;
 
 public class ColliderStayCheck : UdonSharpBehaviour
 {
-    private bool isPilot = false;
-    public bool isRightSeat;
-
     [SerializeField] Throttle_Controll Throttle_Controll;
     [SerializeField] Controller_Controll Controller_Controll;
+    
+    private bool isPilot = false;
+    public bool isRightSeat;
 
     private void Update()
     {
