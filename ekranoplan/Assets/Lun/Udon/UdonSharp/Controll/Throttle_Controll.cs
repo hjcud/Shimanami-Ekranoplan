@@ -15,9 +15,11 @@ public class Throttle_Controll : UdonSharpBehaviour
     [UdonSynced] public int TriggeredUserID = 0;
 
     private float mappedDistance = 0;
-    [UdonSynced(UdonSyncMode.Linear)] public float Throttle_Rotation = 0.22f;
+    [UdonSynced(UdonSyncMode.Linear)] public float Throttle_Rotation = 0;
 
     private int TrottleState = 0; // TrottleState (0: Default, 1: Reverse, 2: Oveclock)
+
+    [SerializeField] SpeedCal SpeedCal;
 
     public void UpdateTriggerCheck(bool isRightSeat)
     {
@@ -102,6 +104,7 @@ public class Throttle_Controll : UdonSharpBehaviour
         Throttle_Rotation = Mathf.Clamp(Throttle_Rotation, 0, 0.999f);
         RequestSerialization();
         
+        SpeedCal.CalculatePlaneSpeed(Throttle_Rotation);
         UpdateThrottleRotation();
     }
 
