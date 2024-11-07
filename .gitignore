@@ -75,7 +75,6 @@ crashlytics-build.properties
 # Asset ignoring
 *.asset
 *.json
-*.cs
 ProjectVersion.txt
 *.meta
 *.asmdef
