@@ -2,13 +2,14 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Pp]ackages/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -70,3 +71,27 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Asset ignoring
+*.asset
+*.json
+*.cs
+ProjectVersion.txt
+*.meta
+*.asmdef
+
+# Include
+!Assets/**
+
+# VRChat related folder to be ignored
+ekranoplan/Assets/Udon/
+ekranoplan/Assets/VRChat Examples/
+ekranoplan/Assets/VRCSDK
+
+# Popular editor scripts to be ignored, do not make your udon scripts here
+ekranoplan/Assets/Samples/
+ekranoplan/Assets/Bakery/
+ekranoplan/Assets/Editor/
+ekranoplan/Assets/UdonSharp/
+ekranoplan/Assets/SampleWater/
+ekranoplan/Assets/Scenes/VRCDefaultWorldScene/
