@@ -12,7 +12,7 @@ public class ColliderStayCheck : UdonSharpBehaviour
     private bool isPilot = false;
     public bool isRightSeat;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isPilot)
         {

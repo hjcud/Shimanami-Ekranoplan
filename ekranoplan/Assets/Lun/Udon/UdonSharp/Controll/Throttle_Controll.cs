@@ -14,7 +14,7 @@ public class Throttle_Controll : UdonSharpBehaviour
     [UdonSynced] public int TriggeredUserID = 0;
 
     private float mappedDistance = 0;
-    [UdonSynced(UdonSyncMode.Linear)] public float Throttle_Rotation = 0;
+    [UdonSynced(UdonSyncMode.Linear)] public float throttlePower = 0;
     private int TrottleState = 0; // TrottleState (0: Default, 1: Reverse, 2: Oveclock)
 
 
@@ -68,8 +68,12 @@ public class Throttle_Controll : UdonSharpBehaviour
 
     private void CheckThrottleState(bool isRightSeat)
     {
+        /**************************************************
+        Has A Problem That This is Effected By FrameRate
+        **************************************************/
+
         // Reverse (less then 20 Deg)
-        if (Throttle_Rotation < 0.22)
+        if (throttlePower < 0.0f)
         {
             if ((TrottleState != 1) && (mappedDistance < 0)) // Only When Deceleration
             {
@@ -82,7 +86,7 @@ public class Throttle_Controll : UdonSharpBehaviour
             }
         }
         // Overclock (over 80 Deg)
-        else if (Throttle_Rotation > 0.78)
+        else if (throttlePower > 1.0f)
         {
             if ((TrottleState != 2) && (mappedDistance > 0)) // Only When acceleration
             {
@@ -97,8 +101,16 @@ public class Throttle_Controll : UdonSharpBehaviour
         // Default
         else TrottleState = 0;
 
-        Throttle_Rotation += mappedDistance * 0.025f;
-        Throttle_Rotation = Mathf.Clamp(Throttle_Rotation, 0, 0.999f);
+        throttlePower += mappedDistance * 0.025f; // Rotatiting amount
+        if (TrottleState == 0) {        // Default
+            throttlePower = Mathf.Clamp(throttlePower, -0.001f, 1.001f);
+        }
+        else if (TrottleState == 1) {   // Reverse. -30% Power
+            throttlePower = Mathf.Clamp(throttlePower, -0.3f, 0.0f);
+        }
+        else {                          // Overclock. 25% additional Power
+            throttlePower = Mathf.Clamp(throttlePower, 0.999f, 1.25f); 
+        }
         RequestSerialization();
         
         UpdateThrottleRotation();
@@ -111,9 +123,10 @@ public class Throttle_Controll : UdonSharpBehaviour
 
     public void UpdateThrottleRotation() // Update Animator parameter
     {
-        TrottleAnimator.SetFloat("Throttle_Rotation", Throttle_Rotation);
+        float throttleRotation = (throttlePower + 0.3f) / 1.55f ;
+        TrottleAnimator.SetFloat("Throttle_Rotation", throttleRotation);
         
-        Controll_Thr.text = (Mathf.Round((Throttle_Rotation - 0.22f) * 1000) / 1000).ToString();
+        Controll_Thr.text = throttlePower.ToString();
     }
 
     public void resetValues()
