@@ -16,9 +16,9 @@ public class Controller_Controll : UdonSharpBehaviour
 
     [UdonSynced] public int TriggeredUserID = 0;
 
-    [UdonSynced(UdonSyncMode.Linear)] public float pitch = 0;
-    [UdonSynced(UdonSyncMode.Linear)] public float yaw = 0;
-    [UdonSynced(UdonSyncMode.Linear)] public float roll = 0;
+    [UdonSynced(UdonSyncMode.Linear)] public float pitch = 0f;
+    [UdonSynced(UdonSyncMode.Linear)] public float yaw = 0f;
+    [UdonSynced(UdonSyncMode.Linear)] public float roll = 0f;
 
     public void UpdateTriggerCheck(bool isRightSeat)
     {
@@ -57,10 +57,6 @@ public class Controller_Controll : UdonSharpBehaviour
                         yaw = (Mathf.Acos(Mathf.Clamp(controllerPosYaw.x, -1, 1)) - Mathf.PI / 2) * Mathf.Rad2Deg / maxAngles.y;
                         roll = (Mathf.Acos(Mathf.Clamp(controllerPos.x, -1, 1)) - Mathf.PI / 2) * Mathf.Rad2Deg / maxAngles.z;
 
-                        // normalize (0.0 ~ 0.999)
-                        pitch = Mathf.Clamp(pitch + 0.5f, 0, 0.999f);
-                        yaw = Mathf.Clamp(yaw + 0.5f, 0, 0.999f);
-                        roll = Mathf.Clamp(roll + 0.5f, 0, 0.999f);
                         //Debug.Log(string.Format("Current Rotation: (pitch: {0}), (yaw: {1}), (roll: {2})", pitch, yaw, roll));
                         RequestSerialization();
 
@@ -89,22 +85,22 @@ public class Controller_Controll : UdonSharpBehaviour
 
     public void UpdateControllerRotation() // Update Animator parameter
     {
-        ControllerAnimator.SetFloat("Controller_Pitch", pitch);
-        ControllerAnimator.SetFloat("Controller_Yaw", yaw);
-        ControllerAnimator.SetFloat("Controller_Roll", roll);
+        ControllerAnimator.SetFloat("Controller_Pitch", pitch + 0.5f);
+        ControllerAnimator.SetFloat("Controller_Yaw", yaw + 0.5f);
+        ControllerAnimator.SetFloat("Controller_Roll", roll + 0.5f);
 
-        Controll_Yaw.text = (Mathf.Round((pitch - 0.5f) * 1000) / 1000).ToString();
-        Controll_Pit.text = (Mathf.Round((yaw - 0.5f) * 1000) / 1000).ToString();
-        Controll_Rol.text = (Mathf.Round((roll - 0.5f) * 1000) / 1000).ToString();
+        Controll_Yaw.text = pitch.ToString();
+        Controll_Pit.text = yaw.ToString();
+        Controll_Rol.text = roll.ToString();
     }
 
     public void resetValues()
     {
         firstRot = Quaternion.identity;
         TriggeredUserID = 0;
-        pitch = 0.5f;
-        yaw = 0.5f;
-        roll = 0.5f;
+        pitch = 0f;
+        yaw = 0f;
+        roll = 0f;
         RequestSerialization();
     }
 }

@@ -73,7 +73,7 @@ public class Throttle_Controll : UdonSharpBehaviour
         **************************************************/
 
         // Reverse (less then 20 Deg)
-        if (throttlePower < 0.0f)
+        if (throttlePower <= 0.0f)
         {
             if ((TrottleState != 1) && (mappedDistance < 0)) // Only When Deceleration
             {
@@ -86,7 +86,7 @@ public class Throttle_Controll : UdonSharpBehaviour
             }
         }
         // Overclock (over 80 Deg)
-        else if (throttlePower > 1.0f)
+        else if (throttlePower >= 1.0f)
         {
             if ((TrottleState != 2) && (mappedDistance > 0)) // Only When acceleration
             {
@@ -103,10 +103,10 @@ public class Throttle_Controll : UdonSharpBehaviour
 
         throttlePower += mappedDistance * 0.025f; // Rotatiting amount
         if (TrottleState == 0) {        // Default
-            throttlePower = Mathf.Clamp(throttlePower, -0.001f, 1.001f);
+            throttlePower = Mathf.Clamp(throttlePower, 0f, 1f);
         }
         else if (TrottleState == 1) {   // Reverse. -30% Power
-            throttlePower = Mathf.Clamp(throttlePower, -0.3f, 0.0f);
+            throttlePower = Mathf.Clamp(throttlePower, -0.3f, 0.001f);
         }
         else {                          // Overclock. 25% additional Power
             throttlePower = Mathf.Clamp(throttlePower, 0.999f, 1.25f); 
