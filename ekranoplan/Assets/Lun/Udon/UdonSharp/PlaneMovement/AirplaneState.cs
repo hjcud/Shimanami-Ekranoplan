@@ -114,4 +114,17 @@ public class AirplaneState : UdonSharpBehaviour
         mapTransform.position += (airplaneRotation.x < 0 ? -velocity : velocity) * Time.fixedDeltaTime * 0.05f;
         //mapTransform.position = new Vector3(0f, airplaneRotation.x > 0 ? mapTransform.position.y - Vector3.Magnitude(lift) : mapTransform.position.y + Vector3.Magnitude(lift), 0f);
     }
+
+    // Draw vectors (For debuging)
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + velocity); // Visualize velocity
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + lift); // Visualize lift
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + drag); // Visualize drag
+    }
 }
