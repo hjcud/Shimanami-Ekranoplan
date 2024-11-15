@@ -8,7 +8,7 @@ using VRC.Udon;
 public class Throttle_Controll : UdonSharpBehaviour
 {
     private Vector3 firstPos = Vector3.zero;
-    public Animator TrottleAnimator;
+    public Animator TrottleAnimator; // ********** Have to Fix Animation ********* //
     public Text Controll_Thr;
 
     [UdonSynced] public int TriggeredUserID = 0;

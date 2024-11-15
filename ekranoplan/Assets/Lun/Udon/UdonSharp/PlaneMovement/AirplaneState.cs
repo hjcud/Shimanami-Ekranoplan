@@ -27,7 +27,10 @@ public class AirplaneState : UdonSharpBehaviour
 
     // Airplane Transform
     [UdonSynced] public Vector3 airplaneRotation = Vector3.zero;   // Rotation in Euler angles
+    [UdonSynced] public Vector3 worldRotation = Vector3.zero;   // Rotation in World rotation
     [UdonSynced] public Vector3 velocity = Vector3.zero;           // Current velocity vector
+    // velocity used to calculate lift & drag
+    // still trying lots of things;
 
     [UdonSynced] public Vector3 lift = Vector3.zero;
     [UdonSynced] public Vector3 drag = Vector3.zero;
