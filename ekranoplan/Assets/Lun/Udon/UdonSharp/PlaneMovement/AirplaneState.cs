@@ -12,6 +12,7 @@ public class AirplaneState : UdonSharpBehaviour
     public Controller_Controll Controller_Controll;
 
     // Debug Text Box
+    /*
     public Text Plane_Speed;
     public Text Plane_Yaw;
     public Text Plane_Pitch;
@@ -22,15 +23,18 @@ public class AirplaneState : UdonSharpBehaviour
     public Text Wolrd_x;
     public Text Wolrd_y;
     public Text Wolrd_z;
+    */
 
     public Transform mapTransform = null;
 
+    // VectorDebug
+    public LineRenderer DebugLine_1 = null;
+    public LineRenderer DebugLine_2 = null;
+
     // Airplane Transform
-    [UdonSynced] public Vector3 airplaneRotation = Vector3.zero;   // Rotation in Euler angles
-    [UdonSynced] public Vector3 worldRotation = Vector3.zero;   // Rotation in World rotation
-    [UdonSynced] public Vector3 velocity = Vector3.zero;           // Current velocity vector
-    // velocity used to calculate lift & drag
-    // still trying lots of things;
+    [UdonSynced] public Vector3 airplaneVelocity = Vector3.zero;    // Current velocity vector
+    [UdonSynced] public Vector3 airplaneRotation = Vector3.zero;    // Rotation in Euler angles
+    [UdonSynced] public Vector3 worldRotation = Vector3.zero;       // Rotation in World rotation
 
     [UdonSynced] public Vector3 lift = Vector3.zero;
     [UdonSynced] public Vector3 drag = Vector3.zero;
@@ -46,18 +50,33 @@ public class AirplaneState : UdonSharpBehaviour
     public void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-        CalculateState(dt);
+        CalculateVelocity(dt);
     }
 
-    public void CalculateState(float dt)
+    public void CalculateVelocity(float dt)
     {
         // Get values form other scripts
-        float throttle = Throttle_Controll.throttlePower;
-        float yaw = Controller_Controll.yaw;
-        float pitch = Controller_Controll.pitch;
-        float roll = Controller_Controll.roll;
+        float throttle = Throttle_Controll.throttlePower;   // -0.3 ~ 1.25
+        float yaw = -Controller_Controll.yaw;                // -0.5 ~ 0.5 (-L / +R)
+        float pitch = Controller_Controll.pitch;            // -0.5 ~ 0.5 (-D / +U)
+        float roll = Controller_Controll.roll;              // -0.5 ~ 0.5 (-L / +R)
 
-        float speed = velocity.magnitude;
+        Vector3 direction = new Vector3(yaw, pitch, 1f).normalized;
+
+        Vector3 rotationAxis = new Vector3(0f, 0f, 1f);
+        Quaternion rotation = Quaternion.AngleAxis(roll, rotationAxis);
+
+        // Final airplane velocity
+        airplaneVelocity = rotation * direction * throttle;
+
+        if (airplaneVelocity == Vector3.zero) return;
+        DebugLine_1.SetPosition(1, (airplaneVelocity * 0.25f) + DebugLine_1.GetPosition(0));
+
+        UpdateState(dt, yaw, pitch, roll, throttle);
+        RequestSerialization();
+        //********** Have to Fix **********
+        /*
+        float speed = airplaneVelocity.magnitude;
         float force = dragFactor * Mathf.Pow(speed, 2);
 
         float thrustForce = throttle * 5000000;
@@ -72,8 +91,25 @@ public class AirplaneState : UdonSharpBehaviour
 
         RequestSerialization();
         UpdatePlaneData();
+        */
     }
 
+    private void UpdateState(float dt, float yaw, float pitch, float roll, float throttle)
+    {
+        if (mapTransform == null || airplaneVelocity == Vector3.zero) return;
+
+
+        airplaneRotation.x += pitch * dt * 1f; // Pitch adjustment
+        airplaneRotation.y += -yaw * dt * 15f;   // Yaw adjustment
+        airplaneRotation.z += roll * dt * 30f;  // Roll adjustment
+        mapTransform.rotation = Quaternion.Euler(airplaneRotation);
+        // mapTransform.position -= new Vector3(0f, 0f, throttle * 10f * dt); 월드 움직이면 안됨. 타일 움직이는 시스템으로 바꿀 것
+
+        if (mapTransform.eulerAngles == Vector3.zero) return;
+        DebugLine_2.SetPosition(1, (mapTransform.forward * 0.25f) + DebugLine_2.GetPosition(0));
+    }
+
+    /*
     private void UpdateVelocity(float dt, float thrustForce, float liftForce, float dragForce, float yaw, float pitch, float roll)
     {
         // Calculate directional changes based on yaw, pitch, and roll inputs
@@ -86,21 +122,24 @@ public class AirplaneState : UdonSharpBehaviour
         
         // Calculate resulting force vector
         lift = Vector3.up * liftForce;
-        drag = velocity.normalized * dragForce;
+        drag = airplaneVelocity.normalized * dragForce;
 
         // Sum forces and update velocity
         Vector3 netForce = forwardForce + lift + drag;
         acceleration = netForce / mass;
-        velocity += acceleration * dt;
+        airplaneVelocity += acceleration * dt;
 
         // Apply rotation to the velocity vector
         Quaternion rotation = Quaternion.Euler(airplaneRotation);
-        velocity = rotation * velocity;
+        airplaneVelocity = rotation * airplaneVelocity;
+
     }
+    */
     
+    /*
     public void UpdatePlaneData()
     {
-        Plane_Speed.text = velocity.magnitude.ToString();
+        Plane_Speed.text = airplaneVelocity.magnitude.ToString();
 
         Plane_Yaw.text = airplaneRotation.y.ToString();
         Plane_Pitch.text = airplaneRotation.x.ToString();
@@ -114,20 +153,8 @@ public class AirplaneState : UdonSharpBehaviour
         //World_Pitch.text = worldPitch.ToString();
 
         mapTransform.rotation = Quaternion.Euler(airplaneRotation);
-        mapTransform.position += (airplaneRotation.x < 0 ? -velocity : velocity) * Time.fixedDeltaTime * 0.05f;
+        mapTransform.position += (airplaneRotation.x < 0 ? -airplaneVelocity : airplaneVelocity) * Time.fixedDeltaTime * 0.05f;
         //mapTransform.position = new Vector3(0f, airplaneRotation.x > 0 ? mapTransform.position.y - Vector3.Magnitude(lift) : mapTransform.position.y + Vector3.Magnitude(lift), 0f);
     }
-
-    // Draw vectors (For debuging)
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + velocity); // Visualize velocity
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + lift); // Visualize lift
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + drag); // Visualize drag
-    }
+    */
 }
