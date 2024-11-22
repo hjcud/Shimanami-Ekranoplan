@@ -26,10 +26,10 @@ public class AirplaneState : UdonSharpBehaviour
     */
 
     public Transform mapTransform = null;
+    public Transform DebugPlaneTrans = null;
 
     // VectorDebug
     public LineRenderer DebugLine_1 = null;
-    public LineRenderer DebugLine_2 = null;
 
     // Airplane Transform
     [UdonSynced] public Vector3 airplaneVelocity = Vector3.zero;    // Current velocity vector
@@ -96,65 +96,22 @@ public class AirplaneState : UdonSharpBehaviour
 
     private void UpdateState(float dt, float yaw, float pitch, float roll, float throttle)
     {
-        if (mapTransform == null || airplaneVelocity == Vector3.zero) return;
+        if (airplaneVelocity == Vector3.zero) return;
 
-
-        airplaneRotation.x += pitch * dt * 1f; // Pitch adjustment
-        airplaneRotation.y += -yaw * dt * 15f;   // Yaw adjustment
+        airplaneRotation.x += pitch * dt * 5f;  // Pitch adjustment
+        airplaneRotation.y += -yaw * dt * 15f;  // Yaw adjustment
         airplaneRotation.z += roll * dt * 30f;  // Roll adjustment
         mapTransform.rotation = Quaternion.Euler(airplaneRotation);
+        DebugPlaneTrans.rotation = Quaternion.Euler(airplaneRotation); // For Debugging
+        mapTransform.position += new Vector3(0f, mapTransform.forward.y * 0.5f, 0f);
+        DebugPlaneTrans.position += new Vector3(0f, mapTransform.forward.y * 0.0005f, 0f); // For Debugging
         // mapTransform.position -= new Vector3(0f, 0f, throttle * 10f * dt); 월드 움직이면 안됨. 타일 움직이는 시스템으로 바꿀 것
 
         if (mapTransform.eulerAngles == Vector3.zero) return;
-        DebugLine_2.SetPosition(1, (mapTransform.forward * 0.25f) + DebugLine_2.GetPosition(0));
     }
 
-    /*
-    private void UpdateVelocity(float dt, float thrustForce, float liftForce, float dragForce, float yaw, float pitch, float roll)
+    public void UpdateWorldCordinate()
     {
-        // Calculate directional changes based on yaw, pitch, and roll inputs
-        airplaneRotation.x += pitch * dt * 30f; // Pitch adjustment
-        airplaneRotation.y += yaw * dt * 30f;   // Yaw adjustment
-        airplaneRotation.z += roll * dt * 30f;  // Roll adjustment
-
-        // Forward force calculation
-        forwardForce = Vector3.forward * thrustForce;
-        
-        // Calculate resulting force vector
-        lift = Vector3.up * liftForce;
-        drag = airplaneVelocity.normalized * dragForce;
-
-        // Sum forces and update velocity
-        Vector3 netForce = forwardForce + lift + drag;
-        acceleration = netForce / mass;
-        airplaneVelocity += acceleration * dt;
-
-        // Apply rotation to the velocity vector
-        Quaternion rotation = Quaternion.Euler(airplaneRotation);
-        airplaneVelocity = rotation * airplaneVelocity;
 
     }
-    */
-    
-    /*
-    public void UpdatePlaneData()
-    {
-        Plane_Speed.text = airplaneVelocity.magnitude.ToString();
-
-        Plane_Yaw.text = airplaneRotation.y.ToString();
-        Plane_Pitch.text = airplaneRotation.x.ToString();
-        Plane_Roll.text = airplaneRotation.z.ToString();
-
-        Plane_drag.text = drag.magnitude.ToString();
-        Plane_acceleration.text = acceleration.magnitude.ToString();
-        // Plane_G.text = localGForce.ToString();
-        Plane_Lift.text = lift.ToString();
-
-        //World_Pitch.text = worldPitch.ToString();
-
-        mapTransform.rotation = Quaternion.Euler(airplaneRotation);
-        mapTransform.position += (airplaneRotation.x < 0 ? -airplaneVelocity : airplaneVelocity) * Time.fixedDeltaTime * 0.05f;
-        //mapTransform.position = new Vector3(0f, airplaneRotation.x > 0 ? mapTransform.position.y - Vector3.Magnitude(lift) : mapTransform.position.y + Vector3.Magnitude(lift), 0f);
-    }
-    */
 }
