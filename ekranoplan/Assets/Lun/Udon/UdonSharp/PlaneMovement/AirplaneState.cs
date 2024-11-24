@@ -11,20 +11,6 @@ public class AirplaneState : UdonSharpBehaviour
     public Throttle_Controll Throttle_Controll;
     public Controller_Controll Controller_Controll;
 
-    // Debug Text Box
-    /*
-    public Text Plane_Speed;
-    public Text Plane_Yaw;
-    public Text Plane_Pitch;
-    public Text Plane_Roll;
-    public Text Plane_drag;
-    public Text Plane_acceleration;
-    public Text Plane_Lift;
-    public Text Wolrd_x;
-    public Text Wolrd_y;
-    public Text Wolrd_z;
-    */
-
     public Transform mapTransform = null;
     public Transform DebugPlaneTrans = null;
 
@@ -74,24 +60,6 @@ public class AirplaneState : UdonSharpBehaviour
 
         UpdateState(dt, yaw, pitch, roll, throttle);
         RequestSerialization();
-        //********** Have to Fix **********
-        /*
-        float speed = airplaneVelocity.magnitude;
-        float force = dragFactor * Mathf.Pow(speed, 2);
-
-        float thrustForce = throttle * 5000000;
-
-        // Calculate lift force
-        float liftForce = force * liftCoefficient / mass;
-        // Calculate drag force
-        float dragForce = force * dragCoefficient / mass;
-
-        // Update airplane velocity based on forces
-        UpdateVelocity(dt, thrustForce, liftForce, dragForce, yaw, pitch, roll);
-
-        RequestSerialization();
-        UpdatePlaneData();
-        */
     }
 
     private void UpdateState(float dt, float yaw, float pitch, float roll, float throttle)
