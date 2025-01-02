@@ -15,6 +15,9 @@ public class AirplaneState : UdonSharpBehaviour
     public Transform MapRotationTarget = null;
     public Transform DebugPlaneTrans = null;
 
+    public GameObject RollAlarm = null;
+    public GameObject PitchAlarm = null;
+
     //Debug
     public LineRenderer DebugLine_1 = null;
     public LineRenderer DebugLine_2 = null;
@@ -24,9 +27,10 @@ public class AirplaneState : UdonSharpBehaviour
     //VectorMultiply
     public float ThrottleVecMulti = 10f;
     public float PitchThrustVecMulti = 0.5f;
-    public float YawThrustVecMulti = 0.5f;
+    public float YawThrustVecMulti = 0.25f;
     public float RollThrustVecMulti = 1.0f;
     public float LiftMulti = 0.05f;
+    public float RotationAddMulti = 0.0005f;
 
     // Airplane Transform
     [Tooltip("Current velocity vector")]
@@ -79,12 +83,6 @@ public class AirplaneState : UdonSharpBehaviour
 
     private void UpdateState(float dt, float YawThrustVec, float PitchThrustVec, float RollThrustVec, float throttle)
     {
-        Vector3 RotationVector = Vector3.zero;
-        //Rotation Vector Multiply
-        RotationVector.x = PitchThrustVec * PitchThrustVecMulti;
-        RotationVector.y = -YawThrustVec * YawThrustVecMulti;
-        RotationVector.z = RollThrustVec * RollThrustVecMulti;
-
         //Calculate:: Acceleration
         //a = F/m * Output Ratio (F = Power of each engine * Number of engines) = (101920 * 8) /286000
         float acceleration = throttle * 101920f * 8f;
@@ -96,31 +94,59 @@ public class AirplaneState : UdonSharpBehaviour
         //Calculate:: Speed 
         AirplaneSpeed += ((acceleration * 0.581f) - SpeedDrag) / 286000 * ThrottleVecMulti * dt;
         
-        //Check if Airplane is looking down
-        //float dotRotation = Vector3.Dot(airplaneRotation, Vector3.forward);
-        //float LiftFacingMulti = (dotRotation < 0 ? 0.8f : 1f);
-
-        //Calculate:: Lift
-        float AirplaneLift = AirplaneSpeed * AirplaneSpeed * 0.000001f * LiftMulti;// * LiftFacingMulti;
+        Vector3 RotationVector = Vector3.zero;
+        //Rotation Vector Multiply
+        RotationVector.x = PitchThrustVec * PitchThrustVecMulti;
+        RotationVector.y = -YawThrustVec * YawThrustVecMulti;
+        RotationVector.z = RollThrustVec * RollThrustVecMulti;
         
-        MapRotationTarget.Rotate(RotationVector, Space.World);
-        // Rotation Limit (15Deg, Only Pitch and Roll)
-        Vector3 clampedEulerAngles = MapRotationTarget.eulerAngles;
-        clampedEulerAngles.x = Mathf.Clamp(clampedEulerAngles.x > 180f ? clampedEulerAngles.x - 360f : clampedEulerAngles.x, -15f, 15f);
-        clampedEulerAngles.z = Mathf.Clamp(clampedEulerAngles.z > 180f ? clampedEulerAngles.z - 360f : clampedEulerAngles.z, -15f, 15f);
-        MapRotationTarget.eulerAngles = clampedEulerAngles;
+        //Rotation Limit (15Deg / Pitch & Roll Only)
+        Vector3 projPitchVector = Vector3.ProjectOnPlane(Vector3.forward, MapRotation.up);
+        float PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
+        if (PitchAngle >= 15f || PitchAngle <= -15f)
+        {
+            if ((PitchAngle < 0) == (PitchThrustVec < 0)) RotationVector.x = 0f;
+            PitchLimitAlarm();
+        } else PitchAlarm.SetActive(false);
 
-        // =====
-        Vector3 adjustedForward = Quaternion.Euler(1f, 0f, 1f) * MapRotationTarget.forward;
-        float GroundAngle = (1 - Vector3.Dot(adjustedForward, Vector3.forward)) * 100;
-        DebugLine_3.SetPosition(1, adjustedForward * 0.25f + DebugLine_3.GetPosition(0));
+        Vector3 projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotation.up);
+        float RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
+        if (RollAngle >= 15f || RollAngle <= -15f)
+        {
+            if ((RollAngle < 0) != (RollThrustVec < 0)) RotationVector.z = 0f;
+            RollLimitAlarm();
+        } else RollAlarm.SetActive(false);
+
+        MapRotationTarget.Rotate(RotationVector, Space.World);
+        //Get Projected Pitch Vector & Angle
+        projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * AirplaneSpeed / 550, MapRotationTarget.up);
+        PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
+        //Get Projected Roll Vector & Angle
+        projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
+        RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
+
+        //Calculate:: Additional Rotation Effected by Pitch & Roll
+        //Turn Right: +Roll, +Pitch / -Roll, -Pitch
+        //Turn Left: +Roll, -Pitch / -Roll, +Pitch
+        float RotationAdd = RollAngle * PitchAngle * RotationAddMulti;
+        MapRotationTarget.Rotate(new Vector3(0f, RotationAdd, 0f), Space.World);
+
+        //Check if Airplane is looking down
+        float LiftFacingMulti = PitchAngle < 0f ? 0.8f : 1f;
+        
+        //Calculate:: Lift
+        float AirplaneLift = AirplaneSpeed * AirplaneSpeed * 0.000001f * LiftMulti * LiftFacingMulti;
 
         MapRotation.eulerAngles = MapRotationTarget.eulerAngles;
         DebugPlaneTrans.eulerAngles = MapRotationTarget.eulerAngles; //For Debugging
         MapRotation.position += new Vector3(0f, -AirplaneLift, 0f);
         DebugPlaneTrans.position += new Vector3(0f, -AirplaneLift * 0.001f, 0f); //For Debugging
 
-        DebugText.text = ">>Controll\nSpeed: " + AirplaneSpeed.ToString() + "\nLift: " + AirplaneLift.ToString() + "\nFacing: " + GroundAngle.ToString();
+        DebugText.text = ">>Controll\nSpeed: " + AirplaneSpeed.ToString()
+        + "\nLift: " + AirplaneLift.ToString()
+        + "\nPitch: " + PitchAngle.ToString()
+        + "\nRoll: "+ RollAngle.ToString()
+        + "\nRotA: "+ RotationAdd.ToString();
     }
 
     public void UpdateWorldCordinate()
@@ -131,10 +157,12 @@ public class AirplaneState : UdonSharpBehaviour
     public void PitchLimitAlarm()
     {
         // Pitch 15도 제한 걸리면 발생하는 이벤트
+        PitchAlarm.SetActive(true);
     }
 
-    public void YawLimitAlarm()
+    public void RollLimitAlarm()
     {
         // Yaw 15도 제한 걸리면 발생하는 이벤트
+        RollAlarm.SetActive(true);
     }
 }
