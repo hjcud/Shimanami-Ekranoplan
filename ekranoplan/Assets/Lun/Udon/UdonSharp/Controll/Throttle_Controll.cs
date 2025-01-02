@@ -8,7 +8,7 @@ using VRC.Udon;
 public class Throttle_Controll : UdonSharpBehaviour
 {
     private Vector3 firstPos = Vector3.zero;
-    public Animator TrottleAnimator; // ********** Have to Fix Animation ********* //
+    public Animator TrottleAnimator; 
     public Text Controll_Thr;
 
     [UdonSynced] public int TriggeredUserID = 0;
@@ -68,10 +68,6 @@ public class Throttle_Controll : UdonSharpBehaviour
 
     private void CheckThrottleState(bool isRightSeat)
     {
-        /**************************************************
-        Has A Problem That This is Effected By FrameRate
-        **************************************************/
-
         // Reverse (less then 20 Deg)
         if (throttlePower <= 0.0f)
         {
