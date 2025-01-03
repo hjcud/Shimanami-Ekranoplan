@@ -29,7 +29,7 @@ public class AirplaneState : UdonSharpBehaviour
     public float PitchThrustVecMulti = 0.5f;
     public float YawThrustVecMulti = 0.25f;
     public float RollThrustVecMulti = 1.0f;
-    public float LiftMulti = 0.05f;
+    public float LiftMulti = 0.5f;
     public float RotationAddMulti = 0.0005f;
 
     // Airplane Transform
@@ -46,12 +46,6 @@ public class AirplaneState : UdonSharpBehaviour
     [UdonSynced] public Vector3 drag = Vector3.zero;
     //[UdonSynced] public Vector3 forwardForce = Vector3.zero;
     //[UdonSynced] public Vector3 acceleration = Vector3.zero;
-
-    // Airplane Properties
-    private float mass = 286000f;
-    private float dragCoefficient = 0.8f;
-    private float liftCoefficient = 0.01f;
-    private float dragFactor = 49f; // 1/2 * Air Density(1.225) * Surface Area(80 m^2)
     
     public void FixedUpdate()
     {
@@ -75,7 +69,7 @@ public class AirplaneState : UdonSharpBehaviour
         // Draw line to visuallize vector(velocity)
         DebugLine_1.SetPosition(1, (airplaneVelocity * 0.25f) + DebugLine_1.GetPosition(0));
         DebugLine_2.SetPosition(1, Vector3.forward * 0.25f + DebugLine_2.GetPosition(0));
-        /// ===== END DEBUG =====
+        // ===== END DEBUG =====
 
         UpdateState(dt, YawThrustVec, PitchThrustVec, RollThrustVec, throttle);
         RequestSerialization();
@@ -94,36 +88,41 @@ public class AirplaneState : UdonSharpBehaviour
         //Calculate:: Speed 
         AirplaneSpeed += ((acceleration * 0.581f) - SpeedDrag) / 286000 * ThrottleVecMulti * dt;
         
+        //Set Rotation Vector and Multiply
         Vector3 RotationVector = Vector3.zero;
-        //Rotation Vector Multiply
         RotationVector.x = PitchThrustVec * PitchThrustVecMulti;
         RotationVector.y = -YawThrustVec * YawThrustVecMulti;
         RotationVector.z = RollThrustVec * RollThrustVecMulti;
-        
-        //Rotation Limit (15Deg / Pitch & Roll Only)
-        Vector3 projPitchVector = Vector3.ProjectOnPlane(Vector3.forward, MapRotation.up);
+        MapRotationTarget.Rotate(RotationVector, Space.World);
+
+        //Get Projected Pitch Vector & Angle
+        Vector3 projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * AirplaneSpeed / 550, MapRotationTarget.up);
         float PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
+        //Pitch Rotation Limit (15Deg)
         if (PitchAngle >= 15f || PitchAngle <= -15f)
         {
-            if ((PitchAngle < 0) == (PitchThrustVec < 0)) RotationVector.x = 0f;
+            if (PitchAngle >= 15f) MapRotationTarget.Rotate(new Vector3(-PitchAngle + 15f, 0f, 0f), Space.World);
+            else MapRotationTarget.Rotate(new Vector3(-PitchAngle - 15f, 0f, 0f), Space.World);
+
+            projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * AirplaneSpeed / 550, MapRotationTarget.up);
+            PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
             PitchLimitAlarm();
         } else PitchAlarm.SetActive(false);
-
-        Vector3 projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotation.up);
+        DebugLine_3.SetPosition(1, projPitchVector * 0.25f + DebugLine_3.GetPosition(0));
+        
+        //Get Projected Roll Vector & Angle
+        Vector3 projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
         float RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
+        //Roll Rotation Limit (15Deg)
         if (RollAngle >= 15f || RollAngle <= -15f)
         {
-            if ((RollAngle < 0) != (RollThrustVec < 0)) RotationVector.z = 0f;
+            if (RollAngle >= 15f) MapRotationTarget.Rotate(new Vector3(0f, 0f, RollAngle - 15f), Space.World);
+            else MapRotationTarget.Rotate(new Vector3(0f, 0f, RollAngle + 15f), Space.World);
+
+            projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
+            RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
             RollLimitAlarm();
         } else RollAlarm.SetActive(false);
-
-        MapRotationTarget.Rotate(RotationVector, Space.World);
-        //Get Projected Pitch Vector & Angle
-        projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * AirplaneSpeed / 550, MapRotationTarget.up);
-        PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
-        //Get Projected Roll Vector & Angle
-        projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
-        RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
 
         //Calculate:: Additional Rotation Effected by Pitch & Roll
         //Turn Right: +Roll, +Pitch / -Roll, -Pitch
@@ -134,13 +133,16 @@ public class AirplaneState : UdonSharpBehaviour
         //Check if Airplane is looking down
         float LiftFacingMulti = PitchAngle < 0f ? 0.8f : 1f;
         
-        //Calculate:: Lift
+        //Calculate:: Lift (Max: 0.015125)
         float AirplaneLift = AirplaneSpeed * AirplaneSpeed * 0.000001f * LiftMulti * LiftFacingMulti;
+        float GravityLiftVector = Mathf.Pow(MapRotation.position.y, 2f) * 0.0008f;
+        float DirectionLiftVector = PitchAngle * 0.0113f * AirplaneSpeed / 550;
+        AirplaneLift -= GravityLiftVector - DirectionLiftVector;
 
         MapRotation.eulerAngles = MapRotationTarget.eulerAngles;
         DebugPlaneTrans.eulerAngles = MapRotationTarget.eulerAngles; //For Debugging
         MapRotation.position += new Vector3(0f, -AirplaneLift, 0f);
-        DebugPlaneTrans.position += new Vector3(0f, -AirplaneLift * 0.001f, 0f); //For Debugging
+        DebugPlaneTrans.position += new Vector3(0f, -AirplaneLift * 0.005f, 0f); //For Debugging
 
         DebugText.text = ">>Controll\nSpeed: " + AirplaneSpeed.ToString()
         + "\nLift: " + AirplaneLift.ToString()
