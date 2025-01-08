@@ -37,26 +37,23 @@ public class AirplaneState : UdonSharpBehaviour
 
     // Airplane Transform
     [Tooltip("Current velocity vector")]
-    [UdonSynced] public Vector3 airplaneVelocity = Vector3.zero;
-    [UdonSynced] public Vector3 PrevFrameVelocity = Vector3.zero;
-    [Tooltip("Rotation in Euler angles")]
-    [UdonSynced] public Vector3 airplaneRotation = Vector3.zero;
-    [Tooltip("Rotation in World rotation")]
-    [UdonSynced] public Vector3 worldRotation = Vector3.zero;
+    public Vector3 airplaneVelocity = Vector3.zero;
 
+    //Sync Values
     [UdonSynced] public float AirplaneSpeed = 0;
-    [UdonSynced] public Vector3 lift = Vector3.zero;
-    [UdonSynced] public Vector3 drag = Vector3.zero;
-    //[UdonSynced] public Vector3 forwardForce = Vector3.zero;
-    //[UdonSynced] public Vector3 acceleration = Vector3.zero;
+    [UdonSynced] public float PitchAngle;
+    [UdonSynced] public float RollAngle;
+    [UdonSynced] public float SyncedAirHight;
+    [UdonSynced] public Vector3 SyncedRotation;
+    [UdonSynced] public Vector3 SyncedPosition;
     
     public void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-        CalculateVelocity(dt);
+        if (Networking.IsMaster) CalculateMovement(dt);
     }
 
-    public void CalculateVelocity(float dt)
+    public void CalculateMovement(float dt)
     {
         // Get values form other scripts
         float throttle = Throttle_Controll.throttlePower;   // -0.3 ~ 1.25
@@ -74,12 +71,6 @@ public class AirplaneState : UdonSharpBehaviour
         DebugLine_2.SetPosition(1, Vector3.forward * 0.25f + DebugLine_2.GetPosition(0));
         // ===== END DEBUG =====
 
-        UpdateState(dt, YawThrustVec, PitchThrustVec, RollThrustVec, throttle);
-        RequestSerialization();
-    }
-
-    private void UpdateState(float dt, float YawThrustVec, float PitchThrustVec, float RollThrustVec, float throttle)
-    {
         //Calculate:: Acceleration
         //a = F/m * Output Ratio (F = Power of each engine * Number of engines) = (101920 * 8) /286000
         float acceleration = throttle * 101920f * 8f;
@@ -100,7 +91,8 @@ public class AirplaneState : UdonSharpBehaviour
         RotationVector.z = RollThrustVec * RollThrustVecMulti;
         MapRotationTarget.Rotate(RotationVector, Space.World);
 
-        float AirHight = -MapRotation.position.y;
+        float AirHight;
+        AirHight = -MapRotation.position.y;
         //Calculate:: Limit Angle by Hight
         float PitchAngleLimit;
         if (AirHight >= 7.5f) PitchAngleLimit = 15f;
@@ -110,7 +102,6 @@ public class AirplaneState : UdonSharpBehaviour
         else RollAngleLimit = AirHight * 0.4f;
 
         //Get Projected Pitch Vector & Angle
-        float PitchAngle;
         Vector3 projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * Mathf.Abs(AirplaneSpeed) / 550, MapRotationTarget.up);
         //if (AirplaneSpeed == 0) PitchAngle = 0f;
         PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
@@ -127,7 +118,6 @@ public class AirplaneState : UdonSharpBehaviour
         DebugLine_3.SetPosition(1, projPitchVector * 0.25f + DebugLine_3.GetPosition(0));
         
         //Get Projected Roll Vector & Angle
-        float RollAngle;
         Vector3 projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
         RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
         //Roll Rotation Limit (15Deg)
@@ -180,11 +170,28 @@ public class AirplaneState : UdonSharpBehaviour
         + "\nHight: " + MapRotation.position.y.ToString("F5")
         + "\nMoveVecRot: " + MoveVecRot.ToString("F5")
         + "\nCoordinate: " + MapPosition.localPosition.ToString("F5");
+
+        //Value Sync
+        SyncedAirHight = MapRotation.position.y;
+        SyncedRotation = MapRotation.eulerAngles;
+        SyncedPosition = MapPosition.localPosition;
+        RequestSerialization();
     }
 
-    public void UpdateWorldCordinate()
+    public override void OnDeserialization()
     {
+        UpdateCordinate();
+    }
 
+    public void UpdateCordinate()
+    {
+        if (!Networking.IsMaster)
+        {
+            MapRotation.position = new Vector3(0f, SyncedAirHight, 0f);
+            MapRotation.eulerAngles = SyncedRotation;
+            MapPosition.localPosition = SyncedPosition;
+        }
+        //마스터 변경시 모든 유저 혹은 새로운 마스터에게 tranceform target 값 갱신해줄것
     }
 
     public void PitchLimitAlarm()
