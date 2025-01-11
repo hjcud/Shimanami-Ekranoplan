@@ -10,6 +10,9 @@ public class Controller_Controll : UdonSharpBehaviour
     private Quaternion firstRot = Quaternion.identity;
     private Vector3 maxAngles = new Vector3(90, 135, 135);
     public Animator ControllerAnimator;
+    public Text Controll_Yaw;
+    public Text Controll_Pit;
+    public Text Controll_Rol;
 
     [UdonSynced] public int TriggeredUserID = 0;
 
@@ -85,6 +88,10 @@ public class Controller_Controll : UdonSharpBehaviour
         ControllerAnimator.SetFloat("Controller_Yaw", yaw + 0.5f);
         ControllerAnimator.SetFloat("Controller_Pitch", pitch + 0.5f);
         ControllerAnimator.SetFloat("Controller_Roll", roll + 0.5f);
+
+        Controll_Yaw.text = yaw.ToString();
+        Controll_Pit.text = pitch.ToString();
+        Controll_Rol.text = roll.ToString();
     }
 
     public void resetValues()
