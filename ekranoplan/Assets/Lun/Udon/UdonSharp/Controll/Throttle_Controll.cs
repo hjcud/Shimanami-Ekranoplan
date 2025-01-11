@@ -9,7 +9,6 @@ public class Throttle_Controll : UdonSharpBehaviour
 {
     private Vector3 firstPos = Vector3.zero;
     public Animator TrottleAnimator; 
-    public Text Controll_Thr;
 
     [UdonSynced] public int TriggeredUserID = 0;
 
@@ -121,8 +120,6 @@ public class Throttle_Controll : UdonSharpBehaviour
     {
         float throttleRotation = (throttlePower + 0.3f) / 1.55f ;
         TrottleAnimator.SetFloat("Throttle_Rotation", throttleRotation);
-        
-        Controll_Thr.text = throttlePower.ToString();
     }
 
     public void resetValues()

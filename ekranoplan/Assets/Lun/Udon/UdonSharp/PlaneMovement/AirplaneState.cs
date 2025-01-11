@@ -99,7 +99,7 @@ public class AirplaneState : UdonSharpBehaviour
         else PitchAngleLimit = AirHight * 2f;
         float RollAngleLimit;
         if (AirHight >= 6f) RollAngleLimit = 15f;
-        else RollAngleLimit = AirHight * 0.4f;
+        else RollAngleLimit = AirHight * 2.5f;
 
         //Get Projected Pitch Vector & Angle
         Vector3 projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * Mathf.Abs(AirplaneSpeed) / 550, MapRotationTarget.up);
