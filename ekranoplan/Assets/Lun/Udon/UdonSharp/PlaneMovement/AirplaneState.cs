@@ -1,5 +1,4 @@
 ﻿
-using System;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +10,7 @@ public class AirplaneState : UdonSharpBehaviour
     // Other Scripts
     public Throttle_Controll Throttle_Controll;
     public Controller_Controll Controller_Controll;
+    public Engine_Toggle Engine_Toggle;
 
     public Transform MapRotation = null;
     public Transform MapRotationTarget = null;
@@ -31,22 +31,52 @@ public class AirplaneState : UdonSharpBehaviour
     public float RotationAddMulti = 0.001f;
     public float MovebySpeedMulti = 70f;
 
-    // Airplane Transform
-    [Tooltip("Current velocity vector")]
-    public Vector3 airplaneVelocity = Vector3.zero;
-
     //Sync Values
     [UdonSynced] public float AirplaneSpeed = 0;
     [UdonSynced] public float PitchAngle;
     [UdonSynced] public float RollAngle;
     [UdonSynced] public float SyncedAirHight;
+    [UdonSynced] public Vector3 movement;
     [UdonSynced] public Vector3 SyncedRotation;
     [UdonSynced] public Vector3 SyncedPosition;
+    [UdonSynced] public bool PitchLimitAlarm;
+    [UdonSynced] public bool RollLimitAlarm;
     
     public void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
         if (Networking.IsMaster) CalculateMovement(dt);
+        else
+        {
+            //MapPosition.localPosition = Vector3.Lerp(MapPosition.localPosition, SyncedPosition, Vector3.Distance(MapPosition.localPosition, SyncedPosition) * Time.deltaTime / 75f);
+            //Vector3 refVector = Vector3.zero;
+            Vector3 refVector = new Vector3(movement.x, 0f, movement.z);
+            MapPosition.localPosition = Vector3.SmoothDamp(MapPosition.localPosition, SyncedPosition, ref refVector, 0.2f);
+            if (Vector3.Distance(MapPosition.localPosition, SyncedPosition) > 1500)
+            {
+                MapPosition.localPosition = SyncedPosition;
+            }
+        }
+
+        if (PitchLimitAlarm)
+        {
+            // Pitch 15도 제한 걸리면 발생하는 이벤트
+            if (AirplaneSpeed > 150) {
+                PitchAlarm.SetActive(true);
+            }
+            else PitchAlarm.SetActive(false);
+        }
+        else PitchAlarm.SetActive(false);
+        
+        if (RollLimitAlarm)
+        {
+            // Pitch 15도 제한 걸리면 발생하는 이벤트
+            if (AirplaneSpeed > 150) {
+                RollAlarm.SetActive(true);
+            }
+            else RollAlarm.SetActive(false);
+        }
+        else RollAlarm.SetActive(false);
     }
 
     public void CalculateMovement(float dt)
@@ -56,6 +86,17 @@ public class AirplaneState : UdonSharpBehaviour
         float YawThrustVec = -Controller_Controll.yaw;      // -0.5 ~ 0.5 (-L / +R)
         float PitchThrustVec = Controller_Controll.pitch;   // -0.5 ~ 0.5 (-D / +U)
         float RollThrustVec = Controller_Controll.roll;     // -0.5 ~ 0.5 (-L / +R)
+
+        if (!Engine_Toggle.EngineStatus)
+        {
+            throttle = 0;
+        }
+        if (AirplaneSpeed < 5f)
+        {
+            YawThrustVec = 0;
+            PitchThrustVec = 0;
+            RollThrustVec = 0;
+        }
 
         //Calculate:: Acceleration
         //a = F/m * Output Ratio (F = Power of each engine * Number of engines) = (101920 * 8) /286000
@@ -99,8 +140,8 @@ public class AirplaneState : UdonSharpBehaviour
 
             projPitchVector = Vector3.ProjectOnPlane(Vector3.forward * Mathf.Abs(AirplaneSpeed) / 550, MapRotationTarget.up);
             PitchAngle = Vector3.SignedAngle(projPitchVector, Vector3.forward, Vector3.left);
-            PitchLimitAlarm();
-        } else PitchAlarm.SetActive(false);
+            PitchLimitAlarm = true;
+        } else PitchLimitAlarm = false;
         
         //Get Projected Roll Vector & Angle
         Vector3 projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
@@ -113,8 +154,8 @@ public class AirplaneState : UdonSharpBehaviour
 
             projRollVector = Vector3.ProjectOnPlane(Vector3.right, MapRotationTarget.up);
             RollAngle = Vector3.SignedAngle(projRollVector, Vector3.up, Vector3.forward) - 90;
-            RollLimitAlarm();
-        } else RollAlarm.SetActive(false);
+            RollLimitAlarm = true;
+        } else RollLimitAlarm = false;
 
         //Calculate:: Additional Rotation Effected by Pitch & Roll
         //Turn Right: +Roll, +Pitch / -Roll, -Pitch
@@ -140,7 +181,7 @@ public class AirplaneState : UdonSharpBehaviour
         float MovebySpeed = Vector3.Magnitude(projPitchVector);
         float MoveVecRot = Vector3.SignedAngle(projPitchVector, MapRotation.forward, MapRotation.up);
         Vector3 moveDirection = Quaternion.AngleAxis(MoveVecRot, Vector3.down) * (Vector3.forward * MovebySpeed);
-        Vector3 movement = -moveDirection * dt * MovebySpeedMulti;
+        movement = -moveDirection * dt * MovebySpeedMulti;
         MapPosition.localPosition += new Vector3(movement.x, 0f, movement.z);
 
         DebugText.text = ">>Controll\nSpeed: " + AirplaneSpeed.ToString("F5")
@@ -168,22 +209,20 @@ public class AirplaneState : UdonSharpBehaviour
     {
         if (!Networking.IsMaster)
         {
-            MapRotation.position = new Vector3(0f, SyncedAirHight, 0f);
+            MapRotationTarget.eulerAngles = SyncedRotation;
+            MapRotationTarget.position = new Vector3(0f, SyncedAirHight, 0f);
+        }
+    }
+
+    public override void OnPlayerJoined(VRCPlayerApi player)
+    {
+        if (player.isLocal)
+        {
+            MapRotationTarget.eulerAngles = SyncedRotation;
+            MapRotationTarget.position = new Vector3(0f, SyncedAirHight, 0f);
             MapRotation.eulerAngles = SyncedRotation;
+            MapRotation.position = new Vector3(0f, SyncedAirHight, 0f);
             MapPosition.localPosition = SyncedPosition;
         }
-        //마스터 변경시 모든 유저 혹은 새로운 마스터에게 tranceform target 값 갱신해줄것
-    }
-
-    public void PitchLimitAlarm()
-    {
-        // Pitch 15도 제한 걸리면 발생하는 이벤트
-        PitchAlarm.SetActive(true);
-    }
-
-    public void RollLimitAlarm()
-    {
-        // Yaw 15도 제한 걸리면 발생하는 이벤트
-        RollAlarm.SetActive(true);
     }
 }
