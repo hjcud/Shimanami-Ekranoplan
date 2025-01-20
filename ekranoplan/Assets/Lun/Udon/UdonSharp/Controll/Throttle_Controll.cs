@@ -9,7 +9,8 @@ public class Throttle_Controll : UdonSharpBehaviour
 {
     private Vector3 firstPos = Vector3.zero;
     public Animator TrottleAnimator; 
-    public Text Controll_Thr;
+    public Engine_Toggle Engine_Toggle;
+    public AudioSource ThrottleAudio;
 
     [UdonSynced] public int TriggeredUserID = 0;
 
@@ -63,6 +64,37 @@ public class Throttle_Controll : UdonSharpBehaviour
         else
         {
             // Desktop Controll 
+            bool keyShiftPressed = Input.GetKey(KeyCode.LeftShift);
+            bool keyCtrlPressed = Input.GetKey(KeyCode.LeftControl);
+
+            if (keyShiftPressed || keyCtrlPressed)
+            {
+                if (TriggeredUserID == 0)
+                {
+                    if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject)) Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
+                    TriggeredUserID = VRCPlayerApi.GetPlayerId(Networking.LocalPlayer);
+                    RequestSerialization();
+                }
+                else if (TriggeredUserID == VRCPlayerApi.GetPlayerId(Networking.LocalPlayer))
+                {
+                    if (keyShiftPressed)
+                    {
+                        mappedDistance = 0.2f;
+                        Debug.Log("Desktop Calculate(Plus)");
+                    }
+                    else 
+                    {
+                        mappedDistance = -0.2f;
+                        Debug.Log("Desktop Calculate(Minus)");
+                    }
+                    CheckThrottleState(isRightSeat);
+                }
+            }
+            else if (Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
+            {
+                // Reset firstPos if not Holding
+                resetValues();
+            }
         }
     }
 
@@ -74,7 +106,7 @@ public class Throttle_Controll : UdonSharpBehaviour
             if ((TrottleState != 1) && (mappedDistance < 0)) // Only When Deceleration
             {
                 if ((Input.GetAxisRaw("Oculus_CrossPlatform_SecondaryIndexTrigger") > 0.9 && !isRightSeat) ||
-                (Input.GetAxisRaw("Oculus_CrossPlatform_PrimaryIndexTrigger") > 0.9 && isRightSeat))
+                (Input.GetAxisRaw("Oculus_CrossPlatform_PrimaryIndexTrigger") > 0.9 && isRightSeat) || Input.GetKey(KeyCode.Z))
                 {
                     TrottleState = 1;
                 }
@@ -87,7 +119,7 @@ public class Throttle_Controll : UdonSharpBehaviour
             if ((TrottleState != 2) && (mappedDistance > 0)) // Only When acceleration
             {
                 if ((Input.GetAxisRaw("Oculus_CrossPlatform_SecondaryIndexTrigger") > 0.9 && !isRightSeat) ||
-                (Input.GetAxisRaw("Oculus_CrossPlatform_PrimaryIndexTrigger") > 0.9 && isRightSeat))
+                (Input.GetAxisRaw("Oculus_CrossPlatform_PrimaryIndexTrigger") > 0.9 && isRightSeat) || Input.GetKey(KeyCode.Z))
                 {
                     TrottleState = 2;
                 }
@@ -121,8 +153,9 @@ public class Throttle_Controll : UdonSharpBehaviour
     {
         float throttleRotation = (throttlePower + 0.3f) / 1.55f ;
         TrottleAnimator.SetFloat("Throttle_Rotation", throttleRotation);
-        
-        Controll_Thr.text = throttlePower.ToString();
+        if (Engine_Toggle.EngineStatus) {
+            ThrottleAudio.volume = Mathf.Abs(throttlePower)/1.25f * 0.2f;
+        }
     }
 
     public void resetValues()

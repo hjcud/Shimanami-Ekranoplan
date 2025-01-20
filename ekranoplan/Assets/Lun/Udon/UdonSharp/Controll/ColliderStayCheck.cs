@@ -25,7 +25,7 @@ public class ColliderStayCheck : UdonSharpBehaviour
     public override void OnPlayerTriggerEnter(VRCPlayerApi player)
     {
         //Debug.Log("OnPlayerTriggerEnter triggered");
-        if (player.isLocal) {
+        if (player.isLocal && Networking.LocalPlayer.IsUserInVR()) {
             isPilot = true;
         }
     }
@@ -33,7 +33,7 @@ public class ColliderStayCheck : UdonSharpBehaviour
     public override void OnPlayerTriggerExit(VRCPlayerApi player)
     {
         //Debug.Log("OnPlayerTriggerExit triggered");
-        if (player.isLocal) {
+        if (player.isLocal && Networking.LocalPlayer.IsUserInVR()) {
             isPilot = false;
             Throttle_Controll.resetValues();
             Controller_Controll.resetValues();

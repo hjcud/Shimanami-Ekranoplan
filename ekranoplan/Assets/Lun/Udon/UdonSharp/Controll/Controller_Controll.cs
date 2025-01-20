@@ -10,9 +10,6 @@ public class Controller_Controll : UdonSharpBehaviour
     private Quaternion firstRot = Quaternion.identity;
     private Vector3 maxAngles = new Vector3(90, 135, 135);
     public Animator ControllerAnimator;
-    public Text Controll_Yaw;
-    public Text Controll_Pit;
-    public Text Controll_Rol;
 
     [UdonSynced] public int TriggeredUserID = 0;
 
@@ -75,6 +72,42 @@ public class Controller_Controll : UdonSharpBehaviour
         else
         {
             // Desktop Controll 
+            bool keyWPressed = Input.GetKey(KeyCode.W);
+            bool keySPressed = Input.GetKey(KeyCode.S);
+            bool keyAPressed = Input.GetKey(KeyCode.A);
+            bool keyDPressed = Input.GetKey(KeyCode.D);
+            bool keyQPressed = Input.GetKey(KeyCode.Q);
+            bool keyEPressed = Input.GetKey(KeyCode.E);
+
+            if (keyWPressed || keySPressed || keyAPressed || keyDPressed || keyQPressed || keyEPressed)
+            {
+                if (TriggeredUserID == 0)
+                {
+                    if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject)) Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
+                    TriggeredUserID = VRCPlayerApi.GetPlayerId(Networking.LocalPlayer);
+                    //Debug.Log(">>> " + TriggeredUserID + " has Triggerd Controller");
+                    RequestSerialization();
+                }
+                else if (TriggeredUserID == VRCPlayerApi.GetPlayerId(Networking.LocalPlayer))
+                {
+                    if (keyWPressed) pitch = -0.3f;
+                    else if (keySPressed) pitch = 0.3f;
+                    if (keyAPressed) yaw = 0.2f;
+                    else if (keyDPressed) yaw = -0.2f;
+                    if (keyQPressed) roll = -0.3f;
+                    else if (keyEPressed) roll = 0.3f;
+                    RequestSerialization();
+
+                    UpdateControllerRotation();
+                }
+            }
+            else if (Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
+            {
+                // Reset Values if not Holding
+                resetValues();
+
+                UpdateControllerRotation();
+            }
         }
     }
 
@@ -88,10 +121,6 @@ public class Controller_Controll : UdonSharpBehaviour
         ControllerAnimator.SetFloat("Controller_Yaw", yaw + 0.5f);
         ControllerAnimator.SetFloat("Controller_Pitch", pitch + 0.5f);
         ControllerAnimator.SetFloat("Controller_Roll", roll + 0.5f);
-
-        Controll_Yaw.text = yaw.ToString();
-        Controll_Pit.text = pitch.ToString();
-        Controll_Rol.text = roll.ToString();
     }
 
     public void resetValues()
