@@ -47,6 +47,9 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.png
+*.exr
+*.mat
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -97,6 +100,18 @@ ekranoplan/Assets/FLIGHT_DISPLAY/
 ekranoplan/Assets/QuickBrown/
 ekranoplan/Assets/RED_SIM/
 ekranoplan/Assets/UdonChips/
-ekranoplan/Assets/Scenes/VRCDefaultWorldScene/
-ekranoplan/.vsconfig
 ekranoplan/Assets/DesignAssets/
+ekranoplan/Assets/Scenes/VRCDefaultWorldScene/
+ekranoplan/Assets/TextMesh Pro
+ekranoplan/Assets/unity-overwriter-master
+ekranoplan/Assets/VRCPlayersOnlyMirror/
+ekranoplan/.vsconfig
+
+# Local project files
+ekranoplan.zip
+ekranoplan/.idea/
+
+# Keep the repository code-only
+ekranoplan/Assets/**
+!ekranoplan/Assets/**/
+!ekranoplan/Assets/**/*.cs
