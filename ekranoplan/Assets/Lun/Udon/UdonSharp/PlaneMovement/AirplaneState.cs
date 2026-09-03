@@ -45,7 +45,8 @@ public class AirplaneState : UdonSharpBehaviour
     public void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-        if (Networking.IsMaster) CalculateMovement(dt);
+        //if (Networking.IsMaster) CalculateMovement(dt);
+        if (Networking.IsOwner(Networking.LocalPlayer, this.gameObject)) CalculateMovement(dt);
         else
         {
             //MapPosition.localPosition = Vector3.Lerp(MapPosition.localPosition, SyncedPosition, Vector3.Distance(MapPosition.localPosition, SyncedPosition) * Time.deltaTime / 75f);
@@ -207,7 +208,7 @@ public class AirplaneState : UdonSharpBehaviour
 
     public void UpdateCordinate()
     {
-        if (!Networking.IsMaster)
+        if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
         {
             MapRotationTarget.eulerAngles = SyncedRotation;
             MapRotationTarget.position = new Vector3(0f, SyncedAirHight, 0f);

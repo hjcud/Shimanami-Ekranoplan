@@ -11,6 +11,8 @@ public class Controller_Controll : UdonSharpBehaviour
     private Vector3 maxAngles = new Vector3(90, 135, 135);
     public Animator ControllerAnimator;
 
+    public GameObject OwnerChangeTarget = null;
+
     [UdonSynced] public int TriggeredUserID = 0;
 
     [UdonSynced(UdonSyncMode.Linear)] public float yaw = 0f;
@@ -27,7 +29,11 @@ public class Controller_Controll : UdonSharpBehaviour
             {
                 if (TriggeredUserID == 0)
                 {
-                    if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject)) Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
+                    if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
+                    {
+                        Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
+                        Networking.SetOwner(Networking.LocalPlayer, OwnerChangeTarget);
+                    }
                     TriggeredUserID = VRCPlayerApi.GetPlayerId(Networking.LocalPlayer);
                     //Debug.Log(">>> " + TriggeredUserID + " has Triggerd Controller");
                     RequestSerialization();
