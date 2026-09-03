@@ -1,2 +1,2 @@
-# ekranoplan
-ekranoplan flight simulator development
+# Shimanami Ekranoplan
+Shimanami Ekranoplan flight simulator development
