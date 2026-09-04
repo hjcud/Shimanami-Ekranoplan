@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="510" viewBox="0 0 1280 510" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="410" viewBox="0 0 1280 410" role="img" aria-labelledby="title desc">
   <title id="title">비행 상태 동기화 흐름</title>
   <desc id="desc">조종 입력이 조종권을 가진 사용자의 비행 계산으로 전달되고, Udon 비행 상태와 VRCObjectSync를 거쳐 원격 환경에 복원되는 흐름. 중간 입장과 위치 오류 보정은 전달받은 상태에서 이어진다.</desc>
   <defs>
@@ -13,17 +13,13 @@
     </filter>
     <style>
       text{font-family:Pretendard,"Noto Sans KR","Segoe UI",sans-serif}
-      .title{fill:#f4eadb;font-size:36px;font-weight:700}.sub{fill:#a8b8b9;font-size:17px;font-weight:600}
       .cardTitle{fill:#f0ece3;font-size:26px;font-weight:700}.detail{fill:#bdc9c9;font-size:19px;font-weight:550}
       .condition{fill:#e5be7f;font-size:14px;font-weight:700}.branchTitle{fill:#f0ece3;font-size:22px;font-weight:700}
       .branchText{fill:#b4c1c1;font-size:19px;font-weight:550}
-      @media (prefers-color-scheme:light){.title{fill:#173f50}.sub{fill:#586f76}}
     </style>
   </defs>
 
-  <text x="54" y="66" class="title">비행 상태 동기화 — 소유자 계산과 원격 복원</text>
-  <text x="54" y="94" class="sub">조종 권한을 계산 조건으로 분리하고 핵심 처리 단계를 네 개로 구성</text>
-
+  <g transform="translate(0 -100)">
   <g filter="url(#shadow)">
     <rect x="36" y="136" width="226" height="172" rx="18" fill="url(#card)" stroke="#397488"/>
     <rect x="378" y="136" width="226" height="172" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
@@ -89,4 +85,5 @@
   <text x="1021" y="390" class="branchTitle">오류 보정</text>
   <text x="983" y="426" class="branchText">오차 크기에 따라</text>
   <text x="983" y="450" class="branchText">보간 또는 즉시 보정</text>
+  </g>
 </svg>

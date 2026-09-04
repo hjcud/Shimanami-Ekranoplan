@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="410" viewBox="0 0 1280 410" role="img" aria-labelledby="title desc">
   <title id="title">장거리 비행의 좌표 떨림을 줄이는 원점 고정 구조</title>
   <desc id="desc">기체가 월드 좌표 위를 이동하던 기존 방식과 기체를 원점에 고정한 채 바다와 섬을 뒤로 움직이는 변경 방식을 비교한 그림</desc>
   <defs>
@@ -16,11 +16,9 @@
     </filter>
     <style>
       text{font-family:Pretendard,"Noto Sans KR","Segoe UI",sans-serif}
-      .title{fill:#f4eadb;font-size:36px;font-weight:700}.sub{fill:#a8b8b9;font-size:17px;font-weight:600}
       .cardTitle{fill:#f0ece3;font-size:25px;font-weight:700}.label{fill:#e9ece7;font-size:20px;font-weight:650}
       .muted{fill:#aebbbc;font-size:18px;font-weight:550}.danger{fill:#ed8178;font-size:19px;font-weight:650}
       .accent{fill:#83d7d9;font-size:19px;font-weight:650}.fact{fill:#e4ecea;font-size:20px;font-weight:600}
-      @media (prefers-color-scheme:light){.title{fill:#173f50}.sub{fill:#586f76}}
     </style>
     <g id="ekranoplanTop" stroke="#78c9cc" stroke-width="1.25" stroke-linejoin="round">
       <path d="M-52-4L-39-22H-29L-34-4V4L-29 22H-39L-52 4Z" fill="#c9d3d4"/>
@@ -34,9 +32,7 @@
     </g>
   </defs>
 
-  <text x="54" y="66" class="title">장거리 비행의 좌표 떨림 — 기체를 원점에 고정</text>
-  <text x="54" y="94" class="sub">기존 방식과 변경 결과를 한눈에 비교</text>
-
+  <g transform="translate(0 -88)">
   <g filter="url(#shadow)">
     <rect x="48" y="120" width="540" height="342" rx="18" fill="url(#beforeCard)" stroke="#6f5960"/>
     <rect x="692" y="120" width="540" height="342" rx="18" fill="url(#afterCard)" stroke="#467d7c"/>
@@ -96,5 +92,6 @@
 
   <g transform="translate(640 291)" fill="none" stroke="#dcb982" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <circle r="24" fill="#0a202a" stroke="#6d7765"/><path d="M-7-9l10 9-10 9M3-9l10 9-10 9"/>
+  </g>
   </g>
 </svg>

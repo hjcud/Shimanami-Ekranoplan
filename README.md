@@ -20,17 +20,13 @@
 
 <p align="center">
   <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>ワールドページを見る ↗</strong></a>
-  ·
-  <a href="./Docs/technical-overview.md">開発記録を見る →</a>
 </p>
 
 <p align="center"><sub>メタバース飛行シミュレーター · 体験型展示 · Unity / UdonSharp · 2人制作</sub></p>
 
 ## エクラノプランの操縦体験
 
-Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプランを、仮想空間で自ら操縦できるよう実装したプロジェクトです。完成したシミュレーターは展示会場に設置し、来場者がVRとデスクトップ環境の両方で操縦を体験できるよう構成しました。
-
-飛行システムはUnityとUdonSharpで制作しました。VRでは手の動きを操縦桿とスロットルへつなぎ、デスクトップではキーボードで同じ機体を操作します。エンジン始動から離水、水面近くの飛行へと続き、計器と警告表示も機体の状態に応じて反応します。
+UnityとUdonSharpで飛行・操縦システムを実装しました。VRでは手で操縦桿とスロットルを扱い、デスクトップではキーボードで飛行できます。完成したワールドは展示会場でも体験できるよう構成し、エンジン始動、離水、低空飛行に合わせて計器と警告表示が反応します。
 
 ## シミュレーターと展示会場
 
@@ -91,7 +87,7 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 機体質量とエンジン出力を基準に速度変化を計算し、速度の二乗に比例する抗力と、速度・高度・ピッチによる浮揚の変化を`AirplaneState`へ実装しました。実機性能の精密な再現ではなく、VRで安定して操縦できる反応を目標に簡略化しています。
 
 <p align="center">
-  <a href="./Docs/technical-overview.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ja.svg"><img src="./Docs/images/development-notes-button.ja.light.svg" alt="開発記録" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ja.svg"><img src="./Docs/images/issues-button.ja.light.svg" alt="今後の改善項目" width="330"></picture></a>
+  <a href="./Docs/technical-overview.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ja.svg"><img src="./Docs/images/development-notes-button.ja.light.svg" alt="開発記録" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/1"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ja.svg"><img src="./Docs/images/issues-button.ja.light.svg" alt="今後の改善項目" width="330"></picture></a>
 </p>
 
 ## コード構成

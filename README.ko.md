@@ -20,17 +20,13 @@
 
 <p align="center">
   <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>월드 페이지 보기 ↗</strong></a>
-  ·
-  <a href="./Docs/technical-overview.ko.md">개발 기록 보기 →</a>
 </p>
 
 <p align="center"><sub>메타버스 비행 시뮬레이터 · 체험형 전시 · Unity / UdonSharp · 2인 제작</sub></p>
 
 ## 에크라노플란 비행 체험
 
-Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 에크라노플란을 가상 공간에서 직접 조종할 수 있도록 구현한 프로젝트입니다. 완성한 시뮬레이터는 전시장에 설치해 관람객이 VR과 데스크톱 환경에서 조종을 체험할 수 있도록 구성했습니다.
-
-비행 시스템은 Unity와 UdonSharp로 제작했습니다. VR에서는 손의 움직임을 조종간과 스로틀에 연결하고, 데스크톱에서는 키보드로 같은 기체를 조종합니다. 엔진 시동부터 이륙, 수면 가까이의 비행까지 이어지며, 계기와 경고 표시도 기체 상태에 맞춰 반응합니다.
+Unity와 UdonSharp로 비행·조종 시스템을 구현했습니다. VR에서는 손으로 조종간과 스로틀을 다루고, 데스크톱에서는 키보드로 비행할 수 있습니다. 완성한 월드는 전시장에서도 체험할 수 있도록 구성했으며, 엔진 시동과 이륙, 저고도 비행에 따라 계기와 경고 표시가 함께 반응합니다.
 
 ## 시뮬레이터와 전시 현장
 
@@ -91,7 +87,7 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 기체 질량과 엔진 출력을 기준으로 속도 변화를 계산하고, 속도 제곱에 비례하는 항력과 속도·고도·피치에 따른 부양 변화를 `AirplaneState`에 구현했습니다. 실제 기체의 성능을 정밀하게 재현하기보다 VR에서 안정적으로 조종할 수 있는 반응을 목표로 단순화했습니다.
 
 <p align="center">
-  <a href="./Docs/technical-overview.ko.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ko.svg"><img src="./Docs/images/development-notes-button.ko.light.svg" alt="개발 기록" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ko.svg"><img src="./Docs/images/issues-button.ko.light.svg" alt="개선 예정 항목" width="330"></picture></a>
+  <a href="./Docs/technical-overview.ko.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ko.svg"><img src="./Docs/images/development-notes-button.ko.light.svg" alt="개발 기록" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/1"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ko.svg"><img src="./Docs/images/issues-button.ko.light.svg" alt="개선 예정 항목" width="330"></picture></a>
 </p>
 
 ## 코드 구성

@@ -20,17 +20,13 @@
 
 <p align="center">
   <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>View the world page ↗</strong></a>
-  ·
-  <a href="./Docs/technical-overview.en.md">Read the development notes →</a>
 </p>
 
 <p align="center"><sub>Metaverse flight simulator · Interactive exhibition · Unity / UdonSharp · Two-person team</sub></p>
 
 ## An Ekranoplan Flight Experience
 
-Shimanami Ekranoplan lets visitors pilot an ekranoplan over the Seto Inland Sea and experience its low-altitude flight close to the water. The completed simulator was installed at an exhibition where visitors could fly in either VR or desktop mode.
-
-The flight system was built with Unity and UdonSharp. In VR, hand movement drives the control column and throttles; on desktop, the same aircraft is operated with a keyboard. The experience runs from engine start and takeoff to low flight over the sea, while the instruments and warning indicators respond to the aircraft state.
+The flight and control systems were built with Unity and UdonSharp. In VR, visitors operate the control column and throttles by hand; on desktop, they fly with a keyboard. The completed world was also presented as an exhibition experience, with instruments and warning indicators responding throughout engine start, takeoff, and low-altitude flight.
 
 ## Simulator and Exhibition
 
@@ -91,7 +87,7 @@ The user who begins piloting takes ownership of the flight-state object, and onl
 `AirplaneState` calculates speed from the aircraft mass and engine output, applies drag proportional to speed squared, and varies lift with speed, altitude, and pitch. The model aims for a stable response in VR rather than a precise reproduction of the real aircraft's performance.
 
 <p align="center">
-  <a href="./Docs/technical-overview.en.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.en.svg"><img src="./Docs/images/development-notes-button.en.light.svg" alt="Development notes" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.en.svg"><img src="./Docs/images/issues-button.en.light.svg" alt="Planned improvements" width="330"></picture></a>
+  <a href="./Docs/technical-overview.en.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.en.svg"><img src="./Docs/images/development-notes-button.en.light.svg" alt="Development notes" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/1"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.en.svg"><img src="./Docs/images/issues-button.en.light.svg" alt="Planned improvements" width="330"></picture></a>
 </p>
 
 ## Code Map
