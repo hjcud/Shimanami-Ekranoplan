@@ -2,9 +2,6 @@
   <title id="title">Origin-fixed coordinates reduce long-distance flight jitter</title>
   <desc id="desc">Comparison between moving the aircraft through world space and keeping it at the origin while moving the sea and islands backward</desc>
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#0a2d40"/><stop offset=".62" stop-color="#082233"/><stop offset="1" stop-color="#06131e"/>
-    </linearGradient>
     <linearGradient id="beforeCard" x1="0" y1="0" x2="0" y2="1">
       <stop stop-color="#122a37"/><stop offset="1" stop-color="#0a1b26"/>
     </linearGradient>
@@ -23,6 +20,7 @@
       .cardTitle{fill:#f0ece3;font-size:25px;font-weight:700}.label{fill:#e9ece7;font-size:20px;font-weight:650}
       .muted{fill:#aebbbc;font-size:18px;font-weight:550}.danger{fill:#ed8178;font-size:19px;font-weight:650}
       .accent{fill:#83d7d9;font-size:19px;font-weight:650}.fact{fill:#e4ecea;font-size:20px;font-weight:600}
+      @media (prefers-color-scheme:light){.title{fill:#173f50}.sub{fill:#586f76}}
     </style>
     <g id="ekranoplanTop" stroke="#78c9cc" stroke-width="1.25" stroke-linejoin="round">
       <path d="M-52-4L-39-22H-29L-34-4V4L-29 22H-39L-52 4Z" fill="#c9d3d4"/>
@@ -33,9 +31,6 @@
     </g>
   </defs>
 
-  <rect x="16" y="16" width="1248" height="488" rx="28" fill="url(#background)"/>
-  <path d="M146 16h112l142 488H286zM874 16h112l-126 488H738z" fill="#d1f7f4" fill-opacity=".035"/>
-  <rect x="16.5" y="16.5" width="1247" height="487" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/>
   <text x="54" y="66" class="title">Long-distance jitter — Keep the aircraft at the origin</text>
   <text x="54" y="94" class="sub">A direct comparison of the original and revised coordinate models</text>
 

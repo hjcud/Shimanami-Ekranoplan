@@ -2,18 +2,12 @@
   <title id="title">비행 상태 동기화 흐름</title>
   <desc id="desc">조종 입력이 조종권을 가진 사용자의 비행 계산으로 전달되고, Udon 비행 상태와 VRCObjectSync를 거쳐 원격 환경에 복원되는 흐름. 중간 입장과 위치 오류 보정은 전달받은 상태에서 이어진다.</desc>
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="#0a2d40"/><stop offset=".62" stop-color="#082233"/><stop offset="1" stop-color="#06131e"/>
-    </linearGradient>
     <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
       <stop stop-color="#0c2937"/><stop offset="1" stop-color="#071925"/>
     </linearGradient>
     <linearGradient id="activeCard" x1="0" y1="0" x2="0" y2="1">
       <stop stop-color="#103139"/><stop offset="1" stop-color="#09212a"/>
     </linearGradient>
-    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
-      <path d="M56 0H0V56" fill="none" stroke="#8fd4d7" stroke-opacity=".045"/>
-    </pattern>
     <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
       <feDropShadow dy="7" stdDeviation="8" flood-color="#000" flood-opacity=".26"/>
     </filter>
@@ -23,13 +17,10 @@
       .cardTitle{fill:#f0ece3;font-size:26px;font-weight:700}.detail{fill:#bdc9c9;font-size:19px;font-weight:550}
       .condition{fill:#e5be7f;font-size:14px;font-weight:700}.branchTitle{fill:#f0ece3;font-size:22px;font-weight:700}
       .branchText{fill:#b4c1c1;font-size:19px;font-weight:550}
+      @media (prefers-color-scheme:light){.title{fill:#173f50}.sub{fill:#586f76}}
     </style>
   </defs>
 
-  <rect x="16" y="16" width="1248" height="528" rx="28" fill="url(#background)"/>
-  <path d="M146 16h112l154 528H292zM892 16h112l-138 528H744z" fill="#d1f7f4" fill-opacity=".035"/>
-  <rect x="16" y="16" width="1248" height="528" rx="28" fill="url(#grid)"/>
-  <rect x="16.5" y="16.5" width="1247" height="527" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/>
   <text x="54" y="66" class="title">비행 상태 동기화 — 소유자 계산과 원격 복원</text>
   <text x="54" y="94" class="sub">조종 권한을 계산 조건으로 분리하고 핵심 처리 단계를 네 개로 구성</text>
 
