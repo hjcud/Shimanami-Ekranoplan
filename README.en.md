@@ -91,8 +91,7 @@ The user who begins piloting takes ownership of the flight-state object, and onl
 `AirplaneState` calculates speed from the aircraft mass and engine output, applies drag proportional to speed squared, and varies lift with speed, altitude, and pitch. The model aims for a stable response in VR rather than a precise reproduction of the real aircraft's performance.
 
 <p align="center">
-  <a href="./Docs/technical-overview.en.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.en.svg"><img src="./Docs/images/development-notes-button.en.light.svg" alt="Development notes" width="330"></picture></a>
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.en.svg"><img src="./Docs/images/issues-button.en.light.svg" alt="Planned improvements" width="330"></picture></a>
+  <a href="./Docs/technical-overview.en.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.en.svg"><img src="./Docs/images/development-notes-button.en.light.svg" alt="Development notes" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.en.svg"><img src="./Docs/images/issues-button.en.light.svg" alt="Planned improvements" width="330"></picture></a>
 </p>
 
 ## Code Map

@@ -91,8 +91,7 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 기체 질량과 엔진 출력을 기준으로 속도 변화를 계산하고, 속도 제곱에 비례하는 항력과 속도·고도·피치에 따른 부양 변화를 `AirplaneState`에 구현했습니다. 실제 기체의 성능을 정밀하게 재현하기보다 VR에서 안정적으로 조종할 수 있는 반응을 목표로 단순화했습니다.
 
 <p align="center">
-  <a href="./Docs/technical-overview.ko.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ko.svg"><img src="./Docs/images/development-notes-button.ko.light.svg" alt="개발 기록" width="330"></picture></a>
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ko.svg"><img src="./Docs/images/issues-button.ko.light.svg" alt="개선 예정 항목" width="330"></picture></a>
+  <a href="./Docs/technical-overview.ko.md"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ko.svg"><img src="./Docs/images/development-notes-button.ko.light.svg" alt="개발 기록" width="330"></picture></a>&ensp;&ensp;<a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues"><picture><source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ko.svg"><img src="./Docs/images/issues-button.ko.light.svg" alt="개선 예정 항목" width="330"></picture></a>
 </p>
 
 ## 코드 구성
