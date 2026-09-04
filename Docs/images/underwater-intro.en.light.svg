@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="112" viewBox="0 0 900 112" role="img" aria-labelledby="title desc">
   <title id="title">Shimanami Ekranoplan introduction</title>
-  <desc id="desc">A flight simulator built in a metaverse environment and presented as a hands-on exhibition experience</desc>
+  <desc id="desc">An ekranoplan flight simulator built in a virtual environment and installed at an exhibition for visitors to pilot</desc>
   <style>
     .copy { fill: #174f61; font-family: Inter, "Segoe UI", sans-serif; font-size: 25px; font-weight: 750; }
     .wave { fill: none; stroke: #2c8795; stroke-width: 2; stroke-linecap: round; opacity: .8; }
@@ -9,6 +9,6 @@
   <path class="wave" d="M20 48c15-10 30-10 45 0s30 10 45 0M790 64c15-10 30-10 45 0s30 10 45 0"/>
   <circle class="bubble" cx="66" cy="76" r="4"/><circle class="bubble" cx="84" cy="91" r="2"/>
   <circle class="bubble" cx="820" cy="27" r="3"/><circle class="bubble" cx="842" cy="39" r="5"/>
-  <text x="450" y="45" text-anchor="middle" class="copy">A flight simulator built in a metaverse environment,</text>
-  <text x="450" y="80" text-anchor="middle" class="copy">then presented as a hands-on exhibition experience.</text>
+  <text x="450" y="45" text-anchor="middle" class="copy">We built an ekranoplan flight simulator in a virtual environment</text>
+  <text x="450" y="80" text-anchor="middle" class="copy">and installed it at an exhibition so visitors could pilot it.</text>
 </svg>

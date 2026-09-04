@@ -14,7 +14,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/underwater-intro.en.svg">
-    <img src="./Docs/images/underwater-intro.en.light.svg" alt="A flight simulator built in a metaverse environment and presented as a hands-on exhibition experience" width="900">
+    <img src="./Docs/images/underwater-intro.en.light.svg" alt="An ekranoplan flight simulator built in a virtual environment and installed at an exhibition for visitors to pilot" width="900">
   </picture>
 </p>
 
