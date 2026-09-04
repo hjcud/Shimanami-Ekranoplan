@@ -25,50 +25,46 @@
   <text x="54" y="94" class="sub">조종 권한을 계산 조건으로 분리하고 핵심 처리 단계를 네 개로 구성</text>
 
   <g filter="url(#shadow)">
-    <rect x="48" y="136" width="226" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
-    <rect x="358" y="136" width="226" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
+    <rect x="36" y="136" width="226" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
+    <rect x="378" y="136" width="226" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
     <rect x="668" y="136" width="226" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
     <rect x="978" y="136" width="226" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
   </g>
 
-  <g transform="translate(76 164)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(60 184)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="16" cy="6" r="4"/><path d="M16 10v12M7 22h18l2 7H5l2-7"/>
   </g>
-  <text x="76" y="224" class="cardTitle">조종 입력</text>
-  <text x="76" y="262" class="detail">VR 손 움직임</text><text x="76" y="291" class="detail">데스크톱 입력</text>
+  <text x="102" y="213" class="cardTitle">조종 입력</text>
+  <text x="60" y="262" class="detail">VR 손 움직임</text><text x="60" y="291" class="detail">데스크톱 입력</text>
 
-  <g transform="translate(386 164)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(402 184)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="4" y="2" width="24" height="28" rx="3"/><rect x="8" y="6" width="16" height="6" rx="1"/>
     <path d="M9 18h3M15 18h3M21 18h3M9 24h3M15 24h3M21 24h3"/>
   </g>
-  <text x="386" y="224" class="cardTitle">비행 계산</text>
-  <text x="386" y="262" class="detail">속도 · 자세</text><text x="386" y="291" class="detail">환경 좌표</text>
+  <text x="444" y="213" class="cardTitle">비행 계산</text>
+  <text x="402" y="262" class="detail">속도 · 자세</text><text x="402" y="291" class="detail">환경 좌표</text>
 
-  <g transform="translate(696 164)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(692 184)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="16" cy="16" r="3" fill="#dcb982" stroke="none"/><path d="M9 10a10 10 0 0 0 0 12M23 10a10 10 0 0 1 0 12M4 5a16 16 0 0 0 0 22M28 5a16 16 0 0 1 0 22"/>
   </g>
-  <text x="696" y="224" class="cardTitle">상태 동기화</text>
-  <text x="696" y="262" class="detail">Udon 비행 상태</text><text x="696" y="291" class="detail">VRCObjectSync</text>
+  <text x="734" y="213" class="cardTitle">상태 동기화</text>
+  <text x="692" y="262" class="detail">Udon 비행 상태</text><text x="692" y="291" class="detail">VRCObjectSync</text>
 
-  <g transform="translate(1006 164)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(1002 184)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="1" y="2" width="30" height="23" rx="3"/>
     <path d="M10 31h12M16 25v6M16 7v11M11 13l5 5 5-5"/>
   </g>
-  <text x="1006" y="224" class="cardTitle">원격 복원</text>
-  <text x="1006" y="262" class="detail">회전 · 고도 적용</text><text x="1006" y="291" class="detail">수평 위치 보간</text>
+  <text x="1044" y="213" class="cardTitle">원격 복원</text>
+  <text x="1002" y="262" class="detail">회전 · 고도 적용</text><text x="1002" y="291" class="detail">수평 위치 보간</text>
 
   <g fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M286 235h60"/><path d="M338 228l8 7-8 7"/>
-    <path d="M596 235h60"/><path d="M648 228l8 7-8 7"/>
+    <path d="M268 235h16"/><path d="M276 228l8 7-8 7"/>
+    <path d="M356 235h14"/><path d="M362 228l8 7-8 7"/>
+    <path d="M616 235h40"/><path d="M648 228l8 7-8 7"/>
     <path d="M906 235h60"/><path d="M958 228l8 7-8 7"/>
   </g>
-  <g transform="translate(274 166)">
-    <rect width="84" height="36" rx="18" fill="#0d2730" stroke="#6d7765"/>
-    <g transform="translate(8 9)" fill="none" stroke="#dcb982" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="7" cy="5" r="3"/><path d="M1 16c.7-4 11.3-4 12 0M15 9l2.5 2.5L22 6"/>
-    </g>
-    <text x="57" y="24" class="condition" text-anchor="middle">조종권</text>
-  </g>
+  <path d="M320 200l30 35-30 35-30-35z" fill="#0d2730" stroke="#6d7765" stroke-width="1.5"/>
+  <text x="320" y="241" class="condition" text-anchor="middle">조종권</text>
   <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6">
     <path d="M781 334v43"/><path d="M1091 334v43"/>
   </g>

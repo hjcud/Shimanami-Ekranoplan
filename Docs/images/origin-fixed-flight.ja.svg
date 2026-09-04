@@ -29,6 +29,9 @@
       <path d="M41-5C50-5 57-3 60 0C57 3 50 5 41 5C45 2 45-2 41-5Z" fill="#e2bb65" stroke="none"/>
       <path d="M-49 0H39" fill="none" stroke="#93a5a7" stroke-width="1" opacity=".8"/>
     </g>
+    <g id="coordinateMethodIcon" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 1v18M1 10h18M10 1 7 4M10 1l3 3M19 10l-3-3M19 10l-3 3M10 19l-3-3M10 19l3-3M1 10l3-3M1 10l3 3"/>
+    </g>
   </defs>
 
   <text x="54" y="66" class="title">長距離飛行時の座標の揺れ — 機体を原点へ固定</text>
@@ -57,13 +60,10 @@
   </g>
   <g transform="translate(72 384)">
     <g transform="translate(0 -10)" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M2 10h16M12 4l6 6-6 6"/>
+      <use href="#coordinateMethodIcon"/>
     </g>
     <text x="28" y="6" class="fact">機体と乗員がワールド座標上を移動</text>
-    <g transform="translate(0 29)" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="15" height="12" rx="2"/>
-      <path d="M7 19h7M10.5 15v4M0 6l-2 3 2 3M21 6l2 3-2 3"/>
-    </g>
+    <text x="0" y="46" class="danger" font-size="26" font-weight="700">−</text>
     <text x="28" y="45" class="fact">長距離飛行で画面の揺れが増加</text>
   </g>
 
@@ -88,10 +88,10 @@
     </g>
   </g>
   <g transform="translate(716 384)">
-    <g transform="translate(0 -10)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="14" height="10" rx="2"/><path d="M6 9V6a4 4 0 0 1 8 0v3M10 13v3"/></g>
+    <g transform="translate(0 -10)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#coordinateMethodIcon"/></g>
     <text x="28" y="6" class="fact">機体と操縦席を原点へ固定</text>
-    <g transform="translate(0 29)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10H2M8 4l-6 6 6 6"/></g>
-    <text x="28" y="45" class="fact">海と島を反対方向へ移動</text>
+    <text x="0" y="46" class="accent" font-size="26" font-weight="700">+</text>
+    <text x="28" y="45" class="fact">海と島を機体の進行方向と逆に移動</text>
   </g>
 
   <g transform="translate(640 291)" fill="none" stroke="#dcb982" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
