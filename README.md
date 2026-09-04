@@ -36,8 +36,7 @@ Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプ
 
 <table>
   <tr>
-    <td width="57%" align="center" valign="middle"><img src="./Docs/images/world-overview.webp" alt="Shimanami Ekranoplanのワールド上空から見た瀬戸内海と島々" width="98%"><br><sub>ワールド全景 · 瀬戸内海に構成した島々と飛行空間</sub></td>
-    <td width="43%" align="center" valign="middle"><img src="./Docs/images/world-map-silhouette.png" alt="Shimanami Ekranoplanのワールドに構成した瀬戸内地形の俯瞰シルエット" width="98%"><br><sub>ワールド飛行範囲 · 瀬戸内の地形構成</sub></td>
+    <td colspan="2" align="center"><img src="./Docs/images/world-overview-map.webp" alt="Shimanami Ekranoplanの瀬戸内海ワールド全景と俯瞰地形図" width="98%"><br><sub>ワールド全景 · 瀬戸内海と飛行範囲</sub></td>
   </tr>
   <tr>
     <td width="57%" align="center"><img src="./Docs/images/cockpit.webp" alt="正面から見たエクラノプランのコックピットと飛行計器" width="98%"><br><sub>飛行コックピット · 計器と8基分のスロットル</sub></td>

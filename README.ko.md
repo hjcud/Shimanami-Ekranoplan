@@ -36,8 +36,7 @@ Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 
 
 <table>
   <tr>
-    <td width="57%" align="center" valign="middle"><img src="./Docs/images/world-overview.webp" alt="Shimanami Ekranoplan 월드 상공에서 내려다본 세토우치 해역과 섬" width="98%"><br><sub>월드 전경 · 세토우치 해역에 구성한 섬과 비행 공간</sub></td>
-    <td width="43%" align="center" valign="middle"><img src="./Docs/images/world-map-silhouette.png" alt="Shimanami Ekranoplan 월드에 구성한 세토우치 지형의 상면 윤곽" width="98%"><br><sub>월드 비행 영역 · 세토우치 지형 구성</sub></td>
+    <td colspan="2" align="center"><img src="./Docs/images/world-overview-map.webp" alt="Shimanami Ekranoplan 월드의 세토우치 해역 전경과 상면 지형 지도" width="98%"><br><sub>월드 전경 · 세토우치 해역과 비행 영역</sub></td>
   </tr>
   <tr>
     <td width="57%" align="center"><img src="./Docs/images/cockpit.webp" alt="정면에서 본 에크라노플란 조종석과 비행 계기" width="98%"><br><sub>비행 조종석 · 계기와 8기 엔진 스로틀</sub></td>
