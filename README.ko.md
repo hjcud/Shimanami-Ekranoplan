@@ -36,17 +36,34 @@ Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 
 
 <table>
   <tr>
-    <td colspan="2" align="center"><img src="./Docs/images/cockpit.webp" alt="정면에서 본 에크라노플란 조종석과 비행 계기" width="100%"><br><sub>조종석 · 비행 계기와 8기 엔진 스로틀</sub></td>
+    <td colspan="2" align="center"><img src="./Docs/images/world-overview.webp" alt="Shimanami Ekranoplan 월드 상공에서 내려다본 세토우치 해역과 섬" width="98%"><br><sub>월드 전경 · 세토우치 해역에 구성한 섬과 비행 공간</sub></td>
   </tr>
+  <tr>
+    <td width="57%" align="center"><img src="./Docs/images/cockpit.webp" alt="정면에서 본 에크라노플란 조종석과 비행 계기" width="98%"><br><sub>비행 조종석 · 계기와 8기 엔진 스로틀</sub></td>
+    <td width="43%" align="center"><img src="./Docs/images/exhibition-experience.webp" alt="전시 현장에서 VR 헤드셋을 착용하고 Shimanami Ekranoplan을 체험하는 관람객" width="98%"><br><sub>전시 체험 · 관람객의 VR 시연</sub></td>
+  </tr>
+</table>
+
+<details>
+<summary><strong>추가 월드·전시 장면 보기</strong></summary>
+
+<br>
+
+<table>
   <tr>
     <td width="50%" align="center"><img src="./Docs/images/lounge.webp" alt="붉은 좌석과 간접 조명으로 구성한 에크라노플란 라운지" width="100%"><br><sub>라운지 · 객실 조명과 휴식 공간</sub></td>
     <td width="50%" align="center"><img src="./Docs/images/flight-side.webp" alt="세토우치 수면 위를 저고도로 비행하는 에크라노플란의 측면 모습" width="100%"><br><sub>외부 비행 · 수면 가까이에서 본 전체 기체</sub></td>
   </tr>
   <tr>
     <td width="50%" align="center"><img src="./Docs/images/cabin-view.webp" alt="객실 좌석과 둥근 창 너머로 보이는 세토우치 바다" width="100%"><br><sub>객실 · 좌석과 창밖의 세토우치 풍경</sub></td>
-    <td width="50%" align="center"><img src="./Docs/images/exhibition.webp" alt="두 대의 모니터와 안내 패널로 구성한 시마나미 에크라노플란 전시 설치" width="100%"><br><sub>전시 기록 · VR 시연을 위한 현장 설치 모습</sub></td>
+    <td width="50%" align="center"><img src="./Docs/images/cockpit-detail.webp" alt="조종석 뒤쪽에서 본 계기판, 조종간과 스로틀 배치" width="100%"><br><sub>조종석 세부 · 계기판과 입력 장치 배치</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="./Docs/images/exhibition.webp" alt="두 대의 모니터와 안내 패널로 구성한 시마나미 에크라노플란 전시 설치" width="100%"><br><sub>전시 설치 · VR 시연을 위한 현장 구성</sub></td>
   </tr>
 </table>
+
+</details>
 
 https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 
@@ -79,11 +96,6 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 실제 기체의 성능을 그대로 재현하기보다 VR에서의 조종감에 맞춰 단순화했습니다. 비행 계산식과 구현 과정은 [개발 기록](./Docs/technical-overview.ko.md#분석-시트에서-비행-모델로)에 정리했습니다.
 
 ## 모델과 렌더링 구성
-
-<p align="center">
-  <img src="./Docs/images/cockpit-detail.webp" alt="조종석 뒤쪽에서 본 계기판, 조종간과 스로틀 배치" width="900">
-  <br><sub>조종석 뒤쪽에서 본 계기판과 입력 장치 배치</sub>
-</p>
 
 조종석의 계기·페달·스로틀·조종간에 애니메이션을 적용했습니다.
 

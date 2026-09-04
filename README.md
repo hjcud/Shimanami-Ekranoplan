@@ -36,17 +36,34 @@ Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプ
 
 <table>
   <tr>
-    <td colspan="2" align="center"><img src="./Docs/images/cockpit.webp" alt="正面から見たエクラノプランのコックピットと飛行計器" width="100%"><br><sub>コックピット · 飛行計器と8基分のスロットル</sub></td>
+    <td colspan="2" align="center"><img src="./Docs/images/world-overview.webp" alt="Shimanami Ekranoplanのワールド上空から見た瀬戸内海と島々" width="98%"><br><sub>ワールド全景 · 瀬戸内海に構成した島々と飛行空間</sub></td>
   </tr>
+  <tr>
+    <td width="57%" align="center"><img src="./Docs/images/cockpit.webp" alt="正面から見たエクラノプランのコックピットと飛行計器" width="98%"><br><sub>飛行コックピット · 計器と8基分のスロットル</sub></td>
+    <td width="43%" align="center"><img src="./Docs/images/exhibition-experience.webp" alt="展示会場でVRヘッドセットを着用しShimanami Ekranoplanを体験する来場者" width="98%"><br><sub>展示体験 · 来場者によるVRデモ</sub></td>
+  </tr>
+</table>
+
+<details>
+<summary><strong>その他のワールド・展示写真を見る</strong></summary>
+
+<br>
+
+<table>
   <tr>
     <td width="50%" align="center"><img src="./Docs/images/lounge.webp" alt="赤い座席と間接照明で構成されたエクラノプランのラウンジ" width="100%"><br><sub>ラウンジ · 客室照明と休憩スペース</sub></td>
     <td width="50%" align="center"><img src="./Docs/images/flight-side.webp" alt="瀬戸内の水面上を低高度で飛行するエクラノプランの側面" width="100%"><br><sub>外部飛行 · 水面近くから見た機体全景</sub></td>
   </tr>
   <tr>
     <td width="50%" align="center"><img src="./Docs/images/cabin-view.webp" alt="客室座席と丸窓の向こうに見える瀬戸内の海" width="100%"><br><sub>客室 · 座席と窓外の瀬戸内風景</sub></td>
-    <td width="50%" align="center"><img src="./Docs/images/exhibition.webp" alt="2台のモニターと案内パネルで構成されたShimanami Ekranoplanの展示設営" width="100%"><br><sub>展示記録 · VRデモ用の会場設営</sub></td>
+    <td width="50%" align="center"><img src="./Docs/images/cockpit-detail.webp" alt="コックピット後方から見た計器盤、操縦桿、スロットルの配置" width="100%"><br><sub>コックピット詳細 · 計器盤と入力装置の配置</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="./Docs/images/exhibition.webp" alt="2台のモニターと案内パネルで構成されたShimanami Ekranoplanの展示設営" width="100%"><br><sub>展示設営 · VRデモ用の会場構成</sub></td>
   </tr>
 </table>
+
+</details>
 
 https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 
@@ -79,11 +96,6 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 実機の性能をそのまま再現するのではなく、VRでの操縦感に合わせて簡略化しています。飛行計算式と実装内容は[開発記録](./Docs/technical-overview.md#分析シートから飛行モデルへ)にまとめています。
 
 ## モデルとレンダリング構成
-
-<p align="center">
-  <img src="./Docs/images/cockpit-detail.webp" alt="コックピット後方から見た計器盤、操縦桿、スロットルの配置" width="900">
-  <br><sub>コックピット後方から見た計器盤と入力装置の配置</sub>
-</p>
 
 コックピットの計器、ペダル、スロットル、操縦桿にアニメーションを設定しました。
 
