@@ -9,7 +9,7 @@
   <h1>Shimanami Ekranoplan</h1>
 </div>
 
-<p align="center"><strong>This repository is not a runnable Unity project. It publishes the original code and key development work created for the project.</strong></p>
+<p align="center"><sub>This repository is not a runnable Unity project. It publishes the original code and key development work created for the project.</sub></p>
 
 <p align="center">
   <picture>

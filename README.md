@@ -9,7 +9,7 @@
   <h1>Shimanami Ekranoplan</h1>
 </div>
 
-<p align="center"><strong>このリポジトリは実行可能なUnityプロジェクトではなく、制作したコードと主な開発内容をまとめて公開しています。</strong></p>
+<p align="center"><sub>このリポジトリは実行可能なUnityプロジェクトではなく、制作したコードと主な開発内容をまとめて公開しています。</sub></p>
 
 <p align="center">
   <picture>
