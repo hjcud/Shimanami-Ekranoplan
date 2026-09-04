@@ -51,7 +51,8 @@
   <text x="696" y="262" class="detail">Udon flight state</text><text x="696" y="291" class="detail">VRCObjectSync</text>
 
   <g transform="translate(1006 164)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="1" y="2" width="30" height="23" rx="3"/><path d="M10 31h12M16 25v6M11 17a6 6 0 1 0 1-8M12 9H7v5"/>
+    <rect x="1" y="2" width="30" height="23" rx="3"/>
+    <path d="M10 31h12M16 25v6M16 7v11M11 13l5 5 5-5"/>
   </g>
   <text x="1006" y="224" class="cardTitle">Remote view</text>
   <text x="1006" y="262" class="detail">Rotation · altitude</text><text x="1006" y="291" class="detail">Position smoothing</text>
@@ -63,8 +64,8 @@
   </g>
   <g transform="translate(274 166)">
     <rect width="84" height="36" rx="18" fill="#0d2730" stroke="#6d7765"/>
-    <g transform="translate(9 10)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="5" cy="8" r="4"/><path d="M9 8h8v4h-3v3h-3V8"/>
+    <g transform="translate(8 9)" fill="none" stroke="#dcb982" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="7" cy="5" r="3"/><path d="M1 16c.7-4 11.3-4 12 0M15 9l2.5 2.5L22 6"/>
     </g>
     <text x="57" y="24" class="condition" text-anchor="middle">OWNER</text>
   </g>
