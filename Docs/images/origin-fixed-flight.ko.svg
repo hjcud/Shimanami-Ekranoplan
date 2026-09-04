@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">장거리 비행의 좌표 떨림을 줄이는 원점 고정 구조</title>
+  <desc id="desc">기체가 월드 좌표 위를 이동하던 기존 방식과 기체를 원점에 고정한 채 바다와 섬을 뒤로 움직이는 변경 방식을 비교한 그림</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0a2d40"/><stop offset=".62" stop-color="#082233"/><stop offset="1" stop-color="#06131e"/>
+    </linearGradient>
+    <linearGradient id="beforeCard" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#122a37"/><stop offset="1" stop-color="#0a1b26"/>
+    </linearGradient>
+    <linearGradient id="afterCard" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0c3039"/><stop offset="1" stop-color="#082029"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#8fd4d7" stroke-opacity=".11"/>
+    </pattern>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dy="7" stdDeviation="8" flood-color="#000" flood-opacity=".26"/>
+    </filter>
+    <style>
+      text{font-family:Pretendard,"Noto Sans KR","Segoe UI",sans-serif}
+      .title{fill:#f4eadb;font-size:36px;font-weight:700}.sub{fill:#a8b8b9;font-size:17px;font-weight:600}
+      .cardTitle{fill:#f0ece3;font-size:25px;font-weight:700}.label{fill:#e9ece7;font-size:20px;font-weight:650}
+      .muted{fill:#aebbbc;font-size:18px;font-weight:550}.danger{fill:#ed8178;font-size:19px;font-weight:650}
+      .accent{fill:#83d7d9;font-size:19px;font-weight:650}.fact{fill:#e4ecea;font-size:20px;font-weight:600}
+    </style>
+    <g id="ekranoplanTop" stroke="#78c9cc" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M-45-4L-35-21H-27L-31-4-20-3V3L-31 4-27 21H-35L-45 4Z" fill="#c9d3d4"/>
+      <path d="M-20-4L-5-34H8L15-4 25-3V3L15 4 8 34H-5L-20 4Z" fill="#e9ece7"/>
+      <path d="M17-5L21-23H31L35-5V5L31 23H21L17 5Z" fill="#d9e1e0"/>
+      <path d="M22-14H32M20-5H35M20 5H35M22 14H32" fill="none" stroke="#81989b" stroke-width="1" opacity=".75"/>
+      <path d="M-54-6H41C49-6 55-3 55 0S49 6 41 6H-54C-57 6-59 3-59 0S-57-6-54-6Z" fill="#829196"/>
+      <path d="M40-5C49-5 55-3 55 0S49 5 40 5C44 2 44-2 40-5Z" fill="#e2bb65" stroke="none"/>
+    </g>
+  </defs>
+
+  <rect x="16" y="16" width="1248" height="488" rx="28" fill="url(#background)"/>
+  <path d="M146 16h112l142 488H286zM874 16h112l-126 488H738z" fill="#d1f7f4" fill-opacity=".035"/>
+  <rect x="16.5" y="16.5" width="1247" height="487" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/>
+  <text x="54" y="66" class="title">장거리 비행의 좌표 떨림 — 기체를 원점에 고정</text>
+  <text x="54" y="94" class="sub">기존 방식과 변경 결과를 한눈에 비교</text>
+
+  <g filter="url(#shadow)">
+    <rect x="48" y="120" width="540" height="342" rx="18" fill="url(#beforeCard)" stroke="#6f5960"/>
+    <rect x="692" y="120" width="540" height="342" rx="18" fill="url(#afterCard)" stroke="#467d7c"/>
+  </g>
+
+  <g transform="translate(72 160)">
+    <circle cx="10" cy="-6" r="8" fill="none" stroke="#d97871" stroke-width="1.5"/>
+    <path d="M10-10v5M10 1v1M6-5h8" fill="none" stroke="#d97871" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="30" y="0" class="cardTitle">기존 방식</text>
+  </g>
+  <g transform="translate(716 160)">
+    <circle cx="10" cy="-6" r="8" fill="none" stroke="#78c9cc" stroke-width="1.5"/>
+    <path d="M6-6l3 3 5-6" fill="none" stroke="#78c9cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="30" y="0" class="cardTitle">변경 방식</text>
+  </g>
+
+  <g transform="translate(72 190)">
+    <rect width="492" height="164" rx="10" fill="#071824" stroke="#49616b"/>
+    <rect width="492" height="164" rx="10" fill="url(#grid)"/>
+    <g transform="translate(54 82)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="9"/><path d="M-14 0h28M0-14v28"/></g>
+    <circle cx="54" cy="82" r="3.5" fill="#78c9cc"/>
+    <path d="M70 82H350" fill="none" stroke="#d97871" stroke-width="2" stroke-dasharray="7 7"/>
+    <path d="M342 75l8 7-8 7" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="192" y="69" class="danger" text-anchor="middle">원점과 거리 증가</text>
+    <g transform="translate(374 70)">
+      <use href="#ekranoplanTop"/>
+      <text x="0" y="62" class="label" text-anchor="middle">기체 이동</text>
+    </g>
+  </g>
+  <g transform="translate(72 384)">
+    <path d="M0 0h14" stroke="#d97871" stroke-width="2"/><path d="M9-5l5 5-5 5" fill="none" stroke="#d97871" stroke-width="2"/>
+    <text x="28" y="6" class="fact">기체와 탑승자가 월드 좌표 위를 이동</text>
+    <path d="M0 39l6-12 7 23 7-16 8 5" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="40" y="45" class="fact">장거리 비행 시 화면 떨림 증가</text>
+  </g>
+
+  <g transform="translate(716 190)">
+    <rect width="492" height="164" rx="10" fill="#071c26" stroke="#467d7c"/>
+    <rect width="492" height="164" rx="10" fill="url(#grid)"/>
+    <g transform="translate(246 52)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="18"/><path d="M-28 0h56M0-28v56"/></g>
+    <circle cx="246" cy="52" r="4" fill="#dcb982"/>
+    <g transform="translate(246 48)">
+      <use href="#ekranoplanTop"/>
+      <text x="0" y="52" class="label" text-anchor="middle">원점 고정</text>
+    </g>
+    <g transform="translate(54 112)">
+      <rect width="384" height="42" rx="21" fill="#09242d" stroke="#315a62"/>
+      <path d="M78 21H24" fill="none" stroke="#78c9cc" stroke-width="2.5"/>
+      <path d="M32 14l-8 7 8 7" fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g transform="translate(96 1)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
+        <path d="M0 25c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
+        <path d="M15 21c7-14 20-18 31-7 7-8 18-7 26 4H15Z" fill="#6d9181" fill-opacity=".72" stroke="none"/>
+      </g>
+      <text x="180" y="29" class="accent">바다와 섬이 뒤로 이동</text>
+    </g>
+  </g>
+  <g transform="translate(716 384)">
+    <g fill="none" stroke="#78c9cc" stroke-width="1.7"><circle cx="8" cy="0" r="5"/><path d="M8-11v29M0 9c4 5 12 5 16 0"/></g>
+    <text x="28" y="6" class="fact">기체와 조종석은 원점에 고정</text>
+    <path d="M18 39H0M6 33l-6 6 6 6" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="28" y="45" class="fact">바다와 섬을 반대 방향으로 이동</text>
+  </g>
+
+  <g transform="translate(640 291)" fill="none" stroke="#dcb982" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="24" fill="#0a202a" stroke="#6d7765"/><path d="M-7-9l10 9-10 9M3-9l10 9-10 9"/>
+  </g>
+</svg>
