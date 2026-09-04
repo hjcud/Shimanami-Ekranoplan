@@ -67,7 +67,9 @@
 
 `AirplaneState`의 현재 소유자만 비행 상태를 계산합니다. VR 조종간을 처음 잡은 사용자는 조종 오브젝트와 `OwnerChangeTarget`의 소유권을 함께 가져옵니다. 조종 중인 사용자 ID는 `TriggeredUserID`로 공유합니다.
 
-데스크톱 입력과 조종 종료·퇴장까지 같은 소유권 수명주기를 적용하는 작업은 [Issue #3](https://github.com/hjcud/Shimanami-Ekranoplan/issues/3)에서 추적합니다.
+현재 소유권 처리는 VR 조종간을 처음 잡는 경우에만 적용되어 있습니다. 데스크톱 조종과 조종 종료·퇴장에는 같은 처리 방식이 적용되지 않습니다.
+
+<sub>관련 이슈 · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/3">#3</a></sub>
 
 ### 동기화 데이터
 
@@ -79,7 +81,9 @@
 | `AirplaneState` | 속도, 피치·롤, 고도, 이동 벡터, 회전, 위치, 피치·롤 경고 | 9 |
 | `MapRotation`의 `VRCObjectSync` | 환경의 회전과 고도 Transform | — |
 
-현재 값은 별도 비트 패킹이나 양자화 없이 Udon 동기화 변수로 전송합니다. 수평 위치는 `AirplaneState`가 전달하고, 환경의 회전과 고도는 `MapRotation`에 연결된 `VRCObjectSync`가 전달합니다. 조종 값이 바뀔 때와 소유자의 비행 계산 루프에서 `RequestSerialization()`을 호출합니다. 동기화 주기와 데이터 구성을 정리하는 작업은 [Issue #4](https://github.com/hjcud/Shimanami-Ekranoplan/issues/4)에서 진행합니다.
+현재 값은 별도 비트 패킹이나 양자화 없이 Udon 동기화 변수로 전송합니다. 수평 위치는 `AirplaneState`가 전달하고, 환경의 회전과 고도는 `MapRotation`에 연결된 `VRCObjectSync`가 전달합니다. 조종 값이 바뀔 때와 소유자의 비행 계산 루프에서 `RequestSerialization()`을 호출합니다. 현재는 동기화 주기와 전송 데이터 구성이 따로 정리되어 있지 않습니다.
+
+<sub>관련 이슈 · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/4">#4</a></sub>
 
 ### 원격 보간과 중간 입장
 
@@ -87,9 +91,11 @@
 - 이후 비소유자의 `FixedUpdate()`는 수평 위치를 기본 `0.2초`의 `SmoothDamp`로 따라갑니다.
 - 위치 오차가 기본 `1,500` 내부 단위를 넘으면 보간하지 않고 마지막 동기화 위치로 이동합니다.
 - 환경의 회전과 고도는 `MapRotation`의 `VRCObjectSync`가 원격 사용자에게 반영합니다.
-- 소유권을 넘겨받은 사용자는 현재 `MapRotation` 상태를 계산용 `MapRotationTarget`으로 이어받은 뒤 새 상태를 발행합니다.
+- 소유권을 넘겨받은 사용자는 현재 `MapRotation` 상태를 계산용 `MapRotationTarget`으로 이어받은 뒤 새 상태를 전송합니다.
 
-이 구조는 코드와 월드의 `VRCObjectSync` 구성을 기준으로 정리했습니다. 소유권 교대와 중간 입장을 포함한 실제 VRChat 멀티클라이언트 검증은 [Issue #2](https://github.com/hjcud/Shimanami-Ekranoplan/issues/2)에서 추적합니다.
+이 설명은 코드와 월드의 `VRCObjectSync` 구성을 기준으로 작성했습니다. 소유권 교대와 중간 입장이 포함된 실제 VRChat 멀티클라이언트 환경에서는 추가 확인이 필요합니다.
+
+<sub>관련 이슈 · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/2">#2</a></sub>
 
 ## 구현 변화
 
@@ -100,11 +106,11 @@
 | 초기 구조 | 3 | `StateCal`, `RotationCal`, `AirplaneState`가 상태를 나눠 계산 |
 | 현재 구조 | 1 | `AirplaneState`가 속도, 자세, 양력, 환경 이동과 동기화를 처리 |
 
-사용하지 않는 계산 경로를 제거해 비행 상태의 생성 위치와 네트워크 권한을 하나의 동작에서 확인할 수 있게 했습니다.
+사용하지 않는 계산 경로를 제거하고, 비행 계산과 동기화를 `AirplaneState` 하나에서 처리하도록 정리했습니다.
 
 ### 계산 권한 변경
 
-초기 코드는 인스턴스 마스터가 비행을 계산했습니다. 현재 코드는 기체 상태 오브젝트의 소유자가 계산하므로 조종권 교대와 계산 권한을 같은 대상으로 관리할 수 있습니다.
+초기 코드에서는 인스턴스 마스터가 비행을 계산했습니다. 현재는 기체 상태 오브젝트의 소유자가 비행을 계산합니다.
 
 ### 조종 장치와 플랫폼 입력
 

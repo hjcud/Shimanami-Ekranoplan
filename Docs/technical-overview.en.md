@@ -67,7 +67,9 @@ The aircraft and cockpit remain at the reference point while the environment mov
 
 Only the current owner of `AirplaneState` calculates the flight state. The first user to grip the VR control column takes ownership of the control object and `OwnerChangeTarget`. The active player's ID is synchronized as `TriggeredUserID`.
 
-Applying the same ownership lifecycle to desktop input, control release, and player exit is tracked in [Issue #3](https://github.com/hjcud/Shimanami-Ekranoplan/issues/3).
+Ownership handoff currently covers only the path where a VR user first grips the control column. Desktop input, control release, and player exit do not yet follow the same handling.
+
+<sub>Related issue · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/3">#3</a></sub>
 
 ### Synchronized Data
 
@@ -79,7 +81,9 @@ Applying the same ownership lifecycle to desktop input, control release, and pla
 | `AirplaneState` | Speed, pitch and roll, altitude, movement vector, rotation, position, pitch and roll warnings | 9 |
 | `VRCObjectSync` on `MapRotation` | Environment rotation and altitude Transform | — |
 
-The values are sent as Udon synchronized variables without custom bit packing or quantization. `AirplaneState` sends horizontal position, while the `VRCObjectSync` attached to `MapRotation` sends environment rotation and altitude. `RequestSerialization()` runs when control values change and from the owner's flight-calculation loop. Work on the send rate and payload structure is tracked in [Issue #4](https://github.com/hjcud/Shimanami-Ekranoplan/issues/4).
+The values are sent as Udon synchronized variables without custom bit packing or quantization. `AirplaneState` sends horizontal position, while the `VRCObjectSync` attached to `MapRotation` sends environment rotation and altitude. `RequestSerialization()` runs when control values change and from the owner's flight-calculation loop. The send interval and payload structure have not yet been defined separately.
+
+<sub>Related issue · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/4">#4</a></sub>
 
 ### Remote Smoothing and Late Joins
 
@@ -87,9 +91,11 @@ The values are sent as Udon synchronized variables without custom bit packing or
 - Subsequent non-owner `FixedUpdate()` calls follow the horizontal position with `SmoothDamp`, using a default smoothing time of `0.2` seconds.
 - If the position error exceeds the default threshold of `1,500` internal units, the environment snaps to the latest synchronized position.
 - `VRCObjectSync` on `MapRotation` applies environment rotation and altitude for remote users.
-- A user receiving ownership copies the current `MapRotation` state into the calculation-only `MapRotationTarget` before publishing a new state.
+- A user receiving ownership copies the current `MapRotation` state into the calculation-only `MapRotationTarget` before sending the updated state.
 
-This description is based on the code and the world's `VRCObjectSync` configuration. Multi-client VRChat validation, including ownership transfers and late joins, remains tracked in [Issue #2](https://github.com/hjcud/Shimanami-Ekranoplan/issues/2).
+This description is based on the code and the world's `VRCObjectSync` configuration. Ownership transfers and late joins still need validation in a live multi-client VRChat session.
+
+<sub>Related issue · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/2">#2</a></sub>
 
 ## Implementation Changes
 
@@ -100,11 +106,11 @@ This description is based on the code and the world's `VRCObjectSync` configurat
 | Initial | 3 | `StateCal`, `RotationCal`, and `AirplaneState` divided the state calculation |
 | Current | 1 | `AirplaneState` handles speed, attitude, lift, environment movement, and synchronization |
 
-Removing the unused calculation paths places the flight state's source and network authority in one behavior.
+Unused calculation paths were removed so that `AirplaneState` handles both flight calculation and synchronization.
 
 ### Changing Calculation Authority
 
-The initial code assigned flight calculation to the instance master. The current code assigns it to the owner of the flight-state object, keeping control transfer and calculation authority on the same target.
+The initial code assigned flight calculation to the instance master. The current code assigns it to the owner of the flight-state object.
 
 ### Platform-Specific Input
 

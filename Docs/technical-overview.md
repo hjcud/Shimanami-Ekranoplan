@@ -67,7 +67,9 @@
 
 `AirplaneState`の現在の所有者だけが飛行状態を計算します。VRで最初に操縦桿を握ったユーザーは、操縦オブジェクトと`OwnerChangeTarget`の所有権を取得します。操縦中のPlayer IDは`TriggeredUserID`として同期します。
 
-デスクトップ入力、操縦終了、ユーザー退出まで同じ所有権ライフサイクルを適用する作業は[Issue #3](https://github.com/hjcud/Shimanami-Ekranoplan/issues/3)で管理しています。
+現在、所有権の移動はVRで操縦桿を最初に握る場合にのみ適用されています。デスクトップ操作、操縦終了、退出時には同じ処理がまだ適用されていません。
+
+<sub>関連Issue · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/3">#3</a></sub>
 
 ### 同期データ
 
@@ -79,7 +81,9 @@
 | `AirplaneState` | 速度、ピッチ・ロール、高度、移動ベクトル、回転、位置、ピッチ・ロール警告 | 9 |
 | `MapRotation`の`VRCObjectSync` | 環境の回転・高度Transform | — |
 
-現在は独自のビットパッキングや量子化を行わず、Udon同期変数として送信します。水平位置は`AirplaneState`が送り、環境の回転と高度は`MapRotation`に接続した`VRCObjectSync`が送ります。操縦値が変化したときと、所有者の飛行計算ループから`RequestSerialization()`を呼び出します。送信周期とデータ構成の整理は[Issue #4](https://github.com/hjcud/Shimanami-Ekranoplan/issues/4)で進めます。
+現在は独自のビットパッキングや量子化を行わず、Udon同期変数として送信します。水平位置は`AirplaneState`が送り、環境の回転と高度は`MapRotation`に接続した`VRCObjectSync`が送ります。操縦値が変化したときと、所有者の飛行計算ループから`RequestSerialization()`を呼び出します。送信周期とデータ構成はまだ個別に整理されていません。
+
+<sub>関連Issue · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/4">#4</a></sub>
 
 ### リモート補間と途中参加
 
@@ -89,7 +93,9 @@
 - 環境の回転と高度は`MapRotation`の`VRCObjectSync`がリモートユーザーへ反映します。
 - 所有権を受け取ったユーザーは現在の`MapRotation`を計算用`MapRotationTarget`へ引き継いだ後、新しい状態を送信します。
 
-この構成はコードとワールドの`VRCObjectSync`設定を基準に整理しました。所有権移動と途中参加を含む実際のVRChatマルチクライアント検証は[Issue #2](https://github.com/hjcud/Shimanami-Ekranoplan/issues/2)で追跡します。
+この説明はコードとワールドの`VRCObjectSync`設定を基準に作成しました。所有権移動と途中参加を含む実際のVRChatマルチクライアント環境では、追加の確認が必要です。
+
+<sub>関連Issue · <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues/2">#2</a></sub>
 
 ## 実装の変化
 
@@ -100,11 +106,11 @@
 | 初期構成 | 3 | `StateCal`、`RotationCal`、`AirplaneState`で状態を分担 |
 | 現在の構成 | 1 | `AirplaneState`が速度、姿勢、揚力、環境移動、同期を処理 |
 
-不要になった計算経路を削除し、飛行状態の生成元とネットワーク権限を一つのBehaviourから確認できる構成にしました。
+不要になった計算経路を削除し、飛行計算と同期を`AirplaneState`一つで処理する構成にしました。
 
 ### 計算権限の変更
 
-初期コードではインスタンスマスターが飛行を計算していました。現在は飛行状態オブジェクトの所有者が計算するため、操縦権の移動と計算権限を同じ対象で管理できます。
+初期コードではインスタンスマスターが飛行を計算していました。現在は飛行状態オブジェクトの所有者が計算します。
 
 ### プラットフォーム別入力の追加
 

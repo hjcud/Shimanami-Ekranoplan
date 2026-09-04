@@ -101,7 +101,7 @@ The equations and the role of each constant are documented in the [development n
 | Throttle | [`Throttle_Controll.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/Throttle_Controll.cs) | VR hand position and keyboard power control, reverse and extra-power ranges, audio linkage |
 | Engine | [`Engine_Toggle.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/Engine_Toggle.cs) | Shared engine state, startup and idle audio, fan animation |
 | VR seat | [`ColliderStayCheck.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/ColliderStayCheck.cs) | Enter and leave the VR control area; reset input state |
-| Desktop seat | [`DesktopSeatCheck.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/DesktopSeatCheck.cs) | Station entry and exit; desktop input lifecycle |
+| Desktop seat | [`DesktopSeatCheck.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/DesktopSeatCheck.cs) | Station entry and exit; desktop input handling |
 | Mirror | [`MirrorToggle.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Extra/MirrorToggle.cs) | Local, mutually exclusive high- and low-quality mirror selection |
 
 ## Repository Scope

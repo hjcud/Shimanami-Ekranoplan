@@ -101,7 +101,7 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 | 스로틀 | [`Throttle_Controll.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/Throttle_Controll.cs) | VR 손 위치와 키보드 출력 조작, 후진·추가 출력 단계, 사운드 연동 |
 | 엔진 | [`Engine_Toggle.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/Engine_Toggle.cs) | 엔진 상태 공유, 시동·아이들 오디오와 팬 애니메이션 |
 | VR 좌석 | [`ColliderStayCheck.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/ColliderStayCheck.cs) | VR 조종 구역 진입·이탈과 입력 초기화 |
-| 데스크톱 좌석 | [`DesktopSeatCheck.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/DesktopSeatCheck.cs) | Station 탑승·하차, 데스크톱 입력 수명주기 |
+| 데스크톱 좌석 | [`DesktopSeatCheck.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Controll/DesktopSeatCheck.cs) | Station 탑승·하차, 데스크톱 입력 시작·종료 처리 |
 | 미러 | [`MirrorToggle.cs`](./ekranoplan/Assets/Lun/Udon/UdonSharp/Extra/MirrorToggle.cs) | 고품질·저품질 미러의 로컬 상호 배타 전환 |
 
 ## 저장소 안내
