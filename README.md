@@ -109,7 +109,12 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 公開範囲は、自作のC#・UdonSharpコード、開発記録、README用画像です。UnityのScene・Prefabと、外部のモデル・画像・音声・Material・Animation・Shader、`.meta`ファイルは含めていません。
 
 <p align="center">
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">今後の改善項目を見る →</a>
+  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ja.svg">
+      <img src="./Docs/images/issues-button.ja.light.svg" alt="今後の改善項目" width="330">
+    </picture>
+  </a>
 </p>
 
 <details>

@@ -109,7 +109,12 @@ The equations and the role of each constant are documented in the [development n
 This repository contains original C# and UdonSharp code, development notes, and README images. Unity scenes and prefabs, third-party models, images, audio, materials, animations, shaders, and `.meta` files are not included.
 
 <p align="center">
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">View planned improvements →</a>
+  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.en.svg">
+      <img src="./Docs/images/issues-button.en.light.svg" alt="Planned improvements" width="330">
+    </picture>
+  </a>
 </p>
 
 <details>
