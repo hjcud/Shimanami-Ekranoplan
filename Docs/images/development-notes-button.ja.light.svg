@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="330" height="52" viewBox="0 0 330 52" role="img" aria-labelledby="title desc">
+  <title id="title">開発記録</title>
+  <desc id="desc">プロジェクトの開発記録を確認するリンク</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6fcfc"/><stop offset="1" stop-color="#eaf6f7"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="328" height="50" rx="12" fill="url(#bg)" stroke="#76b7c1" stroke-width="2"/>
+  <g fill="none" stroke="#258c9b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 14h12l5 5v18H22zM34 14v6h5M26 26h9M26 31h9"/>
+  </g>
+  <text x="54" y="32" fill="#16485a" font-family="'Noto Sans JP', 'Yu Gothic UI', 'Segoe UI', sans-serif" font-size="16" font-weight="700">開発記録</text>
+  <path d="m298 21 5 5-5 5" fill="none" stroke="#c67b24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

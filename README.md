@@ -90,9 +90,13 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 
 機体質量とエンジン出力を基準に速度変化を計算し、速度の二乗に比例する抗力と、速度・高度・ピッチによる浮揚の変化を`AirplaneState`へ実装しました。実機性能の精密な再現ではなく、VRで安定して操縦できる反応を目標に簡略化しています。
 
-実装で使用する式と各定数の役割は[開発記録](./Docs/technical-overview.md#飛行モデルの計算基準)にまとめています。
-
 <p align="left">
+  <a href="./Docs/technical-overview.md">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.ja.svg">
+      <img src="./Docs/images/development-notes-button.ja.light.svg" alt="開発記録" width="330">
+    </picture>
+  </a>&nbsp;&nbsp;
   <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ja.svg">

@@ -90,9 +90,13 @@ The user who begins piloting takes ownership of the flight-state object, and onl
 
 `AirplaneState` calculates speed from the aircraft mass and engine output, applies drag proportional to speed squared, and varies lift with speed, altitude, and pitch. The model aims for a stable response in VR rather than a precise reproduction of the real aircraft's performance.
 
-The equations and the role of each constant are documented in the [development notes](./Docs/technical-overview.en.md#flight-model-calculation-basis).
-
 <p align="left">
+  <a href="./Docs/technical-overview.en.md">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/development-notes-button.en.svg">
+      <img src="./Docs/images/development-notes-button.en.light.svg" alt="Development notes" width="330">
+    </picture>
+  </a>&nbsp;&nbsp;
   <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.en.svg">
