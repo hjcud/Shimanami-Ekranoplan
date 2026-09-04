@@ -80,19 +80,22 @@
   <g transform="translate(716 190)">
     <rect width="492" height="164" rx="10" fill="#071c26" stroke="#467d7c"/>
     <rect width="492" height="164" rx="10" fill="url(#grid)"/>
-    <g transform="translate(246 64)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="18"/><path d="M-28 0h56M0-28v56"/></g>
-    <circle cx="246" cy="64" r="4" fill="#dcb982"/>
-    <g transform="translate(246 54)">
+    <g transform="translate(246 52)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="18"/><path d="M-28 0h56M0-28v56"/></g>
+    <circle cx="246" cy="52" r="4" fill="#dcb982"/>
+    <g transform="translate(246 48)">
       <use href="#ekranoplanTop"/>
-      <text x="0" y="64" class="label" text-anchor="middle">原点に固定</text>
+      <text x="0" y="52" class="label" text-anchor="middle">原点に固定</text>
     </g>
-    <g transform="translate(358 98)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
-      <path d="M0 20c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
-      <path d="M22 16c7-14 20-18 31-7 7-8 18-7 26 4H22Z" fill="#6d9181" fill-opacity=".58" stroke="none"/>
+    <g transform="translate(54 112)">
+      <rect width="384" height="42" rx="21" fill="#09242d" stroke="#315a62"/>
+      <path d="M78 21H24" fill="none" stroke="#78c9cc" stroke-width="2.5"/>
+      <path d="M32 14l-8 7 8 7" fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g transform="translate(96 1)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
+        <path d="M0 25c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
+        <path d="M15 21c7-14 20-18 31-7 7-8 18-7 26 4H15Z" fill="#6d9181" fill-opacity=".72" stroke="none"/>
+      </g>
+      <text x="180" y="29" class="accent">海と島が後方へ移動</text>
     </g>
-    <path d="M340 134H116" fill="none" stroke="#78c9cc" stroke-width="2.5"/>
-    <path d="M124 127l-8 7 8 7" fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="228" y="157" class="accent" text-anchor="middle">海と島が後方へ移動</text>
   </g>
   <g transform="translate(716 384)">
     <g fill="none" stroke="#78c9cc" stroke-width="1.7"><circle cx="8" cy="0" r="5"/><path d="M8-11v29M0 9c4 5 12 5 16 0"/></g>
