@@ -31,6 +31,10 @@ public class AirplaneState : UdonSharpBehaviour
     public float RotationAddMulti = 0.001f;
     public float MovebySpeedMulti = 70f;
 
+    [Header("Remote Position Sync")]
+    public float RemotePositionSmoothTime = 0.2f;
+    public float RemotePositionSnapDistance = 1500f;
+
     //Sync Values
     [UdonSynced] public float AirplaneSpeed = 0;
     [UdonSynced] public float PitchAngle;
@@ -41,22 +45,41 @@ public class AirplaneState : UdonSharpBehaviour
     [UdonSynced] public Vector3 SyncedPosition;
     [UdonSynced] public bool PitchLimitAlarm;
     [UdonSynced] public bool RollLimitAlarm;
+
+    private Vector3 remotePositionVelocity = Vector3.zero;
+    private bool receivedInitialPosition;
+    private bool wasLocalOwner;
+
+    private void Start()
+    {
+        VRCPlayerApi localPlayer = Networking.LocalPlayer;
+        if (!Utilities.IsValid(localPlayer)) return;
+
+        wasLocalOwner = Networking.IsOwner(localPlayer, this.gameObject);
+        if (wasLocalOwner)
+        {
+            EnsureMapRotationOwnership(localPlayer);
+            ContinueFromCurrentWorldState();
+            PublishWorldState();
+        }
+    }
     
     public void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
-        //if (Networking.IsMaster) CalculateMovement(dt);
-        if (Networking.IsOwner(Networking.LocalPlayer, this.gameObject)) CalculateMovement(dt);
+        VRCPlayerApi localPlayer = Networking.LocalPlayer;
+        bool ownsAirplaneState = Utilities.IsValid(localPlayer)
+            && Networking.IsOwner(localPlayer, this.gameObject);
+
+        if (ownsAirplaneState)
+        {
+            // MapRotation is synchronized by VRCObjectSync. Do not advance the
+            // authoritative state until both network objects have the same owner.
+            if (Networking.IsOwner(localPlayer, MapRotation.gameObject)) CalculateMovement(dt);
+        }
         else
         {
-            //MapPosition.localPosition = Vector3.Lerp(MapPosition.localPosition, SyncedPosition, Vector3.Distance(MapPosition.localPosition, SyncedPosition) * Time.deltaTime / 75f);
-            //Vector3 refVector = Vector3.zero;
-            Vector3 refVector = new Vector3(movement.x, 0f, movement.z);
-            MapPosition.localPosition = Vector3.SmoothDamp(MapPosition.localPosition, SyncedPosition, ref refVector, 0.2f);
-            if (Vector3.Distance(MapPosition.localPosition, SyncedPosition) > 1500)
-            {
-                MapPosition.localPosition = SyncedPosition;
-            }
+            UpdateRemotePosition();
         }
 
         if (PitchLimitAlarm)
@@ -194,11 +217,7 @@ public class AirplaneState : UdonSharpBehaviour
         + "\nMoveVecRot: " + MoveVecRot.ToString("F5")
         + "\nCoordinate: " + MapPosition.localPosition.ToString("F5");
 
-        //Value Sync
-        SyncedAirHight = MapRotation.position.y;
-        SyncedRotation = MapRotation.eulerAngles;
-        SyncedPosition = MapPosition.localPosition;
-        RequestSerialization();
+        PublishWorldState();
     }
 
     public override void OnDeserialization()
@@ -208,22 +227,81 @@ public class AirplaneState : UdonSharpBehaviour
 
     public void UpdateCordinate()
     {
-        if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
+        if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject)
+            && !receivedInitialPosition)
         {
-            MapRotationTarget.eulerAngles = SyncedRotation;
-            MapRotationTarget.position = new Vector3(0f, SyncedAirHight, 0f);
+            // MapRotationTarget belongs to the owner's calculation path. The
+            // visible MapRotation is updated only by VRCObjectSync on remotes.
+            receivedInitialPosition = true;
+            SnapRemotePosition();
         }
     }
 
-    public override void OnPlayerJoined(VRCPlayerApi player)
+    public override void OnOwnershipTransferred(VRCPlayerApi newOwner)
     {
-        if (player.isLocal)
+        remotePositionVelocity = Vector3.zero;
+        bool locallyOwnedBeforeTransfer = wasLocalOwner;
+        wasLocalOwner = newOwner.isLocal;
+
+        if (newOwner.isLocal)
         {
-            MapRotationTarget.eulerAngles = SyncedRotation;
-            MapRotationTarget.position = new Vector3(0f, SyncedAirHight, 0f);
-            MapRotation.eulerAngles = SyncedRotation;
-            MapRotation.position = new Vector3(0f, SyncedAirHight, 0f);
-            MapPosition.localPosition = SyncedPosition;
+            EnsureMapRotationOwnership(newOwner);
+            ContinueFromCurrentWorldState();
+            PublishWorldState();
         }
+        else if (locallyOwnedBeforeTransfer)
+        {
+            // The currently displayed state is already a valid starting point.
+            // Smooth the next snapshot instead of treating it as a late join.
+            receivedInitialPosition = true;
+        }
+    }
+
+    private void UpdateRemotePosition()
+    {
+        if (!receivedInitialPosition) return;
+
+        float distance = Vector3.Distance(MapPosition.localPosition, SyncedPosition);
+        if (RemotePositionSmoothTime <= 0f
+            || (RemotePositionSnapDistance > 0f && distance > RemotePositionSnapDistance))
+        {
+            SnapRemotePosition();
+            return;
+        }
+
+        MapPosition.localPosition = Vector3.SmoothDamp(
+            MapPosition.localPosition,
+            SyncedPosition,
+            ref remotePositionVelocity,
+            RemotePositionSmoothTime);
+    }
+
+    private void SnapRemotePosition()
+    {
+        MapPosition.localPosition = SyncedPosition;
+        remotePositionVelocity = Vector3.zero;
+    }
+
+    private void EnsureMapRotationOwnership(VRCPlayerApi owner)
+    {
+        if (!Networking.IsOwner(owner, MapRotation.gameObject))
+        {
+            Networking.SetOwner(owner, MapRotation.gameObject);
+        }
+    }
+
+    private void ContinueFromCurrentWorldState()
+    {
+        MapRotationTarget.position = MapRotation.position;
+        MapRotationTarget.rotation = MapRotation.rotation;
+        receivedInitialPosition = true;
+    }
+
+    private void PublishWorldState()
+    {
+        SyncedAirHight = MapRotation.position.y;
+        SyncedRotation = MapRotation.eulerAngles;
+        SyncedPosition = MapPosition.localPosition;
+        RequestSerialization();
     }
 }
