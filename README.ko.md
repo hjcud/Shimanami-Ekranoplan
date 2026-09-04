@@ -61,10 +61,16 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 기체와 조종석을 원점에 고정하고 `MapPosition`, `MapRotation`, `MapRotationTarget`으로 바다와 섬을 반대 방향으로 움직이도록 바꿨습니다. 플레이어 주변의 Transform 좌표를 작게 유지해 이동 거리에 따라 커지는 부동 소수점 오차를 줄였습니다.
 
 <p align="center">
-  <img src="./Docs/images/flight-network.ko.svg" alt="원점 고정 구조에서 비행 상태 계산과 원격 환경 복원으로 이어지는 데이터 흐름" width="900">
+  <img src="./Docs/images/origin-fixed-flight.ko.svg" alt="기체가 월드 좌표 위를 이동하던 기존 방식과 기체를 원점에 고정하고 바다와 섬을 뒤로 이동시키는 변경 방식 비교" width="900">
 </p>
 
+### 비행 상태 동기화 — 소유자 계산과 원격 복원
+
 조종을 시작한 사용자가 기체 상태 오브젝트의 소유권을 가져가며, 해당 사용자만 비행을 계산합니다. 다른 사용자는 전달받은 수평 위치를 `SmoothDamp`로 보간하고, 큰 위치 오차와 중간 입장 시에는 마지막 상태에서 복원합니다.
+
+<p align="center">
+  <img src="./Docs/images/flight-network.ko.svg" alt="조종 입력에서 소유자의 비행 계산, 상태 동기화와 원격 복원으로 이어지는 흐름" width="900">
+</p>
 
 ### 비행 모델 — 계산 시트에서 `AirplaneState`로
 

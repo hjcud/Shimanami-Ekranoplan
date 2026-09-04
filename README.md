@@ -61,10 +61,16 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 機体とコックピットを原点へ固定し、`MapPosition`、`MapRotation`、`MapRotationTarget`を使って海と島を逆方向へ動かす構成に変更しました。プレイヤー周辺のTransform座標を小さく保ち、移動距離に応じて増える浮動小数点誤差を抑えています。
 
 <p align="center">
-  <img src="./Docs/images/flight-network.ja.svg" alt="原点固定構造から飛行状態の計算、リモート環境の復元までのデータフロー" width="900">
+  <img src="./Docs/images/origin-fixed-flight.ja.svg" alt="機体がワールド座標上を移動する従来の構成と、機体を原点に固定して海と島を後方へ動かす変更後の構成の比較" width="900">
 </p>
 
+### 飛行状態の同期 — 所有者による計算とリモート復元
+
 操縦を始めたユーザーが飛行状態オブジェクトの所有権を取得し、そのユーザーだけが飛行を計算します。ほかのユーザーは受信した水平位置を`SmoothDamp`で補間し、大きな位置誤差や途中参加時には最後の状態から復元します。
+
+<p align="center">
+  <img src="./Docs/images/flight-network.ja.svg" alt="操縦入力から所有者による飛行計算、状態同期、リモート復元へ続く流れ" width="900">
+</p>
 
 ### 飛行モデル — 計算シートから`AirplaneState`へ
 

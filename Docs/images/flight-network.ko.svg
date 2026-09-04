@@ -1,44 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="700" viewBox="0 0 1280 700" role="img" aria-labelledby="title desc">
-  <title id="title">원점 고정 비행과 동기화 흐름</title>
-  <desc id="desc">계산상 기체가 이동할 방향과 반대로 바다와 섬을 움직여 기체와 조종석을 원점에 고정하고, 조종 입력에서 비행 계산, Udon 상태 동기화와 VRCObjectSync, 원격 환경 복원으로 이어지는 흐름</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">비행 상태 동기화 흐름</title>
+  <desc id="desc">조종 입력이 조종권을 가진 사용자의 비행 계산으로 전달되고, Udon 비행 상태와 VRCObjectSync를 거쳐 원격 환경에 복원되는 흐름. 중간 입장과 위치 오류 보정은 전달받은 상태에서 이어진다.</desc>
   <defs>
-    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0a2d40"/><stop offset=".62" stop-color="#082233"/><stop offset="1" stop-color="#06131e"/></linearGradient>
-    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d1f7f4" stop-opacity=".11"/><stop offset="1" stop-color="#63b8c4" stop-opacity="0"/></linearGradient>
-    <linearGradient id="originPanel" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#092431"/><stop offset=".5" stop-color="#0b2934"/><stop offset="1" stop-color="#102b30"/></linearGradient>
-    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse"><path d="M56 0H0V56" fill="none" stroke="#8fd4d7" stroke-opacity=".045"/></pattern>
-    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dy="8" stdDeviation="9" flood-color="#000" flood-opacity=".28"/></filter>
-    <style>text{font-family:Pretendard,"Noto Sans KR","Segoe UI",sans-serif}.title{fill:#f4eadb;font-size:34px;font-weight:750}.sub{fill:#91a5a8;font-size:14px;font-weight:600}.step{fill:#78bbb8;font-size:12px;font-weight:750}.ct{fill:#f0ece3;font-size:17px;font-weight:700}.cb{fill:#9faeb0;font-size:13px;font-weight:550}.tag{fill:#dcb982;font-size:12px;font-weight:700}.diagram{fill:#e9ece7;font-size:15px;font-weight:700}.diagram2{fill:#9faeb0;font-size:13px;font-weight:600}.foot{fill:#e9ece7;font-size:15px;font-weight:650}.foot2{fill:#93a5a7;font-size:12px;font-weight:550}</style>
+    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0a2d40"/><stop offset=".62" stop-color="#082233"/><stop offset="1" stop-color="#06131e"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0c2937"/><stop offset="1" stop-color="#071925"/>
+    </linearGradient>
+    <linearGradient id="activeCard" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#103139"/><stop offset="1" stop-color="#09212a"/>
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0V56" fill="none" stroke="#8fd4d7" stroke-opacity=".045"/>
+    </pattern>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dy="7" stdDeviation="8" flood-color="#000" flood-opacity=".26"/>
+    </filter>
+    <style>
+      text{font-family:Pretendard,"Noto Sans KR","Segoe UI",sans-serif}
+      .title{fill:#f4eadb;font-size:32px;font-weight:700}.sub{fill:#91a5a8;font-size:14px;font-weight:600}
+      .cardTitle{fill:#f0ece3;font-size:20px;font-weight:700}.detail{fill:#aab9ba;font-size:15px;font-weight:550}
+      .condition{fill:#dcb982;font-size:13px;font-weight:700}.branchTitle{fill:#e9ece7;font-size:17px;font-weight:700}
+      .branchText{fill:#9faeb0;font-size:13px;font-weight:550}
+    </style>
   </defs>
-  <rect x="16" y="16" width="1248" height="668" rx="28" fill="url(#panel)"/>
-  <path d="M138 16h116l200 668H326zM528 16h86l88 668H580zM928 16h104L916 684H792z" fill="url(#ray)" opacity=".48"/>
-  <rect x="16" y="16" width="1248" height="668" rx="28" fill="url(#grid)"/>
-  <g fill="none" stroke="#9fe0e1" stroke-opacity=".18"><path d="M42 41c107-17 182 17 289 0s188 8 291-1 188-17 289 0 182 0 311-3"/><circle cx="1190" cy="90" r="5"/><circle cx="1170" cy="119" r="2.5"/><circle cx="93" cy="638" r="3.5"/></g>
-  <rect x="16.5" y="16.5" width="1247" height="667" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/><path d="M46 17H270" stroke="#63bdc3" stroke-width="3"/><path d="M270 17H392" stroke="#d59b63" stroke-width="3"/>
-  <text x="54" y="68" class="title">원점 고정 비행과 동기화 흐름</text><text x="54" y="98" class="sub">계산상 기체가 이동할 방향과 반대로 환경을 움직이고, 그 상태를 모든 사용자에게 전달</text>
 
-  <g filter="url(#shadow)"><rect x="48" y="120" width="1184" height="132" rx="17" fill="url(#originPanel)" stroke="#527d79" stroke-opacity=".9"/></g>
-  <text x="72" y="149" class="step">원점 고정 구조</text>
-  <g fill="none" stroke="#74b9b7" stroke-opacity=".22" stroke-linecap="round"><path d="M72 220c92-14 156 13 248 0s162 8 253 0 164-13 255 0 162 0 279-3"/><path d="M72 232c88-9 160 10 250 0s164 5 250 0 168-10 256 0 166 2 279-1"/></g>
-  <path d="M1067 219c12-21 28-28 46-20 8-15 25-19 39-8 9-5 20-4 29 4l14 24z" fill="#577b72" fill-opacity=".28"/>
-  <g fill="none" stroke="#7fc6c3" stroke-opacity=".48" stroke-width="1.5"><circle cx="640" cy="197" r="31"/><path d="M594 197h92M640 151v92"/></g><circle cx="640" cy="197" r="4" fill="#dcb982"/>
-  <path d="M612 190l19-4 14-20 6 2-7 21 21 6v5l-21 6 7 21-6 2-14-20-19-4z" fill="#e9ece7" stroke="#7fc6c3" stroke-width="1.5" stroke-linejoin="round"/>
-  <g fill="none" stroke="#dcb982" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M690 176h210"/><path d="M891 169l9 7-9 7"/></g>
-  <g fill="none" stroke="#67b3b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M590 207H380"/><path d="M389 200l-9 7 9 7"/></g>
-  <text x="720" y="158" class="diagram">계산상 기체 이동 +Δ</text><text x="170" y="189" class="diagram">바다 · 섬 · 환경</text><text x="170" y="215" class="diagram2">반대 방향으로 이동 −Δ</text><text x="690" y="218" class="diagram">기체 · 조종석</text><text x="690" y="241" class="diagram2">월드 원점 (0, 0, 0)에 고정</text>
+  <rect x="16" y="16" width="1248" height="528" rx="28" fill="url(#background)"/>
+  <path d="M146 16h112l154 528H292zM892 16h112l-138 528H744z" fill="#d1f7f4" fill-opacity=".035"/>
+  <rect x="16" y="16" width="1248" height="528" rx="28" fill="url(#grid)"/>
+  <rect x="16.5" y="16.5" width="1247" height="527" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/>
+  <path d="M46 17H270" stroke="#63bdc3" stroke-width="3"/><path d="M270 17H392" stroke="#d59b63" stroke-width="3"/>
+  <text x="54" y="66" class="title">비행 상태 동기화 — 소유자 계산과 원격 복원</text>
+  <text x="54" y="94" class="sub">조종 권한을 계산 조건으로 분리하고 핵심 처리 단계를 네 개로 구성</text>
 
   <g filter="url(#shadow)">
-    <rect x="48" y="280" width="208" height="235" rx="17" fill="#071a27" fill-opacity=".88" stroke="#397488"/><rect x="292" y="280" width="208" height="235" rx="17" fill="#071a27" fill-opacity=".88" stroke="#397488"/><rect x="536" y="280" width="208" height="235" rx="17" fill="#0a202a" fill-opacity=".9" stroke="#6d7765"/><rect x="780" y="280" width="208" height="235" rx="17" fill="#071a27" fill-opacity=".88" stroke="#6d7765"/><rect x="1024" y="280" width="208" height="235" rx="17" fill="#071a27" fill-opacity=".88" stroke="#397488"/>
+    <rect x="48" y="136" width="244" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
+    <rect x="352" y="136" width="244" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
+    <rect x="656" y="136" width="244" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
+    <rect x="960" y="136" width="244" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
   </g>
-  <text x="70" y="313" class="step">입력</text><text x="70" y="350" class="ct">VR · 데스크톱</text><text x="70" y="385" class="cb">손 위치와 회전</text><text x="70" y="410" class="cb">또는 키보드 입력</text><text x="70" y="461" class="tag">출력 · 피치 · 요 · 롤</text>
-  <text x="314" y="313" class="step">조종 권한</text><text x="314" y="350" class="ct">조종권 획득</text><text x="314" y="385" class="cb">조종자 식별</text><text x="314" y="410" class="cb">상태 오브젝트 소유권</text><text x="314" y="461" class="tag">입력 상태 전달</text>
-  <text x="558" y="313" class="step">비행 계산</text><text x="558" y="350" class="ct">비행 상태 계산</text><text x="558" y="385" class="cb">속도 · 항력 · 양력</text><text x="558" y="410" class="cb">자세 제한 · 환경 좌표</text><text x="558" y="461" class="tag">상태 지속 갱신</text>
-  <text x="802" y="313" class="step">동기화</text><text x="802" y="350" class="ct">동기화 경로</text><text x="802" y="385" class="cb">Udon 비행 상태</text><text x="802" y="410" class="cb">맵 회전 · VRCObjectSync</text><text x="802" y="461" class="tag">상태와 환경 공유</text>
-  <text x="1046" y="313" class="step">원격 반영</text><text x="1046" y="350" class="ct">환경 상태 복원</text><text x="1046" y="385" class="cb">회전과 고도 적용</text><text x="1046" y="410" class="cb">수평 위치 보간</text><text x="1046" y="461" class="tag">원격 화면 반영</text>
-  <g fill="none" stroke="#67b3b0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M263 405H285"/><path d="M278 398l7 7-7 7"/><path d="M507 405h22"/><path d="M522 398l7 7-7 7"/><path d="M751 405h22"/><path d="M766 398l7 7-7 7"/><path d="M995 405h22"/><path d="M1010 398l7 7-7 7"/></g>
-  <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6"><path d="M884 515v18H572v10"/><path d="M1128 515v28"/></g>
-  <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M565 536l7 7 7-7"/><path d="M1121 536l7 7 7-7"/></g>
-  <g transform="translate(48 550)">
-    <rect width="572" height="116" rx="16" fill="#092431" stroke="#397488"/><text x="24" y="32" class="step">중간 입장</text><text x="24" y="64" class="foot">공유된 회전 · 고도 · 수평 위치를 적용</text><text x="24" y="90" class="foot2">입장 시 현재 비행 상태에서 환경을 복원</text>
-    <rect x="612" width="572" height="116" rx="16" fill="#14282d" stroke="#6d7765"/><text x="636" y="32" class="step">오류 보정</text><text x="636" y="64" class="foot">위치 차이가 커지면 공유 좌표로 복원</text><text x="636" y="90" class="foot2">작은 오차는 부드럽게 보간 · 큰 오차는 즉시 보정</text>
+
+  <g transform="translate(76 168)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="0" y="0" width="30" height="20" rx="6"/><path d="M8 7v7M4.5 10.5h7M21 8h.1M25 12h.1"/>
   </g>
+  <text x="76" y="224" class="cardTitle">조종 입력</text>
+  <text x="76" y="262" class="detail">VR 손 움직임</text><text x="76" y="288" class="detail">데스크톱 키보드</text>
+
+  <g transform="translate(380 166)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 24a15 15 0 1 1 28 0"/><path d="M15 15l8-7"/><circle cx="15" cy="15" r="2" fill="#dcb982" stroke="none"/>
+  </g>
+  <text x="380" y="224" class="cardTitle">비행 계산</text>
+  <text x="380" y="262" class="detail">속도 · 자세</text><text x="380" y="288" class="detail">환경 좌표</text>
+
+  <g transform="translate(684 163)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="15" cy="16" r="3" fill="#dcb982" stroke="none"/><path d="M8 10a10 10 0 0 0 0 12M22 10a10 10 0 0 1 0 12M3 5a16 16 0 0 0 0 22M27 5a16 16 0 0 1 0 22"/>
+  </g>
+  <text x="684" y="224" class="cardTitle">상태 동기화</text>
+  <text x="684" y="262" class="detail">Udon 비행 상태</text><text x="684" y="288" class="detail">VRCObjectSync</text>
+
+  <g transform="translate(988 165)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="0" y="0" width="31" height="22" rx="2"/><path d="M10 28h11M15.5 22v6"/>
+  </g>
+  <text x="988" y="224" class="cardTitle">원격 복원</text>
+  <text x="988" y="262" class="detail">회전 · 고도 적용</text><text x="988" y="288" class="detail">수평 위치 보간</text>
+
+  <g fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M304 235h34"/><path d="M330 228l8 7-8 7"/>
+    <path d="M608 235h34"/><path d="M634 228l8 7-8 7"/>
+    <path d="M912 235h34"/><path d="M938 228l8 7-8 7"/>
+  </g>
+  <g transform="translate(306 165)">
+    <path d="M11 0a7 7 0 1 0 6.8 8.6H28v6h-5v5h-6v-5h-2.1" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="-1" y="44" class="condition">조종권</text>
+  </g>
+
+  <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6">
+    <path d="M778 334v43"/><path d="M1082 334v43"/>
+  </g>
+  <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M771 369l7 8 7-8"/><path d="M1075 369l7 8 7-8"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="644" y="390" width="268" height="112" rx="16" fill="#092431" stroke="#397488"/>
+    <rect x="948" y="390" width="268" height="112" rx="16" fill="#14282d" stroke="#6d7765"/>
+  </g>
+  <g transform="translate(670 417)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 8h19M12 1l7 7-7 7M25 0v16"/>
+  </g>
+  <text x="708" y="430" class="branchTitle">중간 입장</text>
+  <text x="670" y="466" class="branchText">현재 비행 상태에서 환경 복원</text>
+
+  <g transform="translate(974 416)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 3a8 8 0 0 1-10 10L3 22l-5-5 9-9A8 8 0 0 1 17-2l-5 5 5 5z"/>
+  </g>
+  <text x="1012" y="430" class="branchTitle">오류 보정</text>
+  <text x="974" y="466" class="branchText">오차에 따라 보간하거나 즉시 보정</text>
 </svg>

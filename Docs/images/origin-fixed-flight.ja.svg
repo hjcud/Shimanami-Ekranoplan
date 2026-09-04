@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">長距離飛行時の座標の揺れを抑える原点固定構造</title>
+  <desc id="desc">機体がワールド座標上を移動する従来の構成と、機体を原点に固定して海と島を後方へ動かす変更後の構成を比較した図</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0a2d40"/><stop offset=".62" stop-color="#082233"/><stop offset="1" stop-color="#06131e"/>
+    </linearGradient>
+    <linearGradient id="beforeCard" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#122a37"/><stop offset="1" stop-color="#0a1b26"/>
+    </linearGradient>
+    <linearGradient id="afterCard" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0c3039"/><stop offset="1" stop-color="#082029"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#8fd4d7" stroke-opacity=".11"/>
+    </pattern>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dy="7" stdDeviation="8" flood-color="#000" flood-opacity=".26"/>
+    </filter>
+    <style>
+      text{font-family:"Noto Sans JP","Yu Gothic UI","Segoe UI",sans-serif}
+      .title{fill:#f4eadb;font-size:32px;font-weight:700}.sub{fill:#91a5a8;font-size:14px;font-weight:600}
+      .cardTitle{fill:#f0ece3;font-size:21px;font-weight:700}.label{fill:#e9ece7;font-size:15px;font-weight:650}
+      .muted{fill:#9faeb0;font-size:13px;font-weight:550}.danger{fill:#d97871;font-size:13px;font-weight:650}
+      .accent{fill:#78c9cc;font-size:13px;font-weight:650}.fact{fill:#dbe5e3;font-size:15px;font-weight:600}
+    </style>
+  </defs>
+
+  <rect x="16" y="16" width="1248" height="488" rx="28" fill="url(#background)"/>
+  <path d="M146 16h112l142 488H286zM874 16h112l-126 488H738z" fill="#d1f7f4" fill-opacity=".035"/>
+  <rect x="16.5" y="16.5" width="1247" height="487" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/>
+  <path d="M46 17H270" stroke="#63bdc3" stroke-width="3"/><path d="M270 17H392" stroke="#d59b63" stroke-width="3"/>
+  <text x="54" y="66" class="title">長距離飛行時の座標の揺れ — 機体を原点へ固定</text>
+  <text x="54" y="94" class="sub">従来の構成と変更後の結果を比較</text>
+
+  <g filter="url(#shadow)">
+    <rect x="48" y="120" width="540" height="342" rx="18" fill="url(#beforeCard)" stroke="#6f5960"/>
+    <rect x="692" y="120" width="540" height="342" rx="18" fill="url(#afterCard)" stroke="#467d7c"/>
+  </g>
+
+  <g transform="translate(72 148)">
+    <circle cx="10" cy="-6" r="8" fill="none" stroke="#d97871" stroke-width="1.5"/>
+    <path d="M10-10v5M10 1v1M6-5h8" fill="none" stroke="#d97871" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="30" y="0" class="cardTitle">従来の構成</text>
+  </g>
+  <g transform="translate(716 148)">
+    <circle cx="10" cy="-6" r="8" fill="none" stroke="#78c9cc" stroke-width="1.5"/>
+    <path d="M6-6l3 3 5-6" fill="none" stroke="#78c9cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="30" y="0" class="cardTitle">変更後</text>
+  </g>
+
+  <g transform="translate(72 178)">
+    <rect width="492" height="164" rx="10" fill="#071824" stroke="#49616b"/>
+    <rect width="492" height="164" rx="10" fill="url(#grid)"/>
+    <g transform="translate(54 82)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="9"/><path d="M-14 0h28M0-14v28"/></g>
+    <circle cx="54" cy="82" r="3.5" fill="#78c9cc"/>
+    <path d="M70 82H350" fill="none" stroke="#d97871" stroke-width="2" stroke-dasharray="7 7"/>
+    <path d="M342 75l8 7-8 7" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="192" y="69" class="danger" text-anchor="middle">原点からの距離が増加</text>
+    <g transform="translate(374 70)">
+      <path d="M-26 0l17-4 13-18 5 2-5 19 21 6v5L4 16l5 19-5 2-13-18-17-4z" fill="#e9ece7" stroke="#78c9cc" stroke-width="1.3" stroke-linejoin="round"/>
+      <text x="0" y="54" class="label" text-anchor="middle">機体が移動</text>
+    </g>
+  </g>
+  <g transform="translate(72 368)">
+    <path d="M0 0h14" stroke="#d97871" stroke-width="2"/><path d="M9-5l5 5-5 5" fill="none" stroke="#d97871" stroke-width="2"/>
+    <text x="28" y="6" class="fact">機体と乗員がワールド座標上を移動</text>
+    <path d="M0 39l6-12 7 23 7-16 8 5" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="40" y="45" class="fact">長距離飛行で画面の揺れが増加</text>
+  </g>
+
+  <g transform="translate(716 178)">
+    <rect width="492" height="164" rx="10" fill="#071c26" stroke="#467d7c"/>
+    <rect width="492" height="164" rx="10" fill="url(#grid)"/>
+    <g transform="translate(246 64)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="18"/><path d="M-28 0h56M0-28v56"/></g>
+    <circle cx="246" cy="64" r="4" fill="#dcb982"/>
+    <g transform="translate(246 54)">
+      <path d="M-26 0l17-4 13-18 5 2-5 19 21 6v5L4 16l5 19-5 2-13-18-17-4z" fill="#e9ece7" stroke="#78c9cc" stroke-width="1.3" stroke-linejoin="round"/>
+      <text x="0" y="58" class="label" text-anchor="middle">原点に固定</text>
+    </g>
+    <g transform="translate(40 132)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
+      <path d="M0 0c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
+      <path d="M410 4c8-16 22-20 35-8 8-9 20-8 29 4z" fill="#577b72" fill-opacity=".34" stroke="none"/>
+    </g>
+    <path d="M378 130H116" fill="none" stroke="#78c9cc" stroke-width="2.5"/>
+    <path d="M124 123l-8 7 8 7" fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="247" y="148" class="accent" text-anchor="middle">海と島が後方へ移動</text>
+  </g>
+  <g transform="translate(716 368)">
+    <g fill="none" stroke="#78c9cc" stroke-width="1.7"><circle cx="8" cy="0" r="5"/><path d="M8-11v29M0 9c4 5 12 5 16 0"/></g>
+    <text x="28" y="6" class="fact">機体と操縦席を原点へ固定</text>
+    <path d="M18 39H0M6 33l-6 6 6 6" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="28" y="45" class="fact">海と島を反対方向へ移動</text>
+  </g>
+
+  <g transform="translate(640 291)" fill="none" stroke="#dcb982" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="24" fill="#0a202a" stroke="#6d7765"/><path d="M-7-9l10 9-10 9M3-9l10 9-10 9"/>
+  </g>
+</svg>
