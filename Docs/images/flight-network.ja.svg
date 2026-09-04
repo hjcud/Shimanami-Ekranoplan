@@ -30,7 +30,6 @@
   <path d="M146 16h112l154 528H292zM892 16h112l-138 528H744z" fill="#d1f7f4" fill-opacity=".035"/>
   <rect x="16" y="16" width="1248" height="528" rx="28" fill="url(#grid)"/>
   <rect x="16.5" y="16.5" width="1247" height="527" rx="27.5" fill="none" stroke="#73aeb9" stroke-opacity=".31"/>
-  <path d="M46 17H270" stroke="#63bdc3" stroke-width="3"/><path d="M270 17H392" stroke="#d59b63" stroke-width="3"/>
   <text x="54" y="66" class="title">飛行状態の同期 — 所有者による計算とリモート復元</text>
   <text x="54" y="94" class="sub">操縦権を計算条件として分け、主要な処理を四つの段階に整理</text>
 
