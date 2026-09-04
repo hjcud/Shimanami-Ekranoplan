@@ -24,13 +24,12 @@
       .muted{fill:#aebbbc;font-size:18px;font-weight:550}.danger{fill:#ed8178;font-size:19px;font-weight:650}
       .accent{fill:#83d7d9;font-size:19px;font-weight:650}.fact{fill:#e4ecea;font-size:20px;font-weight:600}
     </style>
-    <g id="ekranoplanTop" stroke="#78c9cc" stroke-width="1.4" stroke-linejoin="round">
-      <path d="M-45-4L-35-21H-27L-31-4-20-3V3L-31 4-27 21H-35L-45 4Z" fill="#c9d3d4"/>
-      <path d="M-20-4L-5-34H8L15-4 25-3V3L15 4 8 34H-5L-20 4Z" fill="#e9ece7"/>
-      <path d="M17-5L21-23H31L35-5V5L31 23H21L17 5Z" fill="#d9e1e0"/>
-      <path d="M22-14H32M20-5H35M20 5H35M22 14H32" fill="none" stroke="#81989b" stroke-width="1" opacity=".75"/>
-      <path d="M-54-6H41C49-6 55-3 55 0S49 6 41 6H-54C-57 6-59 3-59 0S-57-6-54-6Z" fill="#829196"/>
-      <path d="M40-5C49-5 55-3 55 0S49 5 40 5C44 2 44-2 40-5Z" fill="#e2bb65" stroke="none"/>
+    <g id="ekranoplanTop" stroke="#78c9cc" stroke-width="1.25" stroke-linejoin="round">
+      <path d="M-52-4L-39-22H-29L-34-4V4L-29 22H-39L-52 4Z" fill="#c9d3d4"/>
+      <path d="M-14-5L-1-33H18L31-5V5L18 33H-1L-14 5Z" fill="#e9ece7"/>
+      <path d="M-58-6H42C51-6 58-3 60 0C58 3 51 6 42 6H-58L-64 0Z" fill="#dce5e3"/>
+      <path d="M41-5C50-5 57-3 60 0C57 3 50 5 41 5C45 2 45-2 41-5Z" fill="#e2bb65" stroke="none"/>
+      <path d="M-49 0H39" fill="none" stroke="#93a5a7" stroke-width="1" opacity=".8"/>
     </g>
   </defs>
 
@@ -46,13 +45,15 @@
   </g>
 
   <g transform="translate(72 160)">
-    <circle cx="10" cy="-6" r="8" fill="none" stroke="#d97871" stroke-width="1.5"/>
-    <path d="M10-10v5M10 1v1M6-5h8" fill="none" stroke="#d97871" stroke-width="1.5" stroke-linecap="round"/>
+    <g fill="none" stroke="#d97871" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="10" cy="-6" r="9"/><path d="M1-6h18M10-15c3 3 4 6 4 9s-1 6-4 9M10-15c-3 3-4 6-4 9s1 6 4 9"/>
+    </g>
     <text x="30" y="0" class="cardTitle">Original approach</text>
   </g>
   <g transform="translate(716 160)">
-    <circle cx="10" cy="-6" r="8" fill="none" stroke="#78c9cc" stroke-width="1.5"/>
-    <path d="M6-6l3 3 5-6" fill="none" stroke="#78c9cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="none" stroke="#78c9cc" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="10" cy="-6" r="8"/><circle cx="10" cy="-6" r="3"/><path d="M10-18v4M10 2v4M-2-6h4M18-6h4"/>
+    </g>
     <text x="30" y="0" class="cardTitle">Origin-fixed approach</text>
   </g>
 
@@ -97,7 +98,7 @@
     </g>
   </g>
   <g transform="translate(716 384)">
-    <g fill="none" stroke="#78c9cc" stroke-width="1.7"><circle cx="8" cy="0" r="5"/><path d="M8-11v29M0 9c4 5 12 5 16 0"/></g>
+    <g fill="none" stroke="#78c9cc" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="0" y="-2" width="17" height="14" rx="2"/><path d="M4-2v-4a4.5 4.5 0 0 1 9 0v4M8.5 3v4"/></g>
     <text x="28" y="6" class="fact">Aircraft and cockpit remain at the origin</text>
     <path d="M18 39H0M6 33l-6 6 6 6" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <text x="28" y="45" class="fact">Sea and islands move in the opposite direction</text>

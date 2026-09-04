@@ -21,7 +21,7 @@
       text{font-family:Inter,"Segoe UI",sans-serif}
       .title{fill:#f4eadb;font-size:36px;font-weight:700}.sub{fill:#a8b8b9;font-size:17px;font-weight:600}
       .cardTitle{fill:#f0ece3;font-size:26px;font-weight:700}.detail{fill:#bdc9c9;font-size:19px;font-weight:550}
-      .condition{fill:#e5be7f;font-size:19px;font-weight:700}.branchTitle{fill:#f0ece3;font-size:22px;font-weight:700}
+      .condition{fill:#e5be7f;font-size:17px;font-weight:700}.branchTitle{fill:#f0ece3;font-size:22px;font-weight:700}
       .branchText{fill:#b4c1c1;font-size:19px;font-weight:550}
     </style>
   </defs>
@@ -69,9 +69,10 @@
     <path d="M596 235h60"/><path d="M648 228l8 7-8 7"/>
     <path d="M906 235h60"/><path d="M958 228l8 7-8 7"/>
   </g>
-  <g transform="translate(304 164)">
-    <path d="M11 0a7 7 0 1 0 6.8 8.6H28v6h-5v5h-6v-5h-2.1" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="14" y="50" class="condition" text-anchor="middle">control</text>
+  <g transform="translate(316 170)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="-5" cy="-5" r="5"/><path d="M-15 11c2-7 18-7 20 0"/>
+    <circle cx="11" cy="7" r="7"/><path d="M8 7l2 2 4-5"/>
+    <text x="0" y="42" class="condition" text-anchor="middle" stroke="none">control</text>
   </g>
   <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6">
     <path d="M781 334v43"/><path d="M1091 334v43"/>
