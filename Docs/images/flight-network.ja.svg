@@ -35,10 +35,10 @@
   <text x="54" y="94" class="sub">操縦権を計算条件として分け、主要な処理を四つの段階に整理</text>
 
   <g filter="url(#shadow)">
-    <rect x="48" y="136" width="244" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
-    <rect x="352" y="136" width="244" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
-    <rect x="656" y="136" width="244" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
-    <rect x="960" y="136" width="244" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
+    <rect x="48" y="136" width="226" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
+    <rect x="358" y="136" width="226" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
+    <rect x="668" y="136" width="226" height="198" rx="18" fill="url(#activeCard)" stroke="#6d7765"/>
+    <rect x="978" y="136" width="226" height="198" rx="18" fill="url(#card)" stroke="#397488"/>
   </g>
 
   <g transform="translate(76 168)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -47,52 +47,55 @@
   <text x="76" y="224" class="cardTitle">操縦入力</text>
   <text x="76" y="262" class="detail">VRの手の動き</text><text x="76" y="291" class="detail">デスクトップ入力</text>
 
-  <g transform="translate(380 166)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(386 166)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M1 24a15 15 0 1 1 28 0"/><path d="M15 15l8-7"/><circle cx="15" cy="15" r="2" fill="#dcb982" stroke="none"/>
   </g>
-  <text x="380" y="224" class="cardTitle">飛行計算</text>
-  <text x="380" y="262" class="detail">速度 · 姿勢</text><text x="380" y="291" class="detail">環境座標</text>
-  <text x="380" y="321" class="condition">所有者のみ計算</text>
+  <text x="386" y="224" class="cardTitle">飛行計算</text>
+  <text x="386" y="262" class="detail">速度 · 姿勢</text><text x="386" y="291" class="detail">環境座標</text>
 
-  <g transform="translate(684 163)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(696 163)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="15" cy="16" r="3" fill="#dcb982" stroke="none"/><path d="M8 10a10 10 0 0 0 0 12M22 10a10 10 0 0 1 0 12M3 5a16 16 0 0 0 0 22M27 5a16 16 0 0 1 0 22"/>
   </g>
-  <text x="684" y="224" class="cardTitle">状態同期</text>
-  <text x="684" y="262" class="detail">Udonの飛行状態</text><text x="684" y="291" class="detail">VRCObjectSync</text>
+  <text x="696" y="224" class="cardTitle">状態同期</text>
+  <text x="696" y="262" class="detail">Udonの飛行状態</text><text x="696" y="291" class="detail">VRCObjectSync</text>
 
-  <g transform="translate(988 165)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(1006 165)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="0" y="0" width="31" height="22" rx="2"/><path d="M10 28h11M15.5 22v6"/>
   </g>
-  <text x="988" y="224" class="cardTitle">リモート復元</text>
-  <text x="988" y="262" class="detail">回転 · 高度を反映</text><text x="988" y="291" class="detail">水平位置を補間</text>
+  <text x="1006" y="224" class="cardTitle">リモート復元</text>
+  <text x="1006" y="262" class="detail">回転 · 高度を反映</text><text x="1006" y="291" class="detail">水平位置を補間</text>
 
   <g fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M304 235h34"/><path d="M330 228l8 7-8 7"/>
-    <path d="M608 235h34"/><path d="M634 228l8 7-8 7"/>
-    <path d="M912 235h34"/><path d="M938 228l8 7-8 7"/>
+    <path d="M286 235h60"/><path d="M338 228l8 7-8 7"/>
+    <path d="M596 235h60"/><path d="M648 228l8 7-8 7"/>
+    <path d="M906 235h60"/><path d="M958 228l8 7-8 7"/>
+  </g>
+  <g transform="translate(304 164)">
+    <path d="M11 0a7 7 0 1 0 6.8 8.6H28v6h-5v5h-6v-5h-2.1" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="14" y="50" class="condition" text-anchor="middle">操縦権</text>
   </g>
   <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6">
-    <path d="M778 334v43"/><path d="M1082 334v43"/>
+    <path d="M781 334v43"/><path d="M1091 334v43"/>
   </g>
   <g fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M771 369l7 8 7-8"/><path d="M1075 369l7 8 7-8"/>
+    <path d="M774 369l7 8 7-8"/><path d="M1084 369l7 8 7-8"/>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="644" y="390" width="268" height="112" rx="16" fill="#092431" stroke="#397488"/>
-    <rect x="948" y="390" width="268" height="112" rx="16" fill="#14282d" stroke="#6d7765"/>
+    <rect x="647" y="390" width="268" height="112" rx="16" fill="#092431" stroke="#397488"/>
+    <rect x="957" y="390" width="268" height="112" rx="16" fill="#14282d" stroke="#6d7765"/>
   </g>
-  <g transform="translate(670 417)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(673 417)" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M0 8h19M12 1l7 7-7 7M25 0v16"/>
   </g>
-  <text x="708" y="430" class="branchTitle">途中参加</text>
-  <text x="670" y="466" class="branchText">受信した飛行状態から</text>
-  <text x="670" y="490" class="branchText">環境を復元</text>
+  <text x="711" y="430" class="branchTitle">途中参加</text>
+  <text x="673" y="466" class="branchText">受信した飛行状態から</text>
+  <text x="673" y="490" class="branchText">環境を復元</text>
 
-  <g transform="translate(974 416)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(983 416)" fill="none" stroke="#dcb982" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M22 3a8 8 0 0 1-10 10L3 22l-5-5 9-9A8 8 0 0 1 17-2l-5 5 5 5z"/>
   </g>
-  <text x="1012" y="430" class="branchTitle">誤差補正</text>
-  <text x="974" y="466" class="branchText">誤差の大きさに応じて</text>
-  <text x="974" y="490" class="branchText">補間または即時補正</text>
+  <text x="1021" y="430" class="branchTitle">誤差補正</text>
+  <text x="983" y="466" class="branchText">誤差の大きさに応じて</text>
+  <text x="983" y="490" class="branchText">補間または即時補正</text>
 </svg>
