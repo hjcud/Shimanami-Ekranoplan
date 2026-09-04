@@ -1,5 +1,5 @@
 <p align="center">
-  <strong>日本語</strong> · <a href="./README.ko.md">한국어</a>
+  <strong>日本語</strong> · <a href="./README.ko.md">한국어</a> · <a href="./README.en.md">English</a>
 </p>
 
 <div align="center">
@@ -19,14 +19,16 @@
 </p>
 
 <p align="center">
-  <a href="./Docs/technical-overview.md">開発記録を見る →</a>
+  <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>ワールドページを見る ↗</strong></a>
   ·
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">開発ロードマップを見る →</a>
+  <a href="https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771">52秒の体験映像を見る ↗</a>
+  ·
+  <a href="./Docs/technical-overview.md">開発記録を見る →</a>
 </p>
 
 <p align="center"><sub>メタバース飛行シミュレーター · 体験型展示 · Unity / UdonSharp · 2人制作</sub></p>
 
-## メタバースから展示会場へ
+## エクラノプランの操縦体験
 
 Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプランを、仮想空間で自ら操縦できるよう実装したプロジェクトです。完成したシミュレーターは展示会場に設置し、来場者がVRとデスクトップ環境の両方で操縦を体験できるよう構成しました。
 
@@ -44,8 +46,12 @@ Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプ
   </tr>
 </table>
 
+https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
+
+<p align="center"><sub>エンジン始動から離水、低空飛行まで · 52秒</sub></p>
+
 <details>
-<summary><strong>その他のワールド・展示写真を見る</strong></summary>
+<summary><strong>その他のワールド写真を見る</strong></summary>
 
 <br>
 
@@ -61,10 +67,6 @@ Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプ
 </table>
 
 </details>
-
-https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
-
-<p align="center"><sub>飛行シミュレーター体験映像 · 52秒</sub></p>
 
 ## 主な実装と改善
 
@@ -86,17 +88,11 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
   <img src="./Docs/images/flight-network.ja.svg" alt="操縦入力から所有者による飛行計算、状態同期、リモート復元へ続く流れ" width="900">
 </p>
 
-### 飛行モデル — 計算シートから`AirplaneState`へ
+### 飛行モデル — VRでの操縦感に合わせた簡略化
 
-計算シートで機体質量・エンジン推力・スロットル範囲を整理し、速度の二乗に比例する抗力と、速度・高度・ピッチによる浮揚の変化を`AirplaneState`へ実装しました。
+機体質量とエンジン出力を基準に速度変化を計算し、速度の二乗に比例する抗力と、速度・高度・ピッチによる浮揚の変化を`AirplaneState`へ実装しました。実機性能の精密な再現ではなく、VRで安定して操縦できる反応を目標に簡略化しています。
 
-実機の性能をそのまま再現するのではなく、VRでの操縦感に合わせて簡略化しています。飛行計算式と実装内容は[開発記録](./Docs/technical-overview.md#分析シートから飛行モデルへ)にまとめています。
-
-## モデルとレンダリング構成
-
-コックピットの計器、ペダル、スロットル、操縦桿にアニメーションを設定しました。
-
-コックピットと環境にはベイク済み照明とReflection Probeを使っています。高品質・低品質ミラーは、どちらか一方だけが有効になる構成です。
+実装で使用する式と各定数の役割は[開発記録](./Docs/technical-overview.md#飛行モデルの計算基準)にまとめています。
 
 ## コード構成
 
@@ -113,6 +109,10 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 ## リポジトリについて
 
 公開範囲は、自作のC#・UdonSharpコード、開発記録、README用画像です。UnityのScene・Prefabと、外部のモデル・画像・音声・Material・Animation・Shader、`.meta`ファイルは含めていません。
+
+<p align="center">
+  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">今後の改善項目を見る →</a>
+</p>
 
 <details>
 <summary><strong>開発環境と外部コンポーネント</strong></summary>

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="./README.md">日本語</a> · <strong>한국어</strong>
+  <a href="./README.md">日本語</a> · <strong>한국어</strong> · <a href="./README.en.md">English</a>
 </p>
 
 <div align="center">
@@ -19,14 +19,16 @@
 </p>
 
 <p align="center">
-  <a href="./Docs/technical-overview.ko.md">개발 기록 보기 →</a>
+  <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>월드 페이지 보기 ↗</strong></a>
   ·
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">개발 로드맵 보기 →</a>
+  <a href="https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771">52초 체험 영상 보기 ↗</a>
+  ·
+  <a href="./Docs/technical-overview.ko.md">개발 기록 보기 →</a>
 </p>
 
 <p align="center"><sub>메타버스 비행 시뮬레이터 · 체험형 전시 · Unity / UdonSharp · 2인 제작</sub></p>
 
-## 메타버스에서 전시장까지
+## 에크라노플란 비행 체험
 
 Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 에크라노플란을 가상 공간에서 직접 조종할 수 있도록 구현한 프로젝트입니다. 완성한 시뮬레이터는 전시장에 설치해 관람객이 VR과 데스크톱 환경에서 조종을 체험할 수 있도록 구성했습니다.
 
@@ -44,8 +46,12 @@ Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 
   </tr>
 </table>
 
+https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
+
+<p align="center"><sub>엔진 시동부터 이륙과 저고도 비행까지 · 52초</sub></p>
+
 <details>
-<summary><strong>추가 월드·전시 장면 보기</strong></summary>
+<summary><strong>추가 월드 장면 보기</strong></summary>
 
 <br>
 
@@ -61,10 +67,6 @@ Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 
 </table>
 
 </details>
-
-https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
-
-<p align="center"><sub>비행 시뮬레이터 체험 영상 · 52초</sub></p>
 
 ## 주요 구현과 개선
 
@@ -86,17 +88,11 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
   <img src="./Docs/images/flight-network.ko.svg" alt="조종 입력에서 소유자의 비행 계산, 상태 동기화와 원격 복원으로 이어지는 흐름" width="900">
 </p>
 
-### 비행 모델 — 계산 시트에서 `AirplaneState`로
+### 비행 모델 — VR 조종감을 위한 단순화
 
-계산 시트에서 기체 질량·엔진 추력·스로틀 범위를 정리하고, 속도 제곱에 비례하는 항력과 속도·고도·피치에 따른 부양 변화를 `AirplaneState`에 옮겼습니다.
+기체 질량과 엔진 출력을 기준으로 속도 변화를 계산하고, 속도 제곱에 비례하는 항력과 속도·고도·피치에 따른 부양 변화를 `AirplaneState`에 구현했습니다. 실제 기체의 성능을 정밀하게 재현하기보다 VR에서 안정적으로 조종할 수 있는 반응을 목표로 단순화했습니다.
 
-실제 기체의 성능을 그대로 재현하기보다 VR에서의 조종감에 맞춰 단순화했습니다. 비행 계산식과 구현 과정은 [개발 기록](./Docs/technical-overview.ko.md#분석-시트에서-비행-모델로)에 정리했습니다.
-
-## 모델과 렌더링 구성
-
-조종석의 계기·페달·스로틀·조종간에 애니메이션을 적용했습니다.
-
-조종석과 환경에는 베이크 조명과 리플렉션 프로브를 사용합니다. 고품질·저품질 미러는 둘 중 하나만 켜지도록 구성했습니다.
+구현에 사용한 식과 각 상수의 역할은 [개발 기록](./Docs/technical-overview.ko.md#비행-모델-계산-기준)에 정리했습니다.
 
 ## 코드 구성
 
@@ -113,6 +109,10 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 ## 저장소 안내
 
 공개 범위는 직접 작성한 C#·UdonSharp 코드와 개발 기록, README용 이미지입니다. Unity 씬·프리팹과 외부 모델·이미지·음원·머티리얼·애니메이션·셰이더, `.meta` 파일은 포함하지 않았습니다.
+
+<p align="center">
+  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">향후 개선 항목 보기 →</a>
+</p>
 
 <details>
 <summary><strong>개발 환경과 외부 구성요소</strong></summary>
