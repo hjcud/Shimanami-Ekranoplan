@@ -21,8 +21,6 @@
 <p align="center">
   <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>View the world page ↗</strong></a>
   ·
-  <a href="https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771">Watch the 52-second demo ↗</a>
-  ·
   <a href="./Docs/technical-overview.en.md">Read the development notes →</a>
 </p>
 

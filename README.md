@@ -21,8 +21,6 @@
 <p align="center">
   <a href="https://vrchat.com/home/world/wrld_cbc277ae-95ba-4629-acf4-cd0aa7ae5a18/info"><strong>ワールドページを見る ↗</strong></a>
   ·
-  <a href="https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771">52秒の体験映像を見る ↗</a>
-  ·
   <a href="./Docs/technical-overview.md">開発記録を見る →</a>
 </p>
 
