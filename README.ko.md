@@ -92,6 +92,15 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 
 구현에 사용한 식과 각 상수의 역할은 [개발 기록](./Docs/technical-overview.ko.md#비행-모델-계산-기준)에 정리했습니다.
 
+<p align="left">
+  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ko.svg">
+      <img src="./Docs/images/issues-button.ko.light.svg" alt="개선 예정 항목" width="330">
+    </picture>
+  </a>
+</p>
+
 ## 코드 구성
 
 | 영역 | 주요 파일 | 역할 |
@@ -107,15 +116,6 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 ## 저장소 안내
 
 공개 범위는 직접 작성한 C#·UdonSharp 코드와 개발 기록, README용 이미지입니다. Unity 씬·프리팹과 외부 모델·이미지·음원·머티리얼·애니메이션·셰이더, `.meta` 파일은 포함하지 않았습니다.
-
-<p align="center">
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ko.svg">
-      <img src="./Docs/images/issues-button.ko.light.svg" alt="개선 예정 항목" width="330">
-    </picture>
-  </a>
-</p>
 
 <details>
 <summary><strong>개발 환경과 외부 구성요소</strong></summary>

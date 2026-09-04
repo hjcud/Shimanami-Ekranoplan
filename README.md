@@ -92,6 +92,15 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 
 実装で使用する式と各定数の役割は[開発記録](./Docs/technical-overview.md#飛行モデルの計算基準)にまとめています。
 
+<p align="left">
+  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ja.svg">
+      <img src="./Docs/images/issues-button.ja.light.svg" alt="今後の改善項目" width="330">
+    </picture>
+  </a>
+</p>
+
 ## コード構成
 
 | 分野 | 主なファイル | 役割 |
@@ -107,15 +116,6 @@ https://github.com/user-attachments/assets/1ab67adb-b252-49a2-af48-17ef3e278771
 ## リポジトリについて
 
 公開範囲は、自作のC#・UdonSharpコード、開発記録、README用画像です。UnityのScene・Prefabと、外部のモデル・画像・音声・Material・Animation・Shader、`.meta`ファイルは含めていません。
-
-<p align="center">
-  <a href="https://github.com/hjcud/Shimanami-Ekranoplan/issues">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/issues-button.ja.svg">
-      <img src="./Docs/images/issues-button.ja.light.svg" alt="今後の改善項目" width="330">
-    </picture>
-  </a>
-</p>
 
 <details>
 <summary><strong>開発環境と外部コンポーネント</strong></summary>
