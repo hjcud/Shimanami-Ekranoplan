@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="112" viewBox="0 0 900 112" role="img" aria-labelledby="title desc">
   <title id="title">Shimanami Ekranoplanの紹介</title>
-  <desc id="desc">仮想空間にエクラノプランのフライトシミュレーターを実装し、来場者が操縦を体験できるよう展示会場に設置したプロジェクト</desc>
+  <desc id="desc">瀬戸内海の上でエクラノプランを操縦し、展示会場でも体験できるフライトシミュレーションワールド</desc>
   <style>
     .copy { fill: #d9f5f4; font-family: "Noto Sans JP", "Yu Gothic UI", "Segoe UI", sans-serif; font-size: 25px; font-weight: 750; }
     .wave { fill: none; stroke: #69c5c9; stroke-width: 2; stroke-linecap: round; opacity: .8; }
@@ -9,6 +9,6 @@
   <path class="wave" d="M20 48c15-10 30-10 45 0s30 10 45 0M790 64c15-10 30-10 45 0s30 10 45 0"/>
   <circle class="bubble" cx="66" cy="76" r="4"/><circle class="bubble" cx="84" cy="91" r="2"/>
   <circle class="bubble" cx="820" cy="27" r="3"/><circle class="bubble" cx="842" cy="39" r="5"/>
-  <text x="450" y="45" text-anchor="middle" class="copy">仮想空間にエクラノプランのフライトシミュレーターを実装し、</text>
-  <text x="450" y="80" text-anchor="middle" class="copy">来場者が操縦を体験できるよう展示会場に設置しました。</text>
+  <text x="450" y="45" text-anchor="middle" class="copy">瀬戸内海の上でエクラノプランを操縦し、</text>
+  <text x="450" y="80" text-anchor="middle" class="copy">展示会場でも体験できるフライトシミュレーションワールド</text>
 </svg>

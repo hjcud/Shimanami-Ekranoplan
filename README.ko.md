@@ -14,7 +14,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/underwater-intro.ko.svg">
-    <img src="./Docs/images/underwater-intro.ko.light.svg" alt="가상 공간에 에크라노플란 비행 시뮬레이터를 구현하고 관람객이 직접 조종해 볼 수 있도록 전시장에 설치한 프로젝트" width="900">
+    <img src="./Docs/images/underwater-intro.ko.light.svg" alt="세토우치 바다 위에서 에크라노플란을 직접 조종하고 전시장에서도 체험할 수 있는 비행 시뮬레이션 월드" width="900">
   </picture>
 </p>
 

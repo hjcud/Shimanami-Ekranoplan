@@ -14,7 +14,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/underwater-intro.en.svg">
-    <img src="./Docs/images/underwater-intro.en.light.svg" alt="An ekranoplan flight simulator built in a virtual environment and installed at an exhibition for visitors to pilot" width="900">
+    <img src="./Docs/images/underwater-intro.en.light.svg" alt="A flight simulation world where visitors pilot an ekranoplan over the Setouchi Sea, also presented at an exhibition" width="900">
   </picture>
 </p>
 

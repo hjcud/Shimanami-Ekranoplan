@@ -14,7 +14,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./Docs/images/underwater-intro.ja.svg">
-    <img src="./Docs/images/underwater-intro.ja.light.svg" alt="仮想空間にエクラノプランのフライトシミュレーターを実装し、来場者が操縦を体験できるよう展示会場に設置したプロジェクト" width="900">
+    <img src="./Docs/images/underwater-intro.ja.light.svg" alt="瀬戸内海の上でエクラノプランを操縦し、展示会場でも体験できるフライトシミュレーションワールド" width="900">
   </picture>
 </p>
 

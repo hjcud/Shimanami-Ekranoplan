@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="112" viewBox="0 0 900 112" role="img" aria-labelledby="title desc">
   <title id="title">Shimanami Ekranoplan 소개</title>
-  <desc id="desc">가상 공간에 에크라노플란 비행 시뮬레이터를 구현하고 관람객이 직접 조종해 볼 수 있도록 전시장에 설치한 프로젝트</desc>
+  <desc id="desc">세토우치 바다 위에서 에크라노플란을 직접 조종하고 전시장에서도 체험할 수 있는 비행 시뮬레이션 월드</desc>
   <style>
     .copy { fill: #174f61; font-family: Pretendard, "Noto Sans KR", "Segoe UI", sans-serif; font-size: 25px; font-weight: 750; }
     .wave { fill: none; stroke: #2c8795; stroke-width: 2; stroke-linecap: round; opacity: .8; }
@@ -9,6 +9,6 @@
   <path class="wave" d="M20 48c15-10 30-10 45 0s30 10 45 0M790 64c15-10 30-10 45 0s30 10 45 0"/>
   <circle class="bubble" cx="66" cy="76" r="4"/><circle class="bubble" cx="84" cy="91" r="2"/>
   <circle class="bubble" cx="820" cy="27" r="3"/><circle class="bubble" cx="842" cy="39" r="5"/>
-  <text x="450" y="45" text-anchor="middle" class="copy">가상 공간에 에크라노플란 비행 시뮬레이터를 구현하고,</text>
-  <text x="450" y="80" text-anchor="middle" class="copy">관람객이 직접 조종해 볼 수 있도록 전시장에 설치했습니다.</text>
+  <text x="450" y="45" text-anchor="middle" class="copy">세토우치 바다 위에서 에크라노플란을 직접 조종하고,</text>
+  <text x="450" y="80" text-anchor="middle" class="copy">전시장에서도 체험할 수 있는 비행 시뮬레이션 월드</text>
 </svg>
