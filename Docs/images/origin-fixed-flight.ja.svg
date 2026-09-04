@@ -19,10 +19,10 @@
     </filter>
     <style>
       text{font-family:"Noto Sans JP","Yu Gothic UI","Segoe UI",sans-serif}
-      .title{fill:#f4eadb;font-size:32px;font-weight:700}.sub{fill:#91a5a8;font-size:14px;font-weight:600}
-      .cardTitle{fill:#f0ece3;font-size:21px;font-weight:700}.label{fill:#e9ece7;font-size:15px;font-weight:650}
-      .muted{fill:#9faeb0;font-size:13px;font-weight:550}.danger{fill:#d97871;font-size:13px;font-weight:650}
-      .accent{fill:#78c9cc;font-size:13px;font-weight:650}.fact{fill:#dbe5e3;font-size:15px;font-weight:600}
+      .title{fill:#f4eadb;font-size:36px;font-weight:700}.sub{fill:#a8b8b9;font-size:17px;font-weight:600}
+      .cardTitle{fill:#f0ece3;font-size:25px;font-weight:700}.label{fill:#e9ece7;font-size:20px;font-weight:650}
+      .muted{fill:#aebbbc;font-size:18px;font-weight:550}.danger{fill:#ed8178;font-size:19px;font-weight:650}
+      .accent{fill:#83d7d9;font-size:19px;font-weight:650}.fact{fill:#e4ecea;font-size:20px;font-weight:600}
     </style>
   </defs>
 
@@ -58,8 +58,9 @@
     <path d="M342 75l8 7-8 7" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <text x="192" y="69" class="danger" text-anchor="middle">原点からの距離が増加</text>
     <g transform="translate(374 70)">
-      <path d="M-26 0l17-4 13-18 5 2-5 19 21 6v5L4 16l5 19-5 2-13-18-17-4z" fill="#e9ece7" stroke="#78c9cc" stroke-width="1.3" stroke-linejoin="round"/>
-      <text x="0" y="54" class="label" text-anchor="middle">機体が移動</text>
+      <path d="M-34 4L-10 1 4-17C6-20 11-20 13-17L10 1 26 4C35 5 41 9 41 13S35 21 26 22L10 24 13 41C14 45 8 47 5 43L-10 26-34 23-28 15Z" fill="#e9ece7" stroke="#78c9cc" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M24 4C35 5 41 9 41 13S35 21 26 22H22C28 17 28 9 24 4Z" fill="#dcb982"/>
+      <text x="3" y="62" class="label" text-anchor="middle">機体が移動</text>
     </g>
   </g>
   <g transform="translate(72 368)">
@@ -75,8 +76,9 @@
     <g transform="translate(246 64)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="18"/><path d="M-28 0h56M0-28v56"/></g>
     <circle cx="246" cy="64" r="4" fill="#dcb982"/>
     <g transform="translate(246 54)">
-      <path d="M-26 0l17-4 13-18 5 2-5 19 21 6v5L4 16l5 19-5 2-13-18-17-4z" fill="#e9ece7" stroke="#78c9cc" stroke-width="1.3" stroke-linejoin="round"/>
-      <text x="0" y="58" class="label" text-anchor="middle">原点に固定</text>
+      <path d="M-34 4L-10 1 4-17C6-20 11-20 13-17L10 1 26 4C35 5 41 9 41 13S35 21 26 22L10 24 13 41C14 45 8 47 5 43L-10 26-34 23-28 15Z" fill="#e9ece7" stroke="#78c9cc" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M24 4C35 5 41 9 41 13S35 21 26 22H22C28 17 28 9 24 4Z" fill="#dcb982"/>
+      <text x="3" y="64" class="label" text-anchor="middle">原点に固定</text>
     </g>
     <g transform="translate(40 132)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
       <path d="M0 0c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
