@@ -58,9 +58,6 @@ Shimanami Ekranoplan은 세토우치의 바다와 수면 가까이 비행하는 
     <td width="50%" align="center"><img src="./Docs/images/cabin-view.webp" alt="객실 좌석과 둥근 창 너머로 보이는 세토우치 바다" width="100%"><br><sub>객실 · 좌석과 창밖의 세토우치 풍경</sub></td>
     <td width="50%" align="center"><img src="./Docs/images/cockpit-detail.webp" alt="조종석 뒤쪽에서 본 계기판, 조종간과 스로틀 배치" width="100%"><br><sub>조종석 세부 · 계기판과 입력 장치 배치</sub></td>
   </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="./Docs/images/exhibition.webp" alt="두 대의 모니터와 안내 패널로 구성한 시마나미 에크라노플란 전시 설치" width="100%"><br><sub>전시 설치 · VR 시연을 위한 현장 구성</sub></td>
-  </tr>
 </table>
 
 </details>

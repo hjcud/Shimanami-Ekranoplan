@@ -58,9 +58,6 @@ Shimanami Ekranoplanは、瀬戸内の海と水面近くを飛ぶエクラノプ
     <td width="50%" align="center"><img src="./Docs/images/cabin-view.webp" alt="客室座席と丸窓の向こうに見える瀬戸内の海" width="100%"><br><sub>客室 · 座席と窓外の瀬戸内風景</sub></td>
     <td width="50%" align="center"><img src="./Docs/images/cockpit-detail.webp" alt="コックピット後方から見た計器盤、操縦桿、スロットルの配置" width="100%"><br><sub>コックピット詳細 · 計器盤と入力装置の配置</sub></td>
   </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="./Docs/images/exhibition.webp" alt="2台のモニターと案内パネルで構成されたShimanami Ekranoplanの展示設営" width="100%"><br><sub>展示設営 · VRデモ用の会場構成</sub></td>
-  </tr>
 </table>
 
 </details>
