@@ -46,18 +46,18 @@
     <rect x="692" y="120" width="540" height="342" rx="18" fill="url(#afterCard)" stroke="#467d7c"/>
   </g>
 
-  <g transform="translate(72 148)">
+  <g transform="translate(72 160)">
     <circle cx="10" cy="-6" r="8" fill="none" stroke="#d97871" stroke-width="1.5"/>
     <path d="M10-10v5M10 1v1M6-5h8" fill="none" stroke="#d97871" stroke-width="1.5" stroke-linecap="round"/>
     <text x="30" y="0" class="cardTitle">기존 방식</text>
   </g>
-  <g transform="translate(716 148)">
+  <g transform="translate(716 160)">
     <circle cx="10" cy="-6" r="8" fill="none" stroke="#78c9cc" stroke-width="1.5"/>
     <path d="M6-6l3 3 5-6" fill="none" stroke="#78c9cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <text x="30" y="0" class="cardTitle">변경 방식</text>
   </g>
 
-  <g transform="translate(72 178)">
+  <g transform="translate(72 190)">
     <rect width="492" height="164" rx="10" fill="#071824" stroke="#49616b"/>
     <rect width="492" height="164" rx="10" fill="url(#grid)"/>
     <g transform="translate(54 82)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="9"/><path d="M-14 0h28M0-14v28"/></g>
@@ -70,14 +70,14 @@
       <text x="0" y="62" class="label" text-anchor="middle">기체 이동</text>
     </g>
   </g>
-  <g transform="translate(72 368)">
+  <g transform="translate(72 384)">
     <path d="M0 0h14" stroke="#d97871" stroke-width="2"/><path d="M9-5l5 5-5 5" fill="none" stroke="#d97871" stroke-width="2"/>
     <text x="28" y="6" class="fact">기체와 탑승자가 월드 좌표 위를 이동</text>
     <path d="M0 39l6-12 7 23 7-16 8 5" fill="none" stroke="#d97871" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <text x="40" y="45" class="fact">장거리 비행 시 화면 떨림 증가</text>
   </g>
 
-  <g transform="translate(716 178)">
+  <g transform="translate(716 190)">
     <rect width="492" height="164" rx="10" fill="#071c26" stroke="#467d7c"/>
     <rect width="492" height="164" rx="10" fill="url(#grid)"/>
     <g transform="translate(246 64)" fill="none" stroke="#78c9cc" stroke-width="1.5"><circle r="18"/><path d="M-28 0h56M0-28v56"/></g>
@@ -86,15 +86,15 @@
       <use href="#ekranoplanTop"/>
       <text x="0" y="64" class="label" text-anchor="middle">원점 고정</text>
     </g>
-    <g transform="translate(40 132)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
-      <path d="M0 0c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
-      <path d="M410 4c8-16 22-20 35-8 8-9 20-8 29 4z" fill="#577b72" fill-opacity=".34" stroke="none"/>
+    <g transform="translate(358 98)" fill="none" stroke="#67b3b0" stroke-width="2" stroke-linecap="round">
+      <path d="M0 20c8-7 16-7 24 0s16 7 24 0 16-7 24 0"/>
+      <path d="M22 16c7-14 20-18 31-7 7-8 18-7 26 4H22Z" fill="#6d9181" fill-opacity=".58" stroke="none"/>
     </g>
-    <path d="M378 130H116" fill="none" stroke="#78c9cc" stroke-width="2.5"/>
-    <path d="M124 123l-8 7 8 7" fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="247" y="148" class="accent" text-anchor="middle">바다와 섬이 뒤로 이동</text>
+    <path d="M340 134H116" fill="none" stroke="#78c9cc" stroke-width="2.5"/>
+    <path d="M124 127l-8 7 8 7" fill="none" stroke="#78c9cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="228" y="157" class="accent" text-anchor="middle">바다와 섬이 뒤로 이동</text>
   </g>
-  <g transform="translate(716 368)">
+  <g transform="translate(716 384)">
     <g fill="none" stroke="#78c9cc" stroke-width="1.7"><circle cx="8" cy="0" r="5"/><path d="M8-11v29M0 9c4 5 12 5 16 0"/></g>
     <text x="28" y="6" class="fact">기체와 조종석은 원점에 고정</text>
     <path d="M18 39H0M6 33l-6 6 6 6" fill="none" stroke="#78c9cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
