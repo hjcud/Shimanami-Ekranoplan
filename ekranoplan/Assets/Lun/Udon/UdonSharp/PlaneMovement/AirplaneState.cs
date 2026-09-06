@@ -35,6 +35,9 @@ public class AirplaneState : UdonSharpBehaviour
     public float RemotePositionSmoothTime = 0.2f;
     public float RemotePositionSnapDistance = 1500f;
 
+    [Header("Floating Origin")]
+    public float MapTileSize = 10000f;
+
     //Sync Values
     [UdonSynced] public float AirplaneSpeed = 0;
     [UdonSynced] public float PitchAngle;
@@ -43,23 +46,39 @@ public class AirplaneState : UdonSharpBehaviour
     [UdonSynced] public Vector3 movement;
     [UdonSynced] public Vector3 SyncedRotation;
     [UdonSynced] public Vector3 SyncedPosition;
+    [UdonSynced] public int SyncedMapTileX;
+    [UdonSynced] public int SyncedMapTileZ;
     [UdonSynced] public bool PitchLimitAlarm;
     [UdonSynced] public bool RollLimitAlarm;
 
     private Vector3 remotePositionVelocity = Vector3.zero;
+    private Transform[] mapContents;
+    private Vector3[] mapContentStartPositions;
+    private Transform mapTilesRoot;
+    private Transform[] mapTiles;
+    private Vector3[] mapTileStartPositions;
+    private int displayedMapTileX;
+    private int displayedMapTileZ;
     private bool receivedInitialPosition;
     private bool wasLocalOwner;
+    private bool mapContentsCached;
 
     private void Start()
     {
         VRCPlayerApi localPlayer = Networking.LocalPlayer;
         if (!Utilities.IsValid(localPlayer)) return;
 
+        CacheMapContents();
+        displayedMapTileX = SyncedMapTileX;
+        displayedMapTileZ = SyncedMapTileZ;
+        ApplyMapContentOffset();
+
         wasLocalOwner = Networking.IsOwner(localPlayer, this.gameObject);
         if (wasLocalOwner)
         {
             EnsureMapRotationOwnership(localPlayer);
             ContinueFromCurrentWorldState();
+            RebaseOwnerPosition();
             PublishWorldState();
         }
     }
@@ -207,6 +226,7 @@ public class AirplaneState : UdonSharpBehaviour
         Vector3 moveDirection = Quaternion.AngleAxis(MoveVecRot, Vector3.down) * (Vector3.forward * MovebySpeed);
         movement = -moveDirection * dt * MovebySpeedMulti;
         MapPosition.localPosition += new Vector3(movement.x, 0f, movement.z);
+        RebaseOwnerPosition();
 
         DebugText.text = ">>Controll\nSpeed: " + AirplaneSpeed.ToString("F5")
         + "\nLift: " + AirplaneLift.ToString("F5")
@@ -215,6 +235,7 @@ public class AirplaneState : UdonSharpBehaviour
         + "\nRotAdd: "+ RotationAdd.ToString("F5")
         + "\nHight: " + MapRotation.position.y.ToString("F5")
         + "\nMoveVecRot: " + MoveVecRot.ToString("F5")
+        + "\nMap Tile: (" + SyncedMapTileX + ", " + SyncedMapTileZ + ")"
         + "\nCoordinate: " + MapPosition.localPosition.ToString("F5");
 
         PublishWorldState();
@@ -245,8 +266,11 @@ public class AirplaneState : UdonSharpBehaviour
 
         if (newOwner.isLocal)
         {
+            SyncedMapTileX = displayedMapTileX;
+            SyncedMapTileZ = displayedMapTileZ;
             EnsureMapRotationOwnership(newOwner);
             ContinueFromCurrentWorldState();
+            RebaseOwnerPosition();
             PublishWorldState();
         }
         else if (locallyOwnedBeforeTransfer)
@@ -254,6 +278,9 @@ public class AirplaneState : UdonSharpBehaviour
             // The currently displayed state is already a valid starting point.
             // Smooth the next snapshot instead of treating it as a late join.
             receivedInitialPosition = true;
+            displayedMapTileX = SyncedMapTileX;
+            displayedMapTileZ = SyncedMapTileZ;
+            ApplyMapContentOffset();
         }
     }
 
@@ -261,7 +288,8 @@ public class AirplaneState : UdonSharpBehaviour
     {
         if (!receivedInitialPosition) return;
 
-        float distance = Vector3.Distance(MapPosition.localPosition, SyncedPosition);
+        Vector3 remoteTargetPosition = GetRemoteTargetPosition();
+        float distance = Vector3.Distance(MapPosition.localPosition, remoteTargetPosition);
         if (RemotePositionSmoothTime <= 0f
             || (RemotePositionSnapDistance > 0f && distance > RemotePositionSnapDistance))
         {
@@ -271,15 +299,132 @@ public class AirplaneState : UdonSharpBehaviour
 
         MapPosition.localPosition = Vector3.SmoothDamp(
             MapPosition.localPosition,
-            SyncedPosition,
+            remoteTargetPosition,
             ref remotePositionVelocity,
             RemotePositionSmoothTime);
+        RebaseRemotePosition();
     }
 
     private void SnapRemotePosition()
     {
+        displayedMapTileX = SyncedMapTileX;
+        displayedMapTileZ = SyncedMapTileZ;
         MapPosition.localPosition = SyncedPosition;
         remotePositionVelocity = Vector3.zero;
+        ApplyMapContentOffset();
+    }
+
+    private Vector3 GetRemoteTargetPosition()
+    {
+        if (MapTileSize <= 0f) return SyncedPosition;
+
+        return SyncedPosition + new Vector3(
+            (SyncedMapTileX - displayedMapTileX) * MapTileSize,
+            0f,
+            (SyncedMapTileZ - displayedMapTileZ) * MapTileSize);
+    }
+
+    private void RebaseOwnerPosition()
+    {
+        if (MapTileSize <= 0f) return;
+
+        Vector3 localPosition = MapPosition.localPosition;
+        int tileShiftX = GetTileShift(localPosition.x);
+        int tileShiftZ = GetTileShift(localPosition.z);
+        if (tileShiftX == 0 && tileShiftZ == 0) return;
+
+        localPosition.x -= tileShiftX * MapTileSize;
+        localPosition.z -= tileShiftZ * MapTileSize;
+        MapPosition.localPosition = localPosition;
+
+        SyncedMapTileX += tileShiftX;
+        SyncedMapTileZ += tileShiftZ;
+        displayedMapTileX = SyncedMapTileX;
+        displayedMapTileZ = SyncedMapTileZ;
+        ApplyMapContentOffset();
+    }
+
+    private void RebaseRemotePosition()
+    {
+        if (MapTileSize <= 0f) return;
+
+        Vector3 localPosition = MapPosition.localPosition;
+        int tileShiftX = GetTileShift(localPosition.x);
+        int tileShiftZ = GetTileShift(localPosition.z);
+        if (tileShiftX == 0 && tileShiftZ == 0) return;
+
+        localPosition.x -= tileShiftX * MapTileSize;
+        localPosition.z -= tileShiftZ * MapTileSize;
+        MapPosition.localPosition = localPosition;
+
+        displayedMapTileX += tileShiftX;
+        displayedMapTileZ += tileShiftZ;
+        ApplyMapContentOffset();
+    }
+
+    private int GetTileShift(float coordinate)
+    {
+        return Mathf.FloorToInt((coordinate + MapTileSize * 0.5f) / MapTileSize);
+    }
+
+    private void CacheMapContents()
+    {
+        int childCount = MapPosition.childCount;
+        mapContents = new Transform[childCount];
+        mapContentStartPositions = new Vector3[childCount];
+        mapTilesRoot = MapPosition.Find("Tiles");
+
+        for (int i = 0; i < childCount; i++)
+        {
+            Transform mapContent = MapPosition.GetChild(i);
+            mapContents[i] = mapContent;
+            mapContentStartPositions[i] = mapContent.localPosition;
+        }
+
+        if (Utilities.IsValid(mapTilesRoot))
+        {
+            int tileCount = mapTilesRoot.childCount;
+            mapTiles = new Transform[tileCount];
+            mapTileStartPositions = new Vector3[tileCount];
+
+            for (int i = 0; i < tileCount; i++)
+            {
+                Transform mapTile = mapTilesRoot.GetChild(i);
+                mapTiles[i] = mapTile;
+                mapTileStartPositions[i] = MapPosition.InverseTransformPoint(mapTile.position);
+            }
+        }
+
+        mapContentsCached = true;
+    }
+
+    private void ApplyMapContentOffset()
+    {
+        if (!mapContentsCached || MapTileSize <= 0f) return;
+
+        Vector3 tileOffset = new Vector3(
+            displayedMapTileX * MapTileSize,
+            0f,
+            displayedMapTileZ * MapTileSize);
+
+        for (int i = 0; i < mapContents.Length; i++)
+        {
+            if (mapContents[i] == mapTilesRoot)
+            {
+                mapContents[i].localPosition = mapContentStartPositions[i];
+            }
+            else
+            {
+                mapContents[i].localPosition = mapContentStartPositions[i] + tileOffset;
+            }
+        }
+
+        if (!Utilities.IsValid(mapTilesRoot)) return;
+
+        for (int i = 0; i < mapTiles.Length; i++)
+        {
+            mapTiles[i].position = MapPosition.TransformPoint(mapTileStartPositions[i] + tileOffset);
+        }
     }
 
     private void EnsureMapRotationOwnership(VRCPlayerApi owner)
