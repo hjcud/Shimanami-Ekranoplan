@@ -1,10 +1,13 @@
-﻿
+
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
 
+/// <summary>
+/// VR 손 회전과 데스크톱 키 입력을 pitch·yaw·roll 조종값으로 변환하고 네트워크에 전송
+/// </summary>
 public class Controller_Controll : UdonSharpBehaviour
 {
     private Quaternion firstRot = Quaternion.identity;
@@ -21,7 +24,7 @@ public class Controller_Controll : UdonSharpBehaviour
 
     public void UpdateTriggerCheck(bool isRightSeat)
     {
-        // Check if User is in VR
+        // VR에서는 좌석 방향에 따라 조종간을 잡는 손과 그립 입력 선택
         if (Networking.LocalPlayer.IsUserInVR())
         {
             if ((Input.GetAxisRaw("Oculus_CrossPlatform_PrimaryHandTrigger") > 0.9 && !isRightSeat)
@@ -31,11 +34,11 @@ public class Controller_Controll : UdonSharpBehaviour
                 {
                     if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
                     {
+                        // 입력값과 비행 계산의 소유자를 함께 넘겨 서로 다른 사용자가 갱신하는 상태 방지
                         Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
                         Networking.SetOwner(Networking.LocalPlayer, OwnerChangeTarget);
                     }
                     TriggeredUserID = VRCPlayerApi.GetPlayerId(Networking.LocalPlayer);
-                    //Debug.Log(">>> " + TriggeredUserID + " has Triggerd Controller");
                     RequestSerialization();
                 }
                 else if (TriggeredUserID == VRCPlayerApi.GetPlayerId(Networking.LocalPlayer))
@@ -51,16 +54,15 @@ public class Controller_Controll : UdonSharpBehaviour
                     {
                         Quaternion angleDifference = leftHandRot * Quaternion.Inverse(firstRot);
 
-                        // rotation vector caculate
+                        // 처음 잡은 손 회전을 기준으로 현재 조종간의 상대 방향 계산
                         Vector3 controllerPosYaw = angleDifference * Vector3.forward;
                         Vector3 controllerPos = angleDifference * Vector3.up;
 
-                        // caculate Pitch, Yaw, Roll & normalize (-1, 1)
+                        // 각 축의 허용 각도로 나눠 pitch·yaw·roll을 -1~1 범위로 정규화
                         yaw = (Mathf.Acos(Mathf.Clamp(controllerPosYaw.x, -1, 1)) - Mathf.PI / 2) * Mathf.Rad2Deg / maxAngles.y;
                         pitch = (Mathf.Acos(Mathf.Clamp(controllerPos.z, -1, 1)) - Mathf.PI / 2) * Mathf.Rad2Deg / maxAngles.x;
                         roll = -(Mathf.Acos(Mathf.Clamp(controllerPos.x, -1, 1)) - Mathf.PI / 2) * Mathf.Rad2Deg / maxAngles.z;
 
-                        //Debug.Log(string.Format("Current Rotation: (pitch: {0}), (yaw: {1}), (roll: {2})", pitch, yaw, roll));
                         RequestSerialization();
 
                         UpdateControllerRotation();
@@ -69,7 +71,7 @@ public class Controller_Controll : UdonSharpBehaviour
             }
             else if (Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
             {
-                // Reset Values if not Holding
+                // 조종간을 놓으면 손 회전 기준과 조종값을 함께 초기화
                 resetValues();
 
                 UpdateControllerRotation();
@@ -77,7 +79,7 @@ public class Controller_Controll : UdonSharpBehaviour
         }
         else
         {
-            // Desktop Controll 
+            // 데스크톱에서는 W/S, A/D, Q/E를 pitch·yaw·roll 축에 매핑
             bool keyWPressed = Input.GetKey(KeyCode.W);
             bool keySPressed = Input.GetKey(KeyCode.S);
             bool keyAPressed = Input.GetKey(KeyCode.A);
@@ -91,7 +93,6 @@ public class Controller_Controll : UdonSharpBehaviour
                 {
                     if (!Networking.IsOwner(Networking.LocalPlayer, this.gameObject)) Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
                     TriggeredUserID = VRCPlayerApi.GetPlayerId(Networking.LocalPlayer);
-                    //Debug.Log(">>> " + TriggeredUserID + " has Triggerd Controller");
                     RequestSerialization();
                 }
                 else if (TriggeredUserID == VRCPlayerApi.GetPlayerId(Networking.LocalPlayer))
@@ -109,7 +110,7 @@ public class Controller_Controll : UdonSharpBehaviour
             }
             else if (Networking.IsOwner(Networking.LocalPlayer, this.gameObject))
             {
-                // Reset Values if not Holding
+                // 키 입력이 끝나면 축 값과 입력 사용자 해제
                 resetValues();
 
                 UpdateControllerRotation();
@@ -119,11 +120,13 @@ public class Controller_Controll : UdonSharpBehaviour
 
     public override void OnDeserialization()
     {
+        // 수신한 축 값으로 원격 조종간 애니메이션 갱신
         UpdateControllerRotation();
     }
 
-    public void UpdateControllerRotation() // Update Animator parameter
+    public void UpdateControllerRotation()
     {
+        // 중립값이 0.5인 Animator 파라미터에 현재 조종축 값 적용
         ControllerAnimator.SetFloat("Controller_Yaw", yaw + 0.5f);
         ControllerAnimator.SetFloat("Controller_Pitch", pitch + 0.5f);
         ControllerAnimator.SetFloat("Controller_Roll", roll + 0.5f);
@@ -131,6 +134,7 @@ public class Controller_Controll : UdonSharpBehaviour
 
     public void resetValues()
     {
+        // 다음 입력에서 현재 손 회전을 새 기준점으로 사용하도록 보정값 제거
         firstRot = Quaternion.identity;
         TriggeredUserID = 0;
         pitch = 0f;
